@@ -11,9 +11,13 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   final Routes route = Routes();
+  bool isSplash = true;
 
   @override
   void initState() {
+    Future.delayed(Duration(seconds: 4)).then((value) => setState(() {
+          isSplash = false;
+        }));
     super.initState();
   }
 
@@ -29,7 +33,7 @@ class _AppState extends State<App> {
         statusBarIconBrightness: Brightness.dark));
 
     return MaterialApp(
-        title: 'SILAPIS',
+        title: 'LAPAS NARKOTIKA KALSEL',
         theme: ThemeData(
           scaffoldBackgroundColor: Colors.white,
           primarySwatch: Colors.blue,
@@ -40,6 +44,6 @@ class _AppState extends State<App> {
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
         ],
-        home: Home());
+        home: isSplash ? SplashScreen() : Home());
   }
 }
