@@ -43,6 +43,7 @@ dependencies:
   connectivity: ^2.0.2
   http_parser: ^3.1.4
   cached_network_image:
+  google_maps_flutter: 0.5.27+2
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -60,6 +61,26 @@ dev_dependencies:
 flutter:
   assets:
     - assets/images/
+  fonts:
+    - family: ProductSans
+      fonts:
+        - asset: assets/fonts/product-sans/Product-Sans-Regular.ttf
+
+    - family: SourceSansPro
+      fonts:
+        - asset: assets/fonts/source-sans-pro/SourceSansPro-Regular.ttf
+
+    - family: Intro
+      fonts:
+        - asset: assets/fonts/intro/Intro.otf
+
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/roboto/Roboto-Regular.ttf
+
+    - family: Lato
+      fonts:
+        - asset: assets/fonts/lato/Lato-Regular.ttf
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

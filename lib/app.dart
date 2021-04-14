@@ -15,7 +15,7 @@ class _AppState extends State<App> {
 
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 4)).then((value) => setState(() {
+    Future.delayed(Duration(seconds: 2)).then((value) => setState(() {
           isSplash = false;
         }));
     super.initState();
@@ -33,12 +33,12 @@ class _AppState extends State<App> {
         statusBarIconBrightness: Brightness.dark));
 
     return MaterialApp(
-        title: 'LAPAS NARKOTIKA KALSEL',
+        title: Environment.APP_NAME,
         theme: ThemeData(
-          scaffoldBackgroundColor: Colors.white,
-          primarySwatch: Colors.blue,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
+            scaffoldBackgroundColor: Colors.white,
+            primarySwatch: Colors.blue,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+            fontFamily: 'SourceSansPro'),
         onGenerateRoute: route.generateRoute,
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,

@@ -5,28 +5,29 @@ class AppMenuBox extends StatelessWidget {
   final Color color;
   final String route;
   final String name;
-  const AppMenuBox({Key key, this.color, this.icons, this.name, this.route})
+  final dynamic args;
+  const AppMenuBox(
+      {Key key, this.color, this.icons, this.name, this.route, this.args})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 100,
-      height: 100,
+      width: 110,
+      height: 110,
       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-      // padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Colors.grey[200],
+        color: Colors.grey[100],
       ),
       child: Material(
-        color: Colors.grey[200],
+        color: Colors.grey[100],
         borderRadius: BorderRadius.circular(10),
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
           onTap: () {
             if (route != null) {
-              Navigator.pushNamed(context, route, arguments: name);
+              Navigator.pushNamed(context, route, arguments: args);
               print('LOG');
             }
           },

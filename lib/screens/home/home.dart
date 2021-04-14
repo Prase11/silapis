@@ -4,7 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:silapis/configs/config.dart';
+import 'package:silapis/models/model_location.dart';
 import 'package:silapis/widgets/widget.dart';
+import 'component/social_media.dart';
 
 class Home extends StatelessWidget {
   final Routes route = Routes();
@@ -17,141 +19,166 @@ class Home extends StatelessWidget {
       'https://dailyspin.id/wp-content/uploads/2020/06/razer-phone-game-booster-hero.jpg',
     ];
 
-    final menuData = [
-      {
-        'name': 'Edit Profil',
-        'icon': FontAwesomeIcons.pencilAlt,
-        'color': Colors.grey,
-      },
-      {
-        'name': 'Daftar Antrian',
-        'icon': FontAwesomeIcons.angleDoubleRight,
-        'color': Colors.grey,
-      },
-      {
-        'name': 'Scan Barcode',
-        'icon': FontAwesomeIcons.qrcode,
-        'color': Colors.grey,
-      },
-      {
-        'name': 'Profil',
-        'icon': FontAwesomeIcons.user,
-        'color': Colors.blue,
-      },
-      {
-        'name': 'Struktur',
-        'icon': FontAwesomeIcons.stumbleuponCircle,
-        'route': Routes.news,
-        'color': Colors.orange,
-      },
-      {
-        'name': 'Alur Penitipan Barang',
-        'icon': FontAwesomeIcons.briefcase,
-        'route': Routes.news,
-        'color': Colors.orange[900],
-      },
-      {
-        'name': 'Alur Kunjungan',
-        'icon': FontAwesomeIcons.bookReader,
-        'route': Routes.news,
-        'color': Colors.green,
-      },
-      {
-        'name': 'Alur Penerimaan',
-        'icon': FontAwesomeIcons.personBooth,
-        'route': Routes.news,
-        'color': Colors.red,
-      },
-      {
-        'name': 'Jadwal Kunjungan',
-        'icon': FontAwesomeIcons.calendar,
-        'route': Routes.news,
-        'color': Colors.purple,
-      },
-      {
-        'name': 'Daftar Kunjungan',
-        'icon': FontAwesomeIcons.table,
-        'route': Routes.news,
-        'color': Colors.purple,
-      },
-      {
-        'name': 'Galeri Serba Serbi',
-        'icon': FontAwesomeIcons.chartPie,
-        'route': Routes.news,
-        'color': Colors.red,
-      },
-      {
-        'name': 'Coorporate University',
-        'icon': FontAwesomeIcons.university,
-        'route': Routes.news,
-        'color': Colors.greenAccent,
-      },
-      {
-        'name': 'Berita Terbaru',
-        'icon': FontAwesomeIcons.newspaper,
-        'route': Routes.news,
-        'color': Colors.blueAccent,
-      },
-      {
-        'name': 'Riwayat Kunjungan',
-        'icon': FontAwesomeIcons.history,
-        'color': Colors.blueGrey,
-      },
-      {
-        'name': 'Logout',
-        'icon': Icons.logout,
-        'color': Colors.red,
-      },
-    ];
-
     return Scaffold(
-      body: ListView(
-        padding: EdgeInsets.only(top: 0),
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 250,
-            child: Swiper(
-              viewportFraction: 1,
-              itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
+      body: SafeArea(
+        child: ListView(
+          children: [
+            //HEADER
+            Container(
+              margin: EdgeInsets.symmetric(
+                  vertical: Dimens.padding, horizontal: Dimens.padding * 2),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.all(5),
+                        height: 60,
+                        width: 60,
+                        child: Image.asset(Images.Logo),
+                      ),
+                      Container(
+                        margin: EdgeInsets.all(5),
+                        height: 60,
+                        width: 60,
+                        child: Image.asset(Images.Permasyarakatan),
+                      ),
+                    ],
                   ),
-                  child: Container(
-                    // margin: EdgeInsets.only(bottom: 25),
-                    child: CachedNetworkImage(
-                      fit: BoxFit.cover,
-                      imageUrl: images[index],
+                  Text(
+                    'LEMBAGA PERMASYARAKATAN KELAS IIA KARANGINTAN KALIMANTAN SELATAN',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
                     ),
                   ),
-                );
-              },
-              autoplayDelay: 5000,
-              autoplayDisableOnInteraction: false,
-              autoplay: true,
-              itemCount: images.length,
-              pagination: SwiperPagination(
-                alignment: Alignment(0, .9),
-                builder: SwiperPagination.dots,
+                  SizedBox(height: 3),
+                  Text(
+                    'KANTOR WILAYAH KEMENTRIAN HUKUM DAN HAM KALIMANTAN SELATAN',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 15,
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 20),
-            child: Wrap(
-              alignment: WrapAlignment.center,
-              children: menuData
-                  .map((data) => AppMenuBox(
-                        name: data['name'],
-                        icons: data['icon'],
-                        color: data['color'],
-                        route: data['route'],
-                      ))
-                  .toList(),
+            // BANNER
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 250,
+              child: Swiper(
+                viewportFraction: 0.9,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    margin: EdgeInsets.symmetric(
+                        vertical: Dimens.padding, horizontal: 7),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Container(
+                      // margin: EdgeInsets.only(bottom: 25),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: CachedNetworkImage(
+                          fit: BoxFit.cover,
+                          imageUrl: images[index],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                autoplayDelay: 5000,
+                autoplayDisableOnInteraction: false,
+                autoplay: true,
+                itemCount: images.length,
+                pagination: SwiperPagination(
+                  alignment: Alignment(0, .9),
+                  builder: SwiperPagination.dots,
+                ),
+              ),
             ),
-          ),
-        ],
+
+            Container(
+              padding: EdgeInsets.only(
+                left: Dimens.padding,
+                right: Dimens.padding,
+                top: 20,
+              ),
+              child: Row(
+                children: <Widget>[
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        'Menu',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6
+                            .copyWith(fontWeight: FontWeight.w600),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: Dimens.padding),
+              child: Wrap(
+                alignment: WrapAlignment.center,
+                children: [
+                  AppMenuBox(
+                    name: 'Antrian Online',
+                    icons: FontAwesomeIcons.bookReader,
+                    color: Colors.grey,
+                    route: Routes.antrianOnline,
+                  ),
+                  AppMenuBox(
+                    name: 'Lokasi Lapas',
+                    icons: FontAwesomeIcons.searchLocation,
+                    color: Colors.red[300],
+                    route: Routes.location,
+                    args:
+                        LocationModel(1, 'Lokasi Lapas', -3.0299249, 115.45091),
+                  ),
+                  AppMenuBox(
+                    name: 'Data SDP',
+                    icons: FontAwesomeIcons.bookReader,
+                    color: Colors.green,
+                  ),
+                  AppMenuBox(
+                    name: 'Jadwal Kunjungan',
+                    icons: FontAwesomeIcons.calendar,
+                    color: Colors.purple,
+                    route: Routes.jadwalKunjungan,
+                  ),
+                  AppMenuBox(
+                    name: 'Pengajuan Integrasi',
+                    icons: FontAwesomeIcons.table,
+                    color: Colors.purple,
+                    route: Routes.pengajuanIntegrasi,
+                  ),
+                  AppMenuBox(
+                    name: 'Berita Terbaru',
+                    icons: FontAwesomeIcons.newspaper,
+                    route: Routes.news,
+                    color: Colors.blueAccent,
+                  ),
+                  AppMenuBox(
+                    name: 'Layanan Pengaduan',
+                    icons: FontAwesomeIcons.personBooth,
+                    color: Colors.blueGrey,
+                    route: Routes.layananPengaduan,
+                  ),
+                ],
+              ),
+            ),
+            SocialMedia(),
+          ],
+        ),
       ),
     );
   }

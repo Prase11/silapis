@@ -6,6 +6,11 @@ class Routes {
   static const String home = "/home";
   static const String news = "/news";
   static const String newsDetail = "/newsDetail";
+  static const String location = "/location";
+  static const String layananPengaduan = "/layananPengaduan";
+  static const String pengajuanIntegrasi = "/pengajuanIntegrasi";
+  static const String jadwalKunjungan = "/jadwalKunjungan";
+  static const String antrianOnline = "/antrianOnline";
 
   Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -16,6 +21,14 @@ class Routes {
             title: args,
           ),
           fullscreenDialog: true,
+        );
+
+      case location:
+        final location = settings.arguments;
+        return CustomRoutes(
+          page: Location(
+            location: location,
+          ),
         );
 
       case newsDetail:
@@ -29,6 +42,18 @@ class Routes {
 
       case home:
         return CustomRoutes(page: Home());
+
+      case jadwalKunjungan:
+        return CustomRoutes(page: JadwalKunjungan());
+
+      case layananPengaduan:
+        return CustomRoutes(page: LayananPengaduan());
+
+      case pengajuanIntegrasi:
+        return CustomRoutes(page: PengajuanIntegrasi());
+
+      case antrianOnline:
+        return CustomRoutes(page: Antrian());
 
       default:
         return CustomRoutes(
