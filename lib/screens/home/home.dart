@@ -8,8 +8,17 @@ import 'package:silapis/models/model_location.dart';
 import 'package:silapis/widgets/widget.dart';
 import 'component/social_media.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  Home({Key key}) : super(key: key);
+
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   final Routes route = Routes();
+
+  bool isGrid = true;
 
   @override
   Widget build(BuildContext context) {
@@ -48,16 +57,24 @@ class Home extends StatelessWidget {
                     ],
                   ),
                   Text(
-                    'LEMBAGA PERMASYARAKATAN KELAS IIA KARANGINTAN KALIMANTAN SELATAN',
+                    'LEMBAGA PERMASYARAKATAN NARKOTIKA',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 18,
+                      fontSize: 21,
+                    ),
+                  ),
+                  Text(
+                    'KELAS IIA KARANGINTAN',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 21,
                     ),
                   ),
                   SizedBox(height: 3),
                   Text(
-                    'KANTOR WILAYAH KEMENTRIAN HUKUM DAN HAM KALIMANTAN SELATAN',
+                    'KALIMANTAN SELATAN',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 15,
@@ -109,6 +126,7 @@ class Home extends StatelessWidget {
                 top: 20,
               ),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,7 +139,15 @@ class Home extends StatelessWidget {
                             .copyWith(fontWeight: FontWeight.w600),
                       ),
                     ],
-                  )
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        isGrid = !isGrid;
+                      });
+                    },
+                    child: Icon(isGrid ? Icons.list_alt : Icons.grid_view),
+                  ),
                 ],
               ),
             ),
@@ -131,12 +157,32 @@ class Home extends StatelessWidget {
                 alignment: WrapAlignment.center,
                 children: [
                   AppMenuBox(
+                    viewType: isGrid ? ViewType.GRID : ViewType.LIST,
                     name: 'Antrian Online',
                     icons: FontAwesomeIcons.bookReader,
                     color: Colors.grey,
                     route: Routes.antrianOnline,
+                    backgroundImage:
+                        'https://mcdn.wallpapersafari.com/medium/71/29/1PCyiH.jpg',
+                    keterangan:
+                        'Menu antrian online, disediakan untuk membuat antrian secara online yang dapat di akses dari manapun dan kapanpun.',
                   ),
                   AppMenuBox(
+                    backgroundImage:
+                        'https://mcdn.wallpapersafari.com/medium/3/67/i3T8eU.jpg',
+                    keterangan:
+                        'Menu daftar antrian online, disediakan untuk melihat antrian online yang sudah dibuat dan dapat di akses dari manapun dan kapanpun.',
+                    viewType: isGrid ? ViewType.GRID : ViewType.LIST,
+                    name: 'Daftar Antrian',
+                    icons: FontAwesomeIcons.bookOpen,
+                    color: Colors.grey,
+                    route: Routes.daftarAntrian,
+                  ),
+                  AppMenuBox(
+                    backgroundImage:
+                        'https://mcdn.wallpapersafari.com/medium/69/18/NUOP6C.jpg',
+                    keterangan: '-',
+                    viewType: isGrid ? ViewType.GRID : ViewType.LIST,
                     name: 'Lokasi Lapas',
                     icons: FontAwesomeIcons.searchLocation,
                     color: Colors.red[300],
@@ -145,29 +191,62 @@ class Home extends StatelessWidget {
                         LocationModel(1, 'Lokasi Lapas', -3.0299249, 115.45091),
                   ),
                   AppMenuBox(
+                    backgroundImage:
+                        'https://mcdn.wallpapersafari.com/medium/5/83/FSbHPm.jpg',
+                    keterangan: '-',
+                    viewType: isGrid ? ViewType.GRID : ViewType.LIST,
                     name: 'Data SDP',
                     icons: FontAwesomeIcons.bookReader,
                     color: Colors.green,
                   ),
                   AppMenuBox(
+                    backgroundImage:
+                        'https://mcdn.wallpapersafari.com/medium/74/56/cOHUvX.jpg',
+                    keterangan:
+                        'Berisi Informasi jadwal kunjungan untuk warga binaan pemasyarakatan di Lembaga Pemasyarakatan Kelas IIA Kalimantan Selatan',
+                    viewType: isGrid ? ViewType.GRID : ViewType.LIST,
                     name: 'Jadwal Kunjungan',
                     icons: FontAwesomeIcons.calendar,
                     color: Colors.purple,
                     route: Routes.jadwalKunjungan,
                   ),
                   AppMenuBox(
+                    backgroundImage:
+                        'https://mcdn.wallpapersafari.com/medium/10/29/FhiT5K.jpg',
+                    keterangan:
+                        'Mempermudah keluarga warga binaan pemasyarakatan untuk melakukan pengusulan program integrasi (PB, CB, CMB dan Asimilasi).',
+                    viewType: isGrid ? ViewType.GRID : ViewType.LIST,
                     name: 'Pengajuan Integrasi',
                     icons: FontAwesomeIcons.table,
                     color: Colors.purple,
                     route: Routes.pengajuanIntegrasi,
                   ),
                   AppMenuBox(
+                    backgroundImage:
+                        'https://mcdn.wallpapersafari.com/medium/25/35/Y7Xdm8.jpg',
+                    keterangan: '-',
+                    viewType: isGrid ? ViewType.GRID : ViewType.LIST,
                     name: 'Berita Terbaru',
                     icons: FontAwesomeIcons.newspaper,
                     route: Routes.news,
                     color: Colors.blueAccent,
                   ),
                   AppMenuBox(
+                    backgroundImage:
+                        'https://mcdn.wallpapersafari.com/medium/46/34/Mxjr2p.jpg',
+                    keterangan: '-',
+                    viewType: isGrid ? ViewType.GRID : ViewType.LIST,
+                    name: 'Struktur',
+                    icons: FontAwesomeIcons.codeBranch,
+                    route: Routes.news,
+                    color: Colors.orange,
+                  ),
+                  AppMenuBox(
+                    backgroundImage:
+                        'https://mcdn.wallpapersafari.com/medium/65/86/3m6AIX.jpg',
+                    keterangan:
+                        'masyarakat dapat menyampaikan keluhan / aduan dan saran sebagai bentuk akuntabilitas, transparantasi dan profesionalisme',
+                    viewType: isGrid ? ViewType.GRID : ViewType.LIST,
                     name: 'Layanan Pengaduan',
                     icons: FontAwesomeIcons.personBooth,
                     color: Colors.blueGrey,

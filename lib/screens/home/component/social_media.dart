@@ -56,6 +56,11 @@ class SocialMediaState extends State<SocialMedia> {
                 icon: 'instagram',
                 hexColor: '#ff5252',
               ),
+              _icon(
+                link: 'http://google.com',
+                icon: 'youtube',
+                hexColor: '#ff0000',
+              ),
             ],
           ),
         ],
@@ -76,8 +81,11 @@ class SocialMediaState extends State<SocialMedia> {
       case 'instagram':
         icons = FontAwesomeIcons.instagram;
         break;
+      case 'youtube':
+        icons = FontAwesomeIcons.youtube;
+        break;
       default:
-        icons = FontAwesomeIcons.pumpMedical;
+        icons = FontAwesomeIcons.question;
     }
 
     final Color color = HexColor.fromHex(hexColor);

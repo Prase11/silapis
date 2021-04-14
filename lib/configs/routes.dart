@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:silapis/models/model.dart';
 import 'package:silapis/screens/screen.dart';
 
 class Routes {
@@ -11,6 +12,8 @@ class Routes {
   static const String pengajuanIntegrasi = "/pengajuanIntegrasi";
   static const String jadwalKunjungan = "/jadwalKunjungan";
   static const String antrianOnline = "/antrianOnline";
+  static const String daftarAntrian = "/daftarAntrian";
+  static const String daftarAntrianDetail = "/daftarAntrianDetail";
 
   Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -54,6 +57,14 @@ class Routes {
 
       case antrianOnline:
         return CustomRoutes(page: Antrian());
+
+      case daftarAntrian:
+        return CustomRoutes(page: DaftarAntrian());
+
+      case daftarAntrianDetail:
+        AntrianModel args = settings.arguments;
+
+        return CustomRoutes(page: DaftarAntrianDetail(args));
 
       default:
         return CustomRoutes(

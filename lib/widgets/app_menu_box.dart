@@ -1,17 +1,36 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:silapis/configs/config.dart';
+
+enum ViewType { GRID, LIST }
 
 class AppMenuBox extends StatelessWidget {
   final IconData icons;
   final Color color;
   final String route;
   final String name;
+  final String backgroundImage;
+  final String keterangan;
   final dynamic args;
+  final ViewType viewType;
   const AppMenuBox(
-      {Key key, this.color, this.icons, this.name, this.route, this.args})
+      {Key key,
+      this.color,
+      this.icons,
+      this.name,
+      this.route,
+      this.args,
+      this.backgroundImage,
+      this.keterangan = '',
+      this.viewType = ViewType.LIST})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    if (viewType == ViewType.LIST) {
+      return _list(context);
+    }
+
     return Container(
       width: 110,
       height: 110,
@@ -28,7 +47,6 @@ class AppMenuBox extends StatelessWidget {
           onTap: () {
             if (route != null) {
               Navigator.pushNamed(context, route, arguments: args);
-              print('LOG');
             }
           },
           child: Container(
@@ -51,6 +69,84 @@ class AppMenuBox extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _list(BuildContext context) {
+    Color baseColor = Colors.white;
+
+    return Container(
+      width: double.infinity,
+      height: 160,
+      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.grey[100],
+      ),
+      child: Material(
+        color: Colors.grey[100],
+        borderRadius: BorderRadius.circular(10),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(10),
+          onTap: () {
+            if (route != null) {
+              Navigator.pushNamed(context, route, arguments: args);
+            }
+          },
+          child: Stack(
+            children: [
+              Container(
+                width: double.infinity,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(6),
+                  ),
+                  child: CachedNetworkImage(
+                    imageUrl: backgroundImage,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(6),
+                  ),
+                  color: Colors.black.withOpacity(0.5),
+                ),
+                width: double.infinity,
+                height: double.infinity,
+              ),
+              Container(
+                padding: EdgeInsets.all(Dimens.padding),
+                child: Column(
+                  // mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: baseColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24),
+                    ),
+                    SizedBox(height: 10),
+                    Expanded(
+                      flex: 4,
+                      child: Text(
+                        keterangan,
+                        overflow: TextOverflow.fade,
+                        style: TextStyle(color: baseColor, fontSize: 18),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),
