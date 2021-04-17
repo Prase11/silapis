@@ -4,17 +4,17 @@
     "data": {
         "rows": [{
                 "pengunjung": {
-                    "nik": "11",
-                    "nama": "anjayani",
+                    "nik": "1611016210001",
+                    "nama": "Ahmad Juhdi",
                     "namaWbp": "WBP",
-                    "namaAyah": "1",
+                    "namaAyah": "Anju",
                     "createdAt": "2021-04-17 00:09:19.000000",
                     "deletedAt": null,
                     "updatedAt": "2021-04-17 00:44:44.000000"
                 },
                 "id": "32",
                 "no": "1",
-                "nik": "11",
+                "nik": "1611016210001",
                 "tanggal": "2021-04-17 00:41:34",
                 "jenis": "Kunjungan",
                 "deviceId": "ANDROID001",
@@ -24,17 +24,17 @@
             },
             {
                 "pengunjung": {
-                    "nik": "11",
-                    "nama": "anjayani",
-                    "namaWbp": "112",
-                    "namaAyah": "1",
+                    "nik": "1611016210001",
+                    "nama": "Ahmad Juhdi",
+                    "namaWbp": "Park Daeho",
+                    "namaAyah": "Anju",
                     "createdAt": "2021-04-17 00:09:19.000000",
                     "deletedAt": null,
                     "updatedAt": "2021-04-17 00:44:44.000000"
                 },
                 "id": "33",
                 "no": "2",
-                "nik": "11",
+                "nik": "1611016210001",
                 "tanggal": "2021-04-17 00:42:15",
                 "jenis": "Kunjungan",
                 "deviceId": "ANDROID001",
@@ -44,17 +44,17 @@
             },
             {
                 "pengunjung": {
-                    "nik": "11",
-                    "nama": "anjayani",
-                    "namaWbp": "112",
-                    "namaAyah": "1",
+                    "nik": "1611016210001",
+                    "nama": "Ahmad Juhdi",
+                    "namaWbp": "Park Daeho",
+                    "namaAyah": "Anju",
                     "createdAt": "2021-04-17 00:09:19.000000",
                     "deletedAt": null,
                     "updatedAt": "2021-04-17 00:44:44.000000"
                 },
                 "id": "34",
                 "no": "3",
-                "nik": "11",
+                "nik": "1611016210001",
                 "tanggal": "2021-04-17 00:44:42",
                 "jenis": "Kunjungan",
                 "deviceId": "ANDROID001",

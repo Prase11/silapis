@@ -238,7 +238,7 @@ class _HomeState extends State<Home> {
                     viewType: isGrid ? ViewType.GRID : ViewType.LIST,
                     name: 'Struktur',
                     icons: FontAwesomeIcons.codeBranch,
-                    route: Routes.news,
+                    route: Routes.strukturOrganisasi,
                     color: Colors.orange,
                   ),
                   AppMenuBox(

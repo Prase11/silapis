@@ -15,7 +15,7 @@ class _DaftarAntrianState extends State<DaftarAntrian> {
   AntrianListModel antrianList;
 
   Future getData() async {
-    final data = await SilakiRepository().getAntrian();
+    final data = await SilakiRepository.getAntrian();
     if (data.code == CODE.SUCCESS) {
       antrianList = AntrianListModel.fromJson(data.data);
       setState(() {});
@@ -49,7 +49,7 @@ class _DaftarAntrianState extends State<DaftarAntrian> {
 
   Widget _loading() {
     return ListView(
-      children: List.generate(8, (index) => index)
+      children: List.generate(4, (index) => index)
           .map((antrian) => AppAntrianCard(null))
           .toList(),
     );

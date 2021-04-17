@@ -14,6 +14,8 @@ class Routes {
   static const String antrianOnline = "/antrianOnline";
   static const String daftarAntrian = "/daftarAntrian";
   static const String daftarAntrianDetail = "/daftarAntrianDetail";
+  static const String strukturOrganisasi = "/strukturOrganisasi";
+  static const String photoPreview = "/photoPreview";
 
   Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -60,6 +62,19 @@ class Routes {
 
       case daftarAntrian:
         return CustomRoutes(page: DaftarAntrian());
+
+      case strukturOrganisasi:
+        return CustomRoutes(page: Struktur());
+
+      case photoPreview:
+        final Map<String, dynamic> params = settings.arguments;
+        return CustomRoutes(
+          page: PhotoPreview(
+            galleryList: params['photo'],
+            initialIndex: params['index'],
+          ),
+          fullscreenDialog: true,
+        );
 
       case daftarAntrianDetail:
         AntrianModel args = settings.arguments;

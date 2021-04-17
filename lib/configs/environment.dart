@@ -1,5 +1,6 @@
 class Environment {
   static const bool DEBUG = true;
+  static const bool SHOW_LOG = true;
 
   static const String APP_NAME = 'SILAKI';
   static const String VERSION = '1.0.0';
