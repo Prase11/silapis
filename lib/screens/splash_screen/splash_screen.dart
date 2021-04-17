@@ -37,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 Container(
                   width: MediaQuery.of(context).size.width * 0.8,
                   child: Text(
-                    'LAPAS NARKOTIKA KALIMANTAN SELATAN',
+                    'LEMBAGA PERMASYARAKATAN NARKOTIKA KELAS IIA KARANGINTAN KALIMANTAN SELATAN',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 20,

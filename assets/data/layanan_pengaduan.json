@@ -1,0 +1,33 @@
+{
+    "code": 200,
+    "message": null,
+    "data": {
+        "rows": [{
+            "id": "1",
+            "nama": "Whatsapp",
+            "link": "http://wa.me",
+            "icon": "whatsapp",
+            "color": "#4caf50",
+            "createdAt": "2021-04-16 23:18:47",
+            "updatedAt": "2021-04-16 23:18:54"
+        }, {
+            "id": "2",
+            "nama": "Google Form",
+            "link": "http://google.com",
+            "icon": "file",
+            "color": "#2196f3",
+            "createdAt": "2021-04-16 23:18:47",
+            "updatedAt": "2021-04-16 23:18:54"
+        }, {
+            "id": "3",
+            "nama": "0812-1212-1212",
+            "link": "tel:0862621612",
+            "icon": "phone",
+            "color": "#9c27b0",
+            "createdAt": "2021-04-16 23:18:47",
+            "updatedAt": "2021-04-16 23:18:54"
+        }],
+        "limit": 100,
+        "offset": 0
+    }
+}

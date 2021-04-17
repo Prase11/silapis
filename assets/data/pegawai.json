@@ -1,0 +1,54 @@
+{
+    "code": 200,
+    "message": null,
+    "data": {
+        "rows": [{
+            "nip": "1611016210001",
+            "nik": "1611016210001",
+            "nama": "Ahmad Juhdi",
+            "status": "Pejabat Negara",
+            "jk": "L",
+            "foto": "https://www.w3schools.com/w3css/img_avatar3.png",
+            "createdAt": "2021-04-16 23:18:47",
+            "updatedAt": "2021-04-16 23:18:54"
+        }, {
+            "nip": "1611016210001",
+            "nik": "1611016210001",
+            "nama": "Hanzo",
+            "status": "Pejabat Negara",
+            "jk": "L",
+            "foto": "https://www.w3schools.com/w3css/img_avatar2.png",
+            "createdAt": "2021-04-16 23:18:47",
+            "updatedAt": "2021-04-16 23:18:54"
+        }, {
+            "nip": "1611016210001",
+            "nik": "1611016210001",
+            "nama": "Lancelot",
+            "status": "Pejabat Negara",
+            "jk": "L",
+            "foto": "https://www.w3schools.com/w3css/img_avatar1.png",
+            "createdAt": "2021-04-16 23:18:47",
+            "updatedAt": "2021-04-16 23:18:54"
+        }, {
+            "nip": "1611016210001",
+            "nik": "1611016210001",
+            "nama": "Natalia",
+            "status": "Pejabat Negara",
+            "jk": "L",
+            "foto": "https://www.w3schools.com/w3css/img_avatar4.png",
+            "createdAt": "2021-04-16 23:18:47",
+            "updatedAt": "2021-04-16 23:18:54"
+        }, {
+            "nip": "1611016210001",
+            "nik": "1611016210001",
+            "nama": "WanWan",
+            "status": "Pejabat Negara",
+            "jk": "L",
+            "foto": "https://www.w3schools.com/w3css/img_avatar5.png",
+            "createdAt": "2021-04-16 23:18:47",
+            "updatedAt": "2021-04-16 23:18:54"
+        }],
+        "limit": 100,
+        "offset": 0
+    }
+}

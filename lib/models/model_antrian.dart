@@ -39,6 +39,7 @@ class AntrianModel {
     this.tanggal,
     this.jenis,
     this.deviceId,
+    this.createdAt,
   });
 
   Pengunjung pengunjung;
@@ -48,6 +49,7 @@ class AntrianModel {
   DateTime tanggal;
   String jenis;
   String deviceId;
+  String createdAt;
 
   factory AntrianModel.fromJson(Map<String, dynamic> json) => AntrianModel(
         pengunjung: Pengunjung.fromJson(json["pengunjung"]),
@@ -57,6 +59,7 @@ class AntrianModel {
         tanggal: DateTime.parse(json["tanggal"]),
         jenis: json["jenis"],
         deviceId: json["deviceId"],
+        createdAt: json["createdAt"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -67,6 +70,7 @@ class AntrianModel {
         "tanggal": tanggal.toIso8601String(),
         "jenis": jenis,
         "deviceId": deviceId,
+        "createdAt": createdAt,
       };
 
   String humanDate() {

@@ -86,7 +86,9 @@ class _DaftarAntrianDetailState extends State<DaftarAntrianDetail> {
                 SizedBox(height: 20),
                 Text(
                     'Dimohon Membawa Kartu Identitas atau Fotocopy Kartu Identitas'),
-                Text('Waktu Kunjungan 09.00 - 12.00'),
+                SizedBox(height: 10),
+                Text('Waktu Kunjungan ${widget.antrianModel.createdAt}',
+                    style: TextStyle(fontWeight: FontWeight.bold)),
               ],
             )),
       ]),

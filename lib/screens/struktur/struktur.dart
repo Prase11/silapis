@@ -14,14 +14,14 @@ class Struktur extends StatefulWidget {
 }
 
 class _StrukturState extends State<Struktur> {
-  AntrianListModel antrianList;
+  PegawaiListModel pegawaiList;
 
   Future getData() async {
-    final data = await SilakiRepository.getAntrian();
+    final data = await SilakiRepository.getPegawai();
     if (data.code == CODE.SUCCESS) {
-      antrianList = AntrianListModel.fromJson(data.data);
+      pegawaiList = PegawaiListModel.fromJson(data.data);
       setState(() {});
-      UtilLogger.log('DATA', antrianList.list.map((e) => e.toJson()));
+      UtilLogger.log('DATA', pegawaiList.list.map((e) => e.toJson()));
     }
   }
 
@@ -39,19 +39,20 @@ class _StrukturState extends State<Struktur> {
         title: 'Struktur Organisasi',
         context: context,
       ),
-      body: antrianList == null
+      body: pegawaiList == null
           ? _loading()
           : ListView(
               children: [
                 InkWell(
                   child: Container(
+                    margin: EdgeInsets.all(Dimens.padding),
                     child: ClipRRect(
                       borderRadius: BorderRadius.all(
-                        Radius.circular(0),
+                        Radius.circular(9),
                       ),
                       child: CachedNetworkImage(
                         imageUrl:
-                            'https://mcdn.wallpapersafari.com/medium/46/34/Mxjr2p.jpg',
+                            'https://lpsragen.files.wordpress.com/2012/11/lapas-6-728.jpg',
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -63,24 +64,22 @@ class _StrukturState extends State<Struktur> {
                           'photo': [
                             ImageModel(
                                 0,
-                                'https://mcdn.wallpapersafari.com/medium/46/34/Mxjr2p.jpg',
+                                'https://lpsragen.files.wordpress.com/2012/11/lapas-6-728.jpg',
                                 'Struktur Organisasi')
                           ]
                         });
                   },
                 ),
-                ...antrianList.list
-                    .map((antrian) => AppPersonCard(
-                          antrian,
+                ...pegawaiList.list
+                    .map((pegawai) => AppPersonCard(
+                          pegawai,
                           onTap: () {
                             Navigator.pushNamed(context, Routes.photoPreview,
                                 arguments: {
                                   'index': 0,
                                   'photo': [
                                     ImageModel(
-                                        0,
-                                        'https://mcdn.wallpapersafari.com/medium/46/34/Mxjr2p.jpg',
-                                        'Struktur Organisasi')
+                                        0, pegawai.foto, 'Struktur Organisasi')
                                   ]
                                 });
                           },
@@ -95,7 +94,7 @@ class _StrukturState extends State<Struktur> {
     return ListView(
       children: [
         ...List.generate(4, (index) => index)
-            .map((antrian) => AppPersonCard(null))
+            .map((pegawai) => AppPersonCard(null))
             .toList()
       ],
     );

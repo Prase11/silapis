@@ -34,7 +34,7 @@ class SocialMediaState extends State<SocialMedia> {
       margin: EdgeInsets.symmetric(vertical: Dimens.padding),
       child: Column(
         children: [
-          Text('Follow Juga Social Media Kami'),
+          Text('Follow Juga Sosial Media Kami'),
           SizedBox(
             height: 10,
           ),

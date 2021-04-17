@@ -33,6 +33,19 @@ class SilakiRepository {
     return ApiModel.fromJson(result);
   }
 
+  static Future<ApiModel> layananPengaduan() async {
+    await Future.delayed(Duration(seconds: 1));
+    final result =
+        await UtilAsset.loadJson("assets/data/layanan_pengaduan.json");
+    return ApiModel.fromJson(result);
+  }
+
+  static Future<ApiModel> getPegawai() async {
+    await Future.delayed(Duration(seconds: 1));
+    final result = await UtilAsset.loadJson("assets/data/pegawai.json");
+    return ApiModel.fromJson(result);
+  }
+
   //Singleton factory
   static final SilakiRepository _instance = SilakiRepository._internal();
 

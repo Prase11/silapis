@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:silapis/configs/config.dart';
+import 'package:silapis/utils/launch_external.dart';
 import 'package:silapis/widgets/app_custom_appbar.dart';
 import 'package:silapis/widgets/widget.dart';
 
@@ -104,7 +105,7 @@ class _PengajuanIntegrasiState extends State<PengajuanIntegrasi> {
               color: Theme.of(context).primaryColor),
           content: 'Surat Jaminan Keluarga',
           onTap: () {
-            print('anjas');
+            launchExternal('http://google.com');
           },
         ),
         AppListIconText(
@@ -113,7 +114,7 @@ class _PengajuanIntegrasiState extends State<PengajuanIntegrasi> {
           content:
               'Surat Pernyataan Napi (Pidana Khusus Perkara PP No 99/Tahun 2021)',
           onTap: () {
-            print('anjas');
+            launchExternal('http://google.com');
           },
         ),
       ],
