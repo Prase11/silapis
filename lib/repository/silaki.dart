@@ -15,6 +15,24 @@ class SilakiRepository {
             url: '/antrian?with[]=pengunjung&tanggal[sort]=DESC');
   }
 
+  static Future<ApiModel> postAntrian(Map<String, dynamic> data) async {
+    await Future.delayed(Duration(seconds: 1));
+    final result = await UtilAsset.loadJson("assets/data/antrian_post.json");
+    return ApiModel.fromJson(result);
+  }
+
+  static Future<ApiModel> jadwalUmum() async {
+    await Future.delayed(Duration(seconds: 1));
+    final result = await UtilAsset.loadJson("assets/data/jadwal_umum.json");
+    return ApiModel.fromJson(result);
+  }
+
+  static Future<ApiModel> jadwalKhusus() async {
+    await Future.delayed(Duration(seconds: 1));
+    final result = await UtilAsset.loadJson("assets/data/jadwal_khusus.json");
+    return ApiModel.fromJson(result);
+  }
+
   //Singleton factory
   static final SilakiRepository _instance = SilakiRepository._internal();
 

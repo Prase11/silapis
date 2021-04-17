@@ -1,0 +1,29 @@
+{
+    "code": 200,
+    "message": null,
+    "data": {
+        "rows": [{
+                "id": "1",
+                "tanggal": "2021-04-16",
+                "jamMulai": "10:10:00",
+                "jamSelesai": "10:20:00",
+                "keterangan": "Berkunjung saja",
+                "createdAt": "2021-04-16 23:18:47",
+                "updatedAt": "2021-04-16 23:18:54",
+                "deletedAt": null
+            },
+            {
+                "id": "2",
+                "tanggal": "2021-04-17",
+                "jamMulai": "10:10:00",
+                "jamSelesai": "10:20:00",
+                "keterangan": "Hari Raya Idul Fitri",
+                "createdAt": "2021-04-16 23:18:47",
+                "updatedAt": "2021-04-17 19:13:49",
+                "deletedAt": null
+            }
+        ],
+        "limit": 100,
+        "offset": 0
+    }
+}

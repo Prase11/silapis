@@ -1,6 +1,7 @@
 class Images {
   static const String Logo = "assets/images/logo.png";
   static const String Permasyarakatan = "assets/images/permasyarakataan.png";
+  static const String Intersect = "assets/images/intersect.png";
 
   //SVG
   static const String Astrounot = "assets/svg/astronot.svg";

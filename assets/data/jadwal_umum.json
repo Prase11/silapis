@@ -1,0 +1,72 @@
+{
+    "code": 200,
+    "message": null,
+    "data": {
+        "rows": [{
+                "id": "1",
+                "hari": "Senin",
+                "jamMulai": "10:20:00",
+                "jamSelesai": "12:00:00",
+                "createdAt": "2021-04-16 23:19:14",
+                "updatedAt": "2021-04-16 23:19:14",
+                "deletedAt": null
+            },
+            {
+                "id": "2",
+                "hari": "Selasa",
+                "jamMulai": "10:20:00",
+                "jamSelesai": "12:00:00",
+                "createdAt": "2021-04-17 19:09:32",
+                "updatedAt": "2021-04-17 19:09:49",
+                "deletedAt": null
+            },
+            {
+                "id": "3",
+                "hari": "Rabu",
+                "jamMulai": "10:20:00",
+                "jamSelesai": "12:00:00",
+                "createdAt": "2021-04-17 19:09:34",
+                "updatedAt": "2021-04-17 19:09:49",
+                "deletedAt": null
+            },
+            {
+                "id": "4",
+                "hari": "Kamis",
+                "jamMulai": "10:20:00",
+                "jamSelesai": "12:00:00",
+                "createdAt": "2021-04-17 19:09:36",
+                "updatedAt": "2021-04-17 19:09:49",
+                "deletedAt": null
+            },
+            {
+                "id": "5",
+                "hari": "Jumat",
+                "jamMulai": "10:20:00",
+                "jamSelesai": "12:00:00",
+                "createdAt": "2021-04-17 19:09:38",
+                "updatedAt": "2021-04-17 19:09:51",
+                "deletedAt": null
+            },
+            {
+                "id": "6",
+                "hari": "Sabtu",
+                "jamMulai": "10:20:00",
+                "jamSelesai": "12:00:00",
+                "createdAt": "2021-04-17 19:09:40",
+                "updatedAt": "2021-04-17 19:09:51",
+                "deletedAt": null
+            },
+            {
+                "id": "7",
+                "hari": "Minggu",
+                "jamMulai": "10:20:00",
+                "jamSelesai": "12:00:00",
+                "createdAt": "2021-04-17 19:09:42",
+                "updatedAt": "2021-04-17 19:09:52",
+                "deletedAt": null
+            }
+        ],
+        "limit": 100,
+        "offset": 0
+    }
+}

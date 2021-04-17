@@ -5,10 +5,10 @@ import 'package:silapis/configs/config.dart';
 import 'package:silapis/models/model.dart';
 import 'package:silapis/widgets/widget.dart';
 
-class AppJadwal extends StatelessWidget {
-  final AntrianModel jadwalModel;
+class AppJadwalKhusus extends StatelessWidget {
+  final JadwalKhususModel jadwalModel;
 
-  const AppJadwal(
+  const AppJadwalKhusus(
     this.jadwalModel, {
     Key key,
   }) : super(key: key);
@@ -50,7 +50,7 @@ class AppJadwal extends StatelessWidget {
                         Row(
                           children: <Widget>[
                             Text(
-                              'TITLE',
+                              jadwalModel.keterangan,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 17),
                             ),
@@ -83,7 +83,7 @@ class AppJadwal extends StatelessWidget {
                                         .color),
                                 SizedBox(width: 2),
                                 Text(
-                                  'tanggal',
+                                  jadwalModel.humanDate(),
                                   maxLines: 1,
                                   style: Theme.of(context)
                                       .textTheme
@@ -116,7 +116,7 @@ class AppJadwal extends StatelessWidget {
                                         .color),
                                 SizedBox(width: 2),
                                 Text(
-                                  "10",
+                                  "${jadwalModel.jamMulai} s.d ${jadwalModel.jamSelesai}",
                                   maxLines: 1,
                                   style: Theme.of(context)
                                       .textTheme

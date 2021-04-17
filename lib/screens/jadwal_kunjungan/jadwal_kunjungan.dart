@@ -4,7 +4,6 @@ import 'package:silapis/models/model.dart';
 import 'package:silapis/repository/silaki.dart';
 import 'package:silapis/utils/utils.dart';
 import 'package:silapis/widgets/app_custom_appbar.dart';
-import 'package:silapis/widgets/app_person_card.dart';
 import 'package:silapis/widgets/widget.dart';
 
 class JadwalKunjungan extends StatefulWidget {
@@ -16,13 +15,17 @@ class JadwalKunjungan extends StatefulWidget {
 
 class _JadwalKunjunganState extends State<JadwalKunjungan> {
   AntrianListModel antrianList;
+  JadwalUmumListModel jadwalUmumList;
+  JadwalKhususListModel jadwalKhususList;
 
   Future getData() async {
-    final data = await SilakiRepository.getAntrian();
-    if (data.code == CODE.SUCCESS) {
-      antrianList = AntrianListModel.fromJson(data.data);
+    final _jadwalUmum = await SilakiRepository.jadwalUmum();
+    final _jadwalKhusus = await SilakiRepository.jadwalKhusus();
+    if (_jadwalUmum.code == CODE.SUCCESS &&
+        _jadwalKhusus.code == CODE.SUCCESS) {
+      jadwalUmumList = JadwalUmumListModel.fromJson(_jadwalUmum.data);
+      jadwalKhususList = JadwalKhususListModel.fromJson(_jadwalKhusus.data);
       setState(() {});
-      UtilLogger.log('DATA', antrianList.list.map((e) => e.toJson()));
     }
   }
 
@@ -34,7 +37,7 @@ class _JadwalKunjunganState extends State<JadwalKunjungan> {
 
   List _loading() {
     return List.generate(4, (index) => index)
-        .map((antrian) => AppJadwal(null))
+        .map((antrian) => AppJadwalUmum(null))
         .toList();
   }
 
@@ -102,9 +105,15 @@ class _JadwalKunjunganState extends State<JadwalKunjungan> {
     return ListView(
       padding: EdgeInsets.symmetric(
           vertical: Dimens.padding, horizontal: Dimens.padding),
-      children: antrianList == null
+      children: jadwalUmumList == null
           ? _loading()
-          : antrianList.list.map((antrian) => AppJadwal(antrian)).toList(),
+          : [
+              Wrap(
+                children: jadwalUmumList.list
+                    .map((jadwal) => AppJadwalUmum(jadwal))
+                    .toList(),
+              )
+            ],
     );
   }
 
@@ -112,9 +121,11 @@ class _JadwalKunjunganState extends State<JadwalKunjungan> {
     return ListView(
       padding: EdgeInsets.symmetric(
           vertical: Dimens.padding, horizontal: Dimens.padding),
-      children: antrianList == null
+      children: jadwalKhususList == null
           ? _loading()
-          : antrianList.list.map((antrian) => AppJadwal(antrian)).toList(),
+          : jadwalKhususList.list
+              .map((jadwal) => AppJadwalKhusus(jadwal))
+              .toList(),
     );
   }
 }

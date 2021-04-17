@@ -1,0 +1,12 @@
+{
+    "code": 400,
+    "message": {
+        "nik": "The NIK field is required.",
+        "jenis": "The Jenis field is required.",
+        "nama": "The Nama field is required.",
+        "namaWbp": "The Nama Wbp field is required.",
+        "namaAyah": "The Nama Ayah field is required.",
+        "deviceId": "The Device Id field is required."
+    },
+    "data": null
+}

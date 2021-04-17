@@ -25,12 +25,14 @@ class AppMyButton extends StatelessWidget {
               (Set<MaterialState> states) {
                 if (states.contains(MaterialState.pressed))
                   return Theme.of(context).primaryColor;
-                return buttonColor; // Use the component's default.
+                return buttonColor ??
+                    Theme.of(context)
+                        .primaryColor; // Use the component's default.
               },
             ),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0),
+                borderRadius: BorderRadius.circular(10.0),
               ),
             ),
           ),
