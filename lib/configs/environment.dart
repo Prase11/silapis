@@ -6,10 +6,10 @@ class Environment {
   static const int VERSION_CODE = 1;
 
   // PRIMARY CONFIGS
-  static String apiUrl = 'http://192.168.43.247/api-siapps/public/api';
-  static String apiKey = '605dafe39ee0780e8cf2c829434eea99';
+  static String apiUrl = 'http://192.168.43.247:8080/api';
+  static String apiKey = '1611016210001';
   static String apiId = 'SILAKI';
-  static int apiTimeout = 20;
+  static int apiTimeout = 10;
 
   ///Singleton factory
   static final Environment _instance = Environment._internal();

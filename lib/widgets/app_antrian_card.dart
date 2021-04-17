@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:silapis/configs/config.dart';
 import 'package:silapis/models/model.dart';
+import 'package:silapis/widgets/widget.dart';
 
 class AppAntrianCard extends StatelessWidget {
   final Function onTap;
@@ -11,6 +12,15 @@ class AppAntrianCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (antrianModel == null) {
+      return Container(
+        width: 110,
+        height: 90,
+        margin: EdgeInsets.symmetric(vertical: 10, horizontal: Dimens.padding),
+        child: AppSkeleton(),
+      );
+    }
+
     return Container(
       width: 110,
       height: 90,
@@ -32,7 +42,7 @@ class AppAntrianCard extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
             child: Row(
               children: [
-                Text('001',
+                Text(antrianModel.no,
                     style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 50)),
                 SizedBox(width: 20),
@@ -41,15 +51,15 @@ class AppAntrianCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Ahmad Juhdi',
+                      Text(antrianModel.pengunjung.nama,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 20)),
-                      Text('Senin, 20 Juni 2020',
+                      Text(antrianModel.humanDate(),
                           style:
                               TextStyle(fontSize: 13, color: Colors.grey[700])),
                       SizedBox(height: 5),
                       Text(
-                        'WBP: Nama Pengunjung Bin Nama Ayah a sa s as a s as a s as a saAyah a sa s as a s as a s as a saAyah a sa s as a s as a s as a saAyah a sa s as a s as a s as a sa  s',
+                        'WBP: Nama ${antrianModel.pengunjung.namaWbp} Bin ${antrianModel.pengunjung.namaAyah}',
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                       ),

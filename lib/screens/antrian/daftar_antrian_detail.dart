@@ -68,20 +68,21 @@ class _DaftarAntrianDetailState extends State<DaftarAntrianDetail> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
                 Text(
-                  '001',
+                  widget.antrianModel.no,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 100),
                 ),
                 Text(
                   'Nama Narapidana',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
-                Text('Tes Bin Nama Ayah'),
+                Text(
+                    '${widget.antrianModel.pengunjung.namaWbp} Bin ${widget.antrianModel.pengunjung.namaAyah}'),
                 SizedBox(height: 10),
                 Text(
                   'Nama Pengunjung',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
-                Text('John Doe'),
+                Text(widget.antrianModel.pengunjung.nama),
                 SizedBox(height: 20),
                 Text(
                     'Dimohon Membawa Kartu Identitas atau Fotocopy Kartu Identitas'),
