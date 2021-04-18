@@ -92,6 +92,8 @@ class LayananPengaduanModel {
       return FontAwesomeIcons.whatsapp;
     } else if (icon.contains('phone')) {
       return FontAwesomeIcons.phoneAlt;
+    } else if (icon.contains('instagram')) {
+      return FontAwesomeIcons.instagramSquare;
     }
     return FontAwesomeIcons.fileAlt;
   }

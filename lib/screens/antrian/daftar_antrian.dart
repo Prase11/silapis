@@ -1,50 +1,48 @@
 import 'package:flutter/material.dart';
-import 'package:silapis/models/model.dart';
-import 'package:silapis/repository/silaki.dart';
-import 'package:silapis/utils/logger.dart';
+import 'package:provider/provider.dart';
+import 'package:silapis/states/state_antrian.dart';
 import 'package:silapis/widgets/widget.dart';
 
-class DaftarAntrian extends StatefulWidget {
+class DaftarAntrian extends StatelessWidget {
   DaftarAntrian({Key key}) : super(key: key);
 
   @override
-  _DaftarAntrianState createState() => _DaftarAntrianState();
-}
-
-class _DaftarAntrianState extends State<DaftarAntrian> {
-  AntrianListModel antrianList;
-
-  Future getData() async {
-    final data = await SilakiRepository.getAntrian();
-    if (data.code == CODE.SUCCESS) {
-      antrianList = AntrianListModel.fromJson(data.data);
-      setState(() {});
-      UtilLogger.log('DATA', antrianList.list.map((e) => e.toJson()));
-    }
-  }
-
-  @override
-  void initState() {
-    getData();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    AntrianState antrianState =
+        Provider.of<AntrianState>(context, listen: true);
+
     return Scaffold(
       appBar: AppCustomAppBar.defaultAppBar(
         leading: BackButton(),
         title: 'Daftar Antrian Anda',
         context: context,
       ),
-      body: antrianList == null
-          ? _loading()
-          : ListView(
-              children: antrianList.list
-                  .map((antrian) => AppAntrianCard(antrian))
-                  .toList(),
-            ),
+      body: SafeArea(
+        child: RefreshIndicator(
+            onRefresh: antrianState.refreshData,
+            child: _buildContent(antrianState)),
+      ),
     );
+  }
+
+  Widget _buildContent(AntrianState antrianState) {
+    if (antrianState.error != null) {
+      return AppError(
+        title: antrianState.error['title'].toString(),
+        message: antrianState.error['content'].toString(),
+        image: antrianState.error['image'],
+        onPress: () => antrianState.refreshData(),
+        btnRefreshLoading: false,
+      );
+    } else if (antrianState.antrianList != null) {
+      return ListView(
+        children: antrianState.antrianList.list
+            .map((antrian) => AppAntrianCard(antrian))
+            .toList(),
+      );
+    } else {
+      return _loading();
+    }
   }
 
   Widget _loading() {

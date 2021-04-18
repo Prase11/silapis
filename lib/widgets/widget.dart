@@ -14,3 +14,4 @@ export 'app_announcement.dart';
 export 'app_rounded_button.dart';
 export 'app_text_list.dart';
 export 'app_my_info_dialog.dart';
+export 'app_on_boarding.dart';

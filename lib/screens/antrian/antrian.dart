@@ -5,6 +5,8 @@ import 'package:silapis/repository/silaki.dart';
 import 'package:silapis/utils/utils.dart';
 import 'package:silapis/widgets/app_custom_appbar.dart';
 import 'package:silapis/widgets/widget.dart';
+import 'package:provider/provider.dart';
+import 'package:silapis/states/state_antrian.dart';
 
 class Antrian extends StatefulWidget {
   Antrian({Key key}) : super(key: key);
@@ -31,6 +33,9 @@ class _AntrianState extends State<Antrian> {
   };
 
   Future<void> onSubmit() async {
+    AntrianState antrianState =
+        Provider.of<AntrianState>(context, listen: false);
+
     setState(() {
       _loading = true;
     });
@@ -49,12 +54,20 @@ class _AntrianState extends State<Antrian> {
       appMyInfoDialog(
           context: context,
           title: 'Sukses',
-          message: 'Antrian berhasil dilakukan',
-          onTapText: 'Mengerti',
+          message: apiModel.message ?? 'Antrian berhasil dilakukan',
+          onTapText: 'Lihat Antrian',
           onTap: () {
             Navigator.pop(context, true);
             Navigator.pop(context, true);
+            antrianState.refreshData();
           });
+    } else {
+      appMyInfoDialog(
+        context: context,
+        title: 'Informasi',
+        image: Images.Monitor,
+        message: apiModel.message,
+      );
     }
 
     setState(() {

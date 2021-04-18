@@ -4,14 +4,16 @@ import 'package:silapis/models/model.dart';
 import 'package:silapis/utils/utils.dart';
 import 'package:silapis/configs/config.dart';
 
-const String ErrorInternalTitle = 'error_internal_server';
-const String ErrorApplicationTitle = 'application_error';
-const String ErrorFormat = 'format_exception';
-const String ErrorHttp = 'network_error';
-const String Error404 = 'page_not_found';
-const String Error500 = 'was_error_the_server';
+const String ErrorInternalTitle = 'Server Error';
+const String ErrorApplicationTitle = 'Aplikasi Error';
+const String ErrorFormat = 'Format Server Tidak Valid';
+const String ErrorHttp =
+    'Tidak terhubung ke jaringan, coba hidupkan internet / wifi anda';
+const String Error404 = 'Halaman Tidak Ditemukan';
+const String Error500 = 'Server Error 500';
 const String Error401 = 'redirect';
-const String ErrorSocket = 'cant_connect_server';
+const String ErrorSocket =
+    'Tidak terhubung ke jaringan, coba hidupkan internet / wifi anda';
 
 const String Warning = 'assets/svg/warning.svg';
 

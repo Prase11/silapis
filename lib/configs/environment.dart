@@ -7,7 +7,7 @@ class Environment {
   static const int VERSION_CODE = 1;
 
   // PRIMARY CONFIGS
-  static String apiUrl = 'http://192.168.43.247:8080/api';
+  static String apiUrl = 'https://lapasnarkotikakalsel.com/public/api';
   static String apiKey = '1611016210001';
   static String apiId = 'SILAKI';
   static int apiTimeout = 10;
