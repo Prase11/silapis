@@ -35,53 +35,65 @@ class AppPersonCard extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
           onTap: onTap,
-          child: Container(
-            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-            child: Row(
-              children: [
-                Container(
-                  width: 100,
-                  height: 100,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(6),
-                    ),
-                    child: CachedNetworkImage(
-                      imageUrl: pegawai.foto,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                SizedBox(width: 20),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 8),
-                      Text(pegawai.nama,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20)),
-                      Text(pegawai.nik,
-                          style:
-                              TextStyle(fontSize: 13, color: Colors.grey[700])),
-                      Text(pegawai.nik,
-                          style:
-                              TextStyle(fontSize: 13, color: Colors.grey[700])),
-                      Text(pegawai.jk,
-                          style:
-                              TextStyle(fontSize: 13, color: Colors.grey[700])),
-                      SizedBox(height: 5),
-                      Text(
-                        pegawai.status,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
+          child: Stack(
+            children: [
+              Positioned(
+                  bottom: 20,
+                  right: 20,
+                  child: Icon(
+                    FontAwesomeIcons.idCardAlt,
+                    size: 40,
+                    color: Colors.grey[200],
+                  )),
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 100,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(6),
+                        ),
+                        child: CachedNetworkImage(
+                          imageUrl: pegawai.foto,
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                    SizedBox(width: 20),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 8),
+                          Text(pegawai.nama,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20)),
+                          Text(pegawai.nik,
+                              style: TextStyle(
+                                  fontSize: 13, color: Colors.grey[700])),
+                          Text(pegawai.nik,
+                              style: TextStyle(
+                                  fontSize: 13, color: Colors.grey[700])),
+                          Text(pegawai.jk,
+                              style: TextStyle(
+                                  fontSize: 13, color: Colors.grey[700])),
+                          SizedBox(height: 5),
+                          Text(
+                            pegawai.status,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

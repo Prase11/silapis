@@ -31,7 +31,7 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.dark));
+        statusBarIconBrightness: Theme.of(context).primaryColorBrightness));
 
     return MaterialApp(
       title: Environment.APP_NAME,

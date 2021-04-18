@@ -40,8 +40,12 @@ class _PhotoPreviewState extends State<PhotoPreview> {
   ///Build Item
   PhotoViewGalleryPageOptions _buildItem(BuildContext context, int index) {
     final ImageModel item = widget.galleryList[index];
+    bool isHttp = item.image.contains('http');
+
     return PhotoViewGalleryPageOptions(
-      imageProvider: new CachedNetworkImageProvider(item.image),
+      imageProvider: isHttp
+          ? new CachedNetworkImageProvider(item.image)
+          : AssetImage(item.image),
       initialScale: PhotoViewComputedScale.contained,
       minScale: PhotoViewComputedScale.contained,
       maxScale: PhotoViewComputedScale.covered * 1.1,

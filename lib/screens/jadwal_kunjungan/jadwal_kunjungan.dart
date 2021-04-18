@@ -13,10 +13,13 @@ class JadwalKunjungan extends StatefulWidget {
   _JadwalKunjunganState createState() => _JadwalKunjunganState();
 }
 
-class _JadwalKunjunganState extends State<JadwalKunjungan> {
+class _JadwalKunjunganState extends State<JadwalKunjungan>
+    with TickerProviderStateMixin {
   AntrianListModel antrianList;
   JadwalUmumListModel jadwalUmumList;
   JadwalKhususListModel jadwalKhususList;
+
+  TabController _tabController;
 
   Future getData() async {
     final _jadwalUmum = await SilakiRepository.jadwalUmum();
@@ -32,7 +35,15 @@ class _JadwalKunjunganState extends State<JadwalKunjungan> {
   @override
   void initState() {
     getData();
+
+    _tabController = new TabController(vsync: this, length: 2);
+    _tabController.addListener(_handleTabSelection);
+
     super.initState();
+  }
+
+  void _handleTabSelection() {
+    setState(() {});
   }
 
   List _loading() {
@@ -51,6 +62,24 @@ class _JadwalKunjunganState extends State<JadwalKunjungan> {
           title: 'Jadwal Kunjungan',
           context: context,
           bottom: TabBar(
+            // controller: _tabController,
+            // isScrollable: true,
+            // indicatorColor: Theme.of(context).primaryColor,
+            // labelColor: Theme.of(context).primaryColor,
+            // unselectedLabelColor: Colors.grey,
+            // indicatorSize: TabBarIndicatorSize.label,
+            // indicator: BoxDecoration(
+            //   border: Border(
+            //     top: BorderSide(style: BorderStyle.none),
+            //     bottom: BorderSide(
+            //         color: Theme.of(context).primaryColor,
+            //         width: 3,
+            //         style: BorderStyle.solid),
+            //     left: BorderSide(style: BorderStyle.none),
+            //     right: BorderSide(style: BorderStyle.none),
+            //   ),
+            //   color: Colors.transparent,
+            // ),
             tabs: [
               Tab(
                 icon: Row(
@@ -109,6 +138,7 @@ class _JadwalKunjunganState extends State<JadwalKunjungan> {
           ? _loading()
           : [
               Wrap(
+                alignment: WrapAlignment.start,
                 children: jadwalUmumList.list
                     .map((jadwal) => AppJadwalUmum(jadwal))
                     .toList(),

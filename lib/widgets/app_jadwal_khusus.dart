@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:silapis/configs/config.dart';
 import 'package:silapis/models/model.dart';
@@ -33,8 +34,16 @@ class AppJadwalKhusus extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           // border: Border.all(color: Colors.grey, width: 0.2),
         ),
-        child: Column(
+        child: Stack(
           children: <Widget>[
+            Positioned(
+                bottom: 20,
+                right: 5,
+                child: Icon(
+                  FontAwesome.calendar,
+                  size: 40,
+                  color: Colors.grey[200],
+                )),
             Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: Dimens.padding, vertical: Dimens.padding),

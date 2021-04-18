@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:silapis/configs/config.dart';
 import 'package:silapis/models/model.dart';
@@ -25,7 +26,7 @@ class AppJadwalUmum extends StatelessWidget {
 
     return Container(
         width: MediaQuery.of(context).size.width / 2.3,
-        margin: const EdgeInsets.only(top: 7, bottom: 7, right: 10),
+        margin: const EdgeInsets.symmetric(vertical: 7, horizontal: 5),
         decoration: BoxDecoration(
           color: Theme.of(context).brightness == Brightness.dark
               ? Theme.of(context).cardColor.withOpacity(1)
@@ -33,8 +34,17 @@ class AppJadwalUmum extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           // border: Border.all(color: Colors.grey, width: 0.2),
         ),
-        child: Column(
+        child: Stack(
           children: <Widget>[
+            // BACKGROUND IMAGE
+            Positioned(
+                bottom: 20,
+                right: 5,
+                child: Icon(
+                  FontAwesome.calendar,
+                  size: 40,
+                  color: Colors.grey[200],
+                )),
             Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: Dimens.padding, vertical: Dimens.padding),

@@ -34,45 +34,48 @@ class AppMenuBox extends StatelessWidget {
     }
 
     return Container(
-      width: 110,
-      height: 110,
-      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      width: 80,
+      height: 100,
+      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         // color: Colors.grey[100],
       ),
-      child: Material(
-        color: Colors.blue.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(10),
-        child: InkWell(
+      child: Column(children: [
+        Material(
+          color: Colors.grey[100],
           borderRadius: BorderRadius.circular(10),
-          onTap: onTap,
-          child: Container(
-            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                LinearGradientMask(
-                  child: Icon(
-                    icons,
-                    color: color,
-                    size: 30,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(10),
+            onTap: onTap,
+            child: Container(
+              height: 50,
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  LinearGradientMask(
+                    child: Icon(
+                      icons,
+                      color: color,
+                      size: 30,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  name,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
-      ),
+        SizedBox(
+          height: 10,
+        ),
+        Text(
+          name,
+          textAlign: TextAlign.center,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+      ]),
     );
   }
 
@@ -160,10 +163,15 @@ class LinearGradientMask extends StatelessWidget {
     return ShaderMask(
       shaderCallback: (bounds) {
         return RadialGradient(
-          center: Alignment.topLeft,
-          radius: 1,
-          colors: [Theme.of(context).primaryColor, Colors.white],
-          tileMode: TileMode.repeated,
+          center: Alignment.center,
+          radius: 3,
+          colors: [
+            Colors.white,
+            Theme.of(context).primaryColor,
+            Colors.white,
+            Theme.of(context).primaryColor,
+          ],
+          tileMode: TileMode.mirror,
         ).createShader(bounds);
       },
       child: child,

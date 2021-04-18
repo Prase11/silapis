@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:silapis/configs/config.dart';
 import 'package:silapis/utils/utils.dart';
+import 'package:silapis/widgets/widget.dart';
 
 extension HexColor on Color {
   /// String is in the format "aabbcc" or "ffaabbcc" with an optional leading "#".
@@ -34,7 +35,10 @@ class SocialMediaState extends State<SocialMedia> {
       margin: EdgeInsets.symmetric(vertical: Dimens.padding),
       child: Column(
         children: [
-          Text('Follow Juga Sosial Media Kami'),
+          Text(
+            'Follow Juga Sosial Media Kami',
+            style: TextStyle(color: Colors.grey[600]),
+          ),
           SizedBox(
             height: 10,
           ),
@@ -91,22 +95,23 @@ class SocialMediaState extends State<SocialMedia> {
     final Color color = HexColor.fromHex(hexColor);
 
     return InkWell(
-      onTap: () {
-        launchExternal(link);
-      },
-      child: Container(
-        margin: EdgeInsets.all(5),
-        height: 40,
-        width: 40,
-        // child: Image.asset(Images.Logo),
-        child: Container(
-          decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.circular(10),
+        onTap: () {
+          launchExternal(link);
+        },
+        child: LinearGradientMask(
+          child: Container(
+            margin: EdgeInsets.all(5),
+            height: 40,
+            width: 40,
+            // child: Image.asset(Images.Logo),
+            child: Container(
+              decoration: BoxDecoration(
+                color: color,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Icon(icons, color: Colors.white),
+            ),
           ),
-          child: Icon(icons, color: Colors.white),
-        ),
-      ),
-    );
+        ));
   }
 }
