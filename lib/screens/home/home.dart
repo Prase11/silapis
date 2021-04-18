@@ -1,12 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:silapis/configs/config.dart';
 import 'package:silapis/models/model_location.dart';
 import 'package:silapis/widgets/widget.dart';
 import 'component/social_media.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
 class Home extends StatefulWidget {
   Home({Key key}) : super(key: key);
@@ -23,9 +22,22 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final images = [
-      'https://dailyspin.id/wp-content/uploads/2021/03/Acil-Lemon-1.jpg',
-      'https://dailyspin.id/wp-content/uploads/2020/08/MPL-S6-3.jpg',
-      'https://dailyspin.id/wp-content/uploads/2020/06/razer-phone-game-booster-hero.jpg',
+      'assets/images/1.jpeg',
+      'assets/images/2.jpeg',
+      'assets/images/3.jpeg',
+      'assets/images/4.jpeg',
+      'assets/images/5.jpeg',
+      'assets/images/6.jpeg',
+      'assets/images/7.jpeg',
+      'assets/images/8.jpeg',
+      'assets/images/9.jpeg',
+      'assets/images/10.jpeg',
+      'assets/images/11.jpeg',
+      'assets/images/12.jpeg',
+      'assets/images/13.jpeg',
+      'assets/images/14.jpeg',
+      'assets/images/15.jpeg',
+      'assets/images/16.jpeg',
     ];
 
     return Scaffold(
@@ -61,7 +73,7 @@ class _HomeState extends State<Home> {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 21,
+                      fontSize: 18,
                     ),
                   ),
                   Text(
@@ -69,7 +81,7 @@ class _HomeState extends State<Home> {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 21,
+                      fontSize: 18,
                     ),
                   ),
                   SizedBox(height: 3),
@@ -99,12 +111,15 @@ class _HomeState extends State<Home> {
                     child: Container(
                       // margin: EdgeInsets.only(bottom: 25),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: CachedNetworkImage(
-                          fit: BoxFit.cover,
-                          imageUrl: images[index],
-                        ),
-                      ),
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.asset(
+                            images[index],
+                            fit: BoxFit.cover,
+                          )),
+                      //   child: CachedNetworkImage(
+                      //   fit: BoxFit.cover,
+                      //   imageUrl: images[index],
+                      // ),
                     ),
                   );
                 },
@@ -133,10 +148,8 @@ class _HomeState extends State<Home> {
                     children: <Widget>[
                       Text(
                         'Menu',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline6
-                            .copyWith(fontWeight: FontWeight.w600),
+                        style: Theme.of(context).textTheme.headline6.copyWith(
+                            fontWeight: FontWeight.w600, fontSize: 25),
                       ),
                     ],
                   ),
@@ -160,12 +173,19 @@ class _HomeState extends State<Home> {
                     viewType: isGrid ? ViewType.GRID : ViewType.LIST,
                     name: 'Antrian Online',
                     icons: FontAwesomeIcons.bookReader,
-                    color: Colors.grey,
-                    route: Routes.antrianOnline,
+                    color: Theme.of(context).primaryColor,
                     backgroundImage:
                         'https://mcdn.wallpapersafari.com/medium/71/29/1PCyiH.jpg',
                     keterangan:
                         'Menu antrian online, disediakan untuk membuat antrian secara online yang dapat di akses dari manapun dan kapanpun.',
+                    onTap: () async {
+                      final status = await Navigator.pushNamed(
+                          context, Routes.antrianOnline);
+
+                      if (status != null) {
+                        Navigator.pushNamed(context, Routes.daftarAntrian);
+                      }
+                    },
                   ),
                   AppMenuBox(
                     backgroundImage:
@@ -175,8 +195,10 @@ class _HomeState extends State<Home> {
                     viewType: isGrid ? ViewType.GRID : ViewType.LIST,
                     name: 'Daftar Antrian',
                     icons: FontAwesomeIcons.bookOpen,
-                    color: Colors.grey,
-                    route: Routes.daftarAntrian,
+                    color: Theme.of(context).primaryColor,
+                    onTap: () {
+                      Navigator.pushNamed(context, Routes.daftarAntrian);
+                    },
                   ),
                   AppMenuBox(
                     backgroundImage:
@@ -185,10 +207,12 @@ class _HomeState extends State<Home> {
                     viewType: isGrid ? ViewType.GRID : ViewType.LIST,
                     name: 'Lokasi Lapas',
                     icons: FontAwesomeIcons.searchLocation,
-                    color: Colors.red[300],
-                    route: Routes.location,
-                    args:
-                        LocationModel(1, 'Lokasi Lapas', -3.0299249, 115.45091),
+                    color: Theme.of(context).primaryColor,
+                    onTap: () {
+                      Navigator.pushNamed(context, Routes.location,
+                          arguments: LocationModel(
+                              1, 'Lokasi Lapas', -3.0299249, 115.45091));
+                    },
                   ),
                   AppMenuBox(
                     backgroundImage:
@@ -197,7 +221,7 @@ class _HomeState extends State<Home> {
                     viewType: isGrid ? ViewType.GRID : ViewType.LIST,
                     name: 'Data SDP',
                     icons: FontAwesomeIcons.bookReader,
-                    color: Colors.green,
+                    color: Theme.of(context).primaryColor,
                   ),
                   AppMenuBox(
                     backgroundImage:
@@ -207,8 +231,13 @@ class _HomeState extends State<Home> {
                     viewType: isGrid ? ViewType.GRID : ViewType.LIST,
                     name: 'Jadwal Kunjungan',
                     icons: FontAwesomeIcons.calendar,
-                    color: Colors.purple,
-                    route: Routes.jadwalKunjungan,
+                    color: Theme.of(context).primaryColor,
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        Routes.jadwalKunjungan,
+                      );
+                    },
                   ),
                   AppMenuBox(
                     backgroundImage:
@@ -218,8 +247,13 @@ class _HomeState extends State<Home> {
                     viewType: isGrid ? ViewType.GRID : ViewType.LIST,
                     name: 'Pengajuan Integrasi',
                     icons: FontAwesomeIcons.table,
-                    color: Colors.purple,
-                    route: Routes.pengajuanIntegrasi,
+                    color: Theme.of(context).primaryColor,
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        Routes.pengajuanIntegrasi,
+                      );
+                    },
                   ),
                   AppMenuBox(
                     backgroundImage:
@@ -228,8 +262,13 @@ class _HomeState extends State<Home> {
                     viewType: isGrid ? ViewType.GRID : ViewType.LIST,
                     name: 'Berita Terbaru',
                     icons: FontAwesomeIcons.newspaper,
-                    route: Routes.news,
-                    color: Colors.blueAccent,
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        Routes.news,
+                      );
+                    },
+                    color: Theme.of(context).primaryColor,
                   ),
                   AppMenuBox(
                     backgroundImage:
@@ -238,8 +277,13 @@ class _HomeState extends State<Home> {
                     viewType: isGrid ? ViewType.GRID : ViewType.LIST,
                     name: 'Struktur',
                     icons: FontAwesomeIcons.codeBranch,
-                    route: Routes.strukturOrganisasi,
-                    color: Colors.orange,
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        Routes.strukturOrganisasi,
+                      );
+                    },
+                    color: Theme.of(context).primaryColor,
                   ),
                   AppMenuBox(
                     backgroundImage:
@@ -249,8 +293,13 @@ class _HomeState extends State<Home> {
                     viewType: isGrid ? ViewType.GRID : ViewType.LIST,
                     name: 'Layanan Pengaduan',
                     icons: FontAwesomeIcons.personBooth,
-                    color: Colors.blueGrey,
-                    route: Routes.layananPengaduan,
+                    color: Theme.of(context).primaryColor,
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        Routes.layananPengaduan,
+                      );
+                    },
                   ),
                 ],
               ),

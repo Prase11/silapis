@@ -56,7 +56,13 @@ class AppRadioInput extends StatelessWidget {
               height: 32,
               child: FilterChip(
                 selected: selected,
-                label: Text(item),
+                label: Text(
+                  item,
+                  style:
+                      TextStyle(color: selected ? Colors.white : Colors.black),
+                ),
+                selectedColor: Theme.of(context).primaryColor,
+                checkmarkColor: selected ? Colors.white : Colors.black,
                 onSelected: (value) {
                   onChanged(item);
                 },

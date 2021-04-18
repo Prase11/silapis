@@ -37,7 +37,7 @@ class _AppState extends State<App> {
       title: Environment.APP_NAME,
       theme: ThemeData(
           scaffoldBackgroundColor: Colors.white,
-          primarySwatch: Colors.blue,
+          primaryColor: Color(0xFF2979FF),
           visualDensity: VisualDensity.adaptivePlatformDensity,
           fontFamily: 'SourceSansPro'),
       onGenerateRoute: route.generateRoute,

@@ -1,5 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:silapis/models/model.dart';
+import 'package:silapis/repository/silaki.dart';
+import 'package:silapis/utils/utils.dart';
 import 'package:silapis/widgets/widget.dart';
 import 'package:silapis/configs/config.dart';
 
@@ -37,27 +40,54 @@ class _NewsState extends State<News> {
     }
   ];
 
+  BeritaListModel beritaList;
+
+  Future getData() async {
+    final _berita = await SilakiRepository.getBerita();
+    if (_berita.code == CODE.SUCCESS) {
+      beritaList = BeritaListModel.fromJson(_berita.data);
+      // UtilLogger.log('DATA', beritaList.list.map((e) => e.toJson()));
+      setState(() {});
+    }
+  }
+
+  List _loading() {
+    return List.generate(4, (index) => index)
+        .map((antrian) => AppNewsContent())
+        .toList();
+  }
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppCustomAppBar.defaultAppBar(
         leading: BackButton(),
-        title: widget.title ?? 'BERITA',
+        title: 'Berita',
         context: context,
       ),
       body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 0),
-        children: news
-            .map((e) => AppNewsContent(
-                  judul: e['judul'],
-                  tanggal: e['tanggal'],
-                  onTap: () {
-                    Navigator.pushNamed(context, Routes.newsDetail,
-                        arguments: e);
-                  },
-                  image: e['image'],
-                ))
-            .toList(),
+        padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+        children: beritaList == null
+            ? _loading()
+            : beritaList.list
+                .map((berita) => Container(
+                    width: double.infinity,
+                    // margin: EdgeInsets.symmetric(vertical: 10, horizontal: 3),
+                    child: AppNewsContent(
+                        judul: berita.judul,
+                        tanggal: berita.tanggal,
+                        onTap: () {
+                          Navigator.pushNamed(context, Routes.newsDetail,
+                              arguments: berita);
+                        },
+                        image: berita.gambar)))
+                .toList(),
       ),
     );
   }

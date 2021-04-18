@@ -37,10 +37,10 @@ class Routes {
         );
 
       case newsDetail:
-        final args = settings.arguments;
+        BeritaModel args = settings.arguments;
         return CustomRoutes(
           page: NewsDetail(
-            data: args,
+            berita: args,
           ),
           fullscreenDialog: true,
         );

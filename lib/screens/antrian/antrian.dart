@@ -45,7 +45,17 @@ class _AntrianState extends State<Antrian> {
     UtilLogger.log('POST ANTRIAN', apiModel.toJson());
     if (apiModel.code == CODE.VALIDATE) {
       serverValidate(apiModel.message);
-    } else {}
+    } else if (apiModel.code == CODE.SUCCESS) {
+      appMyInfoDialog(
+          context: context,
+          title: 'Sukses',
+          message: 'Antrian berhasil dilakukan',
+          onTapText: 'Mengerti',
+          onTap: () {
+            Navigator.pop(context, true);
+            Navigator.pop(context, true);
+          });
+    }
 
     setState(() {
       _loading = false;
@@ -96,77 +106,77 @@ class _AntrianState extends State<Antrian> {
                     'Dikarenakan adanya COVID-19 maka kunjungan ditiadakan, harap lakukan penitipan',
                 context: context,
                 date: '')
-          ],
-
-          ///NIK
-          AppTextInput(
-            title: 'NIK',
-            hintText: 'Nomor Induk Keluarga',
-            errorText: _validate['nik'] ?? '',
-            onTapIcon: () async {
-              _nik.clear();
-            },
-            textInputAction: TextInputAction.next,
-            onChanged: (text) {},
-            icon: Icon(Icons.clear),
-            controller: _nik,
-          ),
-
-          ///Nama Pengunjung
-          AppTextInput(
-            title: 'Nama Pengunjung',
-            hintText: 'Nama Pengunjung',
-            errorText: _validate['nama'] ?? '',
-            onTapIcon: () async {
-              _namaPengunjung.clear();
-            },
-            textInputAction: TextInputAction.next,
-            onChanged: (text) {},
-            icon: Icon(Icons.clear),
-            controller: _namaPengunjung,
-          ),
-
-          SizedBox(height: 20),
-          Text(
-            'Detail Warga Binaan',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-          ),
-
-          ///NIK
-          AppTextInput(
-              title: 'Nama WBP',
-              hintText: 'Nama Warga Binaan Permasyarakatan',
-              errorText: _validate['namaWbp'] ?? '',
+          ] else ...[
+            ///NIK
+            AppTextInput(
+              title: 'NIK',
+              hintText: 'Nomor Induk Keluarga',
+              errorText: _validate['nik'] ?? '',
               onTapIcon: () async {
-                _namaWbp.clear();
+                _nik.clear();
               },
               textInputAction: TextInputAction.next,
               onChanged: (text) {},
               icon: Icon(Icons.clear),
-              controller: _namaWbp),
+              controller: _nik,
+            ),
 
-          ///Nama Pengunjung
-          AppTextInput(
-            title: 'Bin',
-            hintText: 'Nama Ayah',
-            errorText: _validate['namaAyah'] ?? '',
-            onTapIcon: () async {
-              _bin.clear();
-            },
-            textInputAction: TextInputAction.next,
-            onChanged: (text) {},
-            icon: Icon(Icons.clear),
-            controller: _bin,
-          ),
+            ///Nama Pengunjung
+            AppTextInput(
+              title: 'Nama Pengunjung',
+              hintText: 'Nama Pengunjung',
+              errorText: _validate['nama'] ?? '',
+              onTapIcon: () async {
+                _namaPengunjung.clear();
+              },
+              textInputAction: TextInputAction.next,
+              onChanged: (text) {},
+              icon: Icon(Icons.clear),
+              controller: _namaPengunjung,
+            ),
 
-          SizedBox(height: 20),
-          // BUTTON
-          AppMyButton(
-            loading: _loading,
-            icon: Icons.save,
-            text: 'Proses Antrian',
-            onPress: onSubmit,
-          ),
+            SizedBox(height: 20),
+            Text(
+              'Detail Warga Binaan',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
+
+            ///NIK
+            AppTextInput(
+                title: 'Nama WBP',
+                hintText: 'Nama Warga Binaan Permasyarakatan',
+                errorText: _validate['namaWbp'] ?? '',
+                onTapIcon: () async {
+                  _namaWbp.clear();
+                },
+                textInputAction: TextInputAction.next,
+                onChanged: (text) {},
+                icon: Icon(Icons.clear),
+                controller: _namaWbp),
+
+            ///Nama Pengunjung
+            AppTextInput(
+              title: 'Bin',
+              hintText: 'Nama Ayah',
+              errorText: _validate['namaAyah'] ?? '',
+              onTapIcon: () async {
+                _bin.clear();
+              },
+              textInputAction: TextInputAction.next,
+              onChanged: (text) {},
+              icon: Icon(Icons.clear),
+              controller: _bin,
+            ),
+
+            SizedBox(height: 20),
+            // BUTTON
+            AppMyButton(
+              loading: _loading,
+              icon: Icons.save,
+              text: 'Proses Antrian',
+              onPress: onSubmit,
+            ),
+          ]
           // OutlineButton(
           //     child: Padding(
           //       padding: EdgeInsets.all(15),

@@ -27,10 +27,13 @@ class AppAntrianCard extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 10, horizontal: Dimens.padding),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Colors.grey[100],
+        // color: Colors.grey[100],
+        color: Colors.blue.withOpacity(0.1),
       ),
       child: Material(
-        color: Colors.grey[100],
+        // color: Colors.grey[100],
+        color: Colors.blue.withOpacity(0.1),
+
         borderRadius: BorderRadius.circular(10),
         child: InkWell(
           borderRadius: BorderRadius.circular(10),

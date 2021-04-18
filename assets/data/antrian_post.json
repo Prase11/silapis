@@ -1,5 +1,5 @@
 {
-    "code": 400,
+    "code": 200,
     "message": {
         "nik": "The NIK field is required.",
         "jenis": "The Jenis field is required.",

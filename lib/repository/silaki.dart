@@ -46,6 +46,12 @@ class SilakiRepository {
     return ApiModel.fromJson(result);
   }
 
+  static Future<ApiModel> getBerita() async {
+    await Future.delayed(Duration(seconds: 1));
+    final result = await UtilAsset.loadJson("assets/data/berita.json");
+    return ApiModel.fromJson(result);
+  }
+
   //Singleton factory
   static final SilakiRepository _instance = SilakiRepository._internal();
 

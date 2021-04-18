@@ -7,20 +7,22 @@ enum ViewType { GRID, LIST }
 class AppMenuBox extends StatelessWidget {
   final IconData icons;
   final Color color;
-  final String route;
+  // final String route;
   final String name;
   final String backgroundImage;
   final String keterangan;
-  final dynamic args;
+  // final dynamic args;
   final ViewType viewType;
+  final Function onTap;
   const AppMenuBox(
       {Key key,
       this.color,
       this.icons,
       this.name,
-      this.route,
-      this.args,
+      // this.route,
+      // this.args,
       this.backgroundImage,
+      this.onTap,
       this.keterangan = '',
       this.viewType = ViewType.LIST})
       : super(key: key);
@@ -37,28 +39,26 @@ class AppMenuBox extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Colors.grey[100],
+        // color: Colors.grey[100],
       ),
       child: Material(
-        color: Colors.grey[100],
+        color: Colors.blue.withOpacity(0.1),
         borderRadius: BorderRadius.circular(10),
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
-          onTap: () {
-            if (route != null) {
-              Navigator.pushNamed(context, route, arguments: args);
-            }
-          },
+          onTap: onTap,
           child: Container(
             padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Icon(
-                  icons,
-                  color: color,
-                  size: 30,
+                LinearGradientMask(
+                  child: Icon(
+                    icons,
+                    color: color,
+                    size: 30,
+                  ),
                 ),
                 SizedBox(
                   height: 10,
@@ -66,6 +66,7 @@ class AppMenuBox extends StatelessWidget {
                 Text(
                   name,
                   textAlign: TextAlign.center,
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -91,11 +92,7 @@ class AppMenuBox extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
-          onTap: () {
-            if (route != null) {
-              Navigator.pushNamed(context, route, arguments: args);
-            }
-          },
+          onTap: onTap,
           child: Stack(
             children: [
               Container(
@@ -150,6 +147,26 @@ class AppMenuBox extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class LinearGradientMask extends StatelessWidget {
+  LinearGradientMask({this.child});
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return ShaderMask(
+      shaderCallback: (bounds) {
+        return RadialGradient(
+          center: Alignment.topLeft,
+          radius: 1,
+          colors: [Theme.of(context).primaryColor, Colors.white],
+          tileMode: TileMode.repeated,
+        ).createShader(bounds);
+      },
+      child: child,
     );
   }
 }
