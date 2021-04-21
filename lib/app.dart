@@ -43,21 +43,26 @@ class _AppState extends State<App> {
         ChangeNotifierProvider(create: (_) => JadwalKhususState()),
         ChangeNotifierProvider(create: (_) => NapiState()),
       ],
-      child: MaterialApp(
-        title: Environment.APP_NAME,
-        theme: ThemeData(
-            scaffoldBackgroundColor: Colors.white,
-            primaryColor: Color(0xFF2979FF),
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-            fontFamily: 'SourceSansPro'),
-        onGenerateRoute: route.generateRoute,
-        localizationsDelegates: [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
-        home: WillPopScope(
-          child: isSplash ? SplashScreen() : Home(),
-          onWillPop: onWillPop,
+      child: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(new FocusNode());
+        },
+        child: MaterialApp(
+          title: Environment.APP_NAME,
+          theme: ThemeData(
+              scaffoldBackgroundColor: Colors.white,
+              primaryColor: Color(0xFF2979FF),
+              visualDensity: VisualDensity.adaptivePlatformDensity,
+              fontFamily: 'SourceSansPro'),
+          onGenerateRoute: route.generateRoute,
+          localizationsDelegates: [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          home: WillPopScope(
+            child: isSplash ? SplashScreen() : Home(),
+            onWillPop: onWillPop,
+          ),
         ),
       ),
     );

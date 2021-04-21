@@ -35,11 +35,20 @@ class DaftarAntrian extends StatelessWidget {
         onPress: () => antrianState.refreshData(),
         btnRefreshLoading: false,
       );
-    } else if (antrianState.antrianList?.list == []) {
-      return AppInfo(
-        title: 'Antrian Kosong',
-        message: 'Tidak ada antrian pada hari ini',
-        image: Images.Empty,
+    } else if (antrianState.antrianList == null) {
+      return _loading();
+    } else if (antrianState.isEmpty) {
+      return Center(
+        child: ListView(
+          shrinkWrap: true,
+          children: [
+            AppInfo(
+              title: 'Antrian Kosong',
+              message: 'Tidak ada antrian pada hari ini',
+              image: Images.Empty,
+            )
+          ],
+        ),
       );
     } else if (antrianState.antrianList != null) {
       return ListView(
@@ -47,8 +56,6 @@ class DaftarAntrian extends StatelessWidget {
             .map((antrian) => AppAntrianCard(antrian))
             .toList(),
       );
-    } else {
-      return _loading();
     }
   }
 

@@ -6,6 +6,7 @@ import 'package:silapis/utils/logger.dart';
 class AntrianState with ChangeNotifier, DiagnosticableTreeMixin {
   AntrianListModel antrianList;
   Map<String, dynamic> error;
+  bool isEmpty = false;
 
   AntrianState() {
     initData();
@@ -13,8 +14,11 @@ class AntrianState with ChangeNotifier, DiagnosticableTreeMixin {
 
   Future<void> initData() async {
     final data = await SilakiRepository.getAntrian();
+
+    isEmpty = false;
     if (data.code == CODE.SUCCESS) {
       antrianList = AntrianListModel.fromJson(data.data);
+      isEmpty = antrianList.list.length == 0;
       notifyListeners();
       UtilLogger.log('DATA', antrianList.list.map((e) => e.toJson()));
     } else {

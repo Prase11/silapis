@@ -7,9 +7,15 @@ class NapiState with ChangeNotifier, DiagnosticableTreeMixin {
   NapiListModel napiList;
   Map<String, dynamic> error;
   bool isLoading = false;
+  bool isEmpty = false;
 
   void setLoading(bool loading) {
     isLoading = loading;
+    notifyListeners();
+  }
+
+  void setEmpty(bool empty) {
+    isEmpty = empty;
     notifyListeners();
   }
 
@@ -21,12 +27,14 @@ class NapiState with ChangeNotifier, DiagnosticableTreeMixin {
     }
 
     setLoading(true);
+    setEmpty(false);
     final data = await SilakiRepository.getNapi(napiNama);
     if (data.code == CODE.SUCCESS) {
       napiList = NapiListModel.fromJson(data.data);
 
+      setEmpty(napiList.list.length == 0);
+
       notifyListeners();
-      UtilLogger.log('DATA', napiList.list.map((e) => e.toJson()));
     } else {
       error = data.message;
       notifyListeners();

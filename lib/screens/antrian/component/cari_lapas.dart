@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:silapis/configs/constants/image.dart';
 import 'package:silapis/models/model.dart';
 import 'package:silapis/states/state.dart';
 import 'package:silapis/widgets/widget.dart';
@@ -43,7 +44,7 @@ class _CariLapasState extends State<CariLapas> {
   @override
   Widget build(BuildContext context) {
     NapiState napiState = Provider.of<NapiState>(context, listen: true);
-    final _debouncer = Debouncer(milliseconds: 500);
+    final _debouncer = Debouncer(milliseconds: 1000);
 
     return Scaffold(
       appBar: AppBar(
@@ -81,11 +82,24 @@ class _CariLapasState extends State<CariLapas> {
                 },
               ),
             ),
-            if (napiState.napiList == null) ...[
+            if (_textLanguageController.text == '') ...[
               SizedBox(
-                height: 100,
+                height: 0,
               ),
-              Text('Cari DATA'),
+              AppInfo(
+                title: 'Cari',
+                message: 'Nama Lapas dan Nama Ayah',
+                image: Images.Search,
+              ),
+            ] else if (napiState.isEmpty) ...[
+              SizedBox(
+                height: 0,
+              ),
+              AppInfo(
+                title: 'Data yang anda cari kosong',
+                message: '',
+                image: Images.Empty,
+              ),
             ] else if (napiState.isLoading) ...[
               SizedBox(
                 height: 100,

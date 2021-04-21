@@ -31,7 +31,7 @@ class _AntrianState extends State<Antrian> {
     'nik': null,
     'nama': null,
     'jenis': null,
-    'namaAyah': null,
+    'napiId': null,
     'namaWbp': null,
   };
 
@@ -46,7 +46,7 @@ class _AntrianState extends State<Antrian> {
       'nik': _nik.text,
       'nama': _namaPengunjung.text,
       'jenis': _jenisKunjungan,
-      'napiId': _napiData.id,
+      'napiId': _napiData?.id,
     });
 
     UtilLogger.log('POST ANTRIAN', apiModel.toJson());
@@ -161,11 +161,11 @@ class _AntrianState extends State<Antrian> {
               readOnly: true,
               title: 'Nama WBP',
               hintText: 'Nama Warga Binaan dan Nama Ayah',
-              errorText: _validate['namaWbp'] ?? '',
+              errorText: _validate['napiId'] ?? '',
               textInputAction: TextInputAction.next,
               onChanged: (text) {},
               controller: _namaWbp,
-              onTapIcon: () async {
+              onTap: () async {
                 NapiModel res = await Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => CariLapas()),
