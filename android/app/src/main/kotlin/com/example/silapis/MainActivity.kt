@@ -1,4 +1,4 @@
-package com.example.silapis
+package com.lapasnarkotikakalsel.silaki
 
 import io.flutter.embedding.android.FlutterActivity
 

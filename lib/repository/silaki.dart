@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
+import 'package:intl/intl.dart';
 import 'package:silapis/utils/utils.dart';
 import 'package:silapis/models/model.dart';
 
@@ -14,7 +15,7 @@ class SilakiRepository {
 
     return await Consumer().join(['pengunjung']).execute(
         url:
-            '/antrian?with[]=pengunjung&deviceId[eq]=$deviceId&tanggal[sort]=DESC');
+            '/antrian?with[]=pengunjung&with[]=napi&deviceId[eq]=$deviceId&tanggal[sort]=DESC');
   }
 
   static Future<ApiModel> postAntrian(Map<String, dynamic> data) async {
@@ -57,6 +58,14 @@ class SilakiRepository {
   static Future<ApiModel> getPegawai() async {
     await Future.delayed(Duration(seconds: 1));
     final result = await UtilAsset.loadJson("assets/data/pegawai.json");
+    return ApiModel.fromJson(result);
+  }
+
+  static Future<ApiModel> getNapi(String napiNama) async {
+    return await Consumer().execute(url: '/napi?nama[like]=$napiNama');
+
+    await Future.delayed(Duration(seconds: 1));
+    final result = await UtilAsset.loadJson("assets/data/napi.json");
     return ApiModel.fromJson(result);
   }
 

@@ -7,6 +7,7 @@ import 'package:silapis/widgets/app_custom_appbar.dart';
 import 'package:silapis/widgets/widget.dart';
 import 'package:provider/provider.dart';
 import 'package:silapis/states/state_antrian.dart';
+import 'component/cari_lapas.dart';
 
 class Antrian extends StatefulWidget {
   Antrian({Key key}) : super(key: key);
@@ -20,6 +21,8 @@ class _AntrianState extends State<Antrian> {
   final _namaPengunjung = TextEditingController();
   final _namaWbp = TextEditingController();
   final _bin = TextEditingController();
+
+  NapiModel _napiData;
   String _jenisKunjungan;
 
   bool _loading = false;
@@ -43,8 +46,7 @@ class _AntrianState extends State<Antrian> {
       'nik': _nik.text,
       'nama': _namaPengunjung.text,
       'jenis': _jenisKunjungan,
-      'namaAyah': _bin.text,
-      'namaWbp': _namaWbp.text,
+      'napiId': _napiData.id,
     });
 
     UtilLogger.log('POST ANTRIAN', apiModel.toJson());
@@ -119,7 +121,7 @@ class _AntrianState extends State<Antrian> {
                     'Dikarenakan adanya COVID-19 maka kunjungan ditiadakan, harap lakukan penitipan',
                 context: context,
                 date: '')
-          ] else ...[
+          ] else if (_jenisKunjungan == 'Penitipan') ...[
             ///NIK
             AppTextInput(
               title: 'NIK',
@@ -156,38 +158,40 @@ class _AntrianState extends State<Antrian> {
 
             ///NIK
             AppTextInput(
-                title: 'Nama WBP',
-                hintText: 'Nama Warga Binaan Permasyarakatan',
-                errorText: _validate['namaWbp'] ?? '',
-                onTapIcon: () async {
-                  _namaWbp.clear();
-                },
-                textInputAction: TextInputAction.next,
-                onChanged: (text) {},
-                icon: Icon(Icons.clear),
-                controller: _namaWbp),
-
-            ///Nama Pengunjung
-            AppTextInput(
-              title: 'Bin',
-              hintText: 'Nama Ayah',
-              errorText: _validate['namaAyah'] ?? '',
-              onTapIcon: () async {
-                _bin.clear();
-              },
+              readOnly: true,
+              title: 'Nama WBP',
+              hintText: 'Nama Warga Binaan dan Nama Ayah',
+              errorText: _validate['namaWbp'] ?? '',
               textInputAction: TextInputAction.next,
               onChanged: (text) {},
-              icon: Icon(Icons.clear),
-              controller: _bin,
+              controller: _namaWbp,
+              onTapIcon: () async {
+                NapiModel res = await Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CariLapas()),
+                );
+
+                if (res != null) {
+                  _napiData = res;
+                  _namaWbp.text = _napiData.nama;
+                }
+              },
+              icon: Icon(Icons.keyboard_arrow_down_outlined),
             ),
 
             SizedBox(height: 20),
             // BUTTON
             AppMyButton(
               loading: _loading,
-              icon: Icons.save,
+              icon: Icons.save_outlined,
               text: 'Proses Antrian',
               onPress: onSubmit,
+            ),
+          ] else ...[
+            AppInfo(
+              title: 'Pilih Jenis Kunjungan Anda',
+              message: '',
+              image: Images.Info,
             ),
           ]
           // OutlineButton(

@@ -200,7 +200,10 @@ class _HomeState extends State<Home> {
                     onTap: () {
                       Navigator.pushNamed(context, Routes.location,
                           arguments: LocationModel(
-                              1, 'Lokasi Lapas', -3.0299249, 115.45091));
+                              1,
+                              'Lapas Narkotika Karangintan Kalimantan Selatan',
+                              -3.4559425,
+                              114.926662));
                     },
                   ),
                   AppMenuBox(

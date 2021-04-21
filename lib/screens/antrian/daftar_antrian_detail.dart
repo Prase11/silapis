@@ -6,6 +6,8 @@ import 'package:flutter/rendering.dart';
 import 'package:printing/printing.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/pdf.dart';
+import 'package:pretty_qr_code/pretty_qr_code.dart';
+import 'package:qr/qr.dart';
 
 class DaftarAntrianDetail extends StatefulWidget {
   final AntrianModel antrianModel;
@@ -75,8 +77,13 @@ class _DaftarAntrianDetailState extends State<DaftarAntrianDetail> {
                   'Nama Narapidana',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
+                Text('${widget.antrianModel.napi.nama}'),
+                SizedBox(height: 10),
                 Text(
-                    '${widget.antrianModel.pengunjung.namaWbp} Bin ${widget.antrianModel.pengunjung.namaAyah}'),
+                  'Blok',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                Text('${widget.antrianModel.napi.blokKamar}'),
                 SizedBox(height: 10),
                 Text(
                   'Nama Pengunjung',
@@ -89,6 +96,15 @@ class _DaftarAntrianDetailState extends State<DaftarAntrianDetail> {
                 SizedBox(height: 10),
                 Text('Waktu Kunjungan ${widget.antrianModel.createdAt}',
                     style: TextStyle(fontWeight: FontWeight.bold)),
+                SizedBox(height: 20),
+                PrettyQr(
+                    // image: AssetImage(Images.Logo),
+                    typeNumber: 3,
+                    size: 200,
+                    data: widget.antrianModel.id,
+                    errorCorrectLevel: QrErrorCorrectLevel.M,
+                    roundEdges: true),
+                SizedBox(height: 20),
               ],
             )),
       ]),

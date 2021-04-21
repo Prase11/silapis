@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:silapis/states/state_antrian.dart';
 import 'package:silapis/widgets/widget.dart';
+import 'package:silapis/configs/config.dart';
 
 class DaftarAntrian extends StatelessWidget {
   DaftarAntrian({Key key}) : super(key: key);
@@ -33,6 +34,12 @@ class DaftarAntrian extends StatelessWidget {
         image: antrianState.error['image'],
         onPress: () => antrianState.refreshData(),
         btnRefreshLoading: false,
+      );
+    } else if (antrianState.antrianList?.list == []) {
+      return AppInfo(
+        title: 'Antrian Kosong',
+        message: 'Tidak ada antrian pada hari ini',
+        image: Images.Empty,
       );
     } else if (antrianState.antrianList != null) {
       return ListView(

@@ -41,6 +41,7 @@ class _AppState extends State<App> {
         ChangeNotifierProvider(create: (_) => LayananState()),
         ChangeNotifierProvider(create: (_) => JadwalUmumState()),
         ChangeNotifierProvider(create: (_) => JadwalKhususState()),
+        ChangeNotifierProvider(create: (_) => NapiState()),
       ],
       child: MaterialApp(
         title: Environment.APP_NAME,

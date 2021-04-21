@@ -16,6 +16,7 @@ class AppTextInput extends StatelessWidget {
   final TextInputAction textInputAction;
   final String errorText;
   final int maxLines;
+  final bool readOnly;
   final Widget leading;
 
   AppTextInput({
@@ -34,6 +35,7 @@ class AppTextInput extends StatelessWidget {
     this.textInputAction,
     this.errorText,
     this.leading,
+    this.readOnly,
     this.maxLines = 1,
   }) : super(key: key);
 
@@ -87,6 +89,7 @@ class AppTextInput extends StatelessWidget {
             alignment: Alignment.bottomLeft,
             children: <Widget>[
               TextField(
+                readOnly: readOnly ?? false,
                 onTap: onTap,
                 textAlignVertical: TextAlignVertical.center,
                 onSubmitted: onSubmitted,
@@ -115,4 +118,9 @@ class AppTextInput extends StatelessWidget {
       ],
     );
   }
+}
+
+class AlwaysDisabledFocusNode extends FocusNode {
+  @override
+  bool get hasFocus => false;
 }

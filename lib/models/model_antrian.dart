@@ -6,6 +6,8 @@ import 'dart:convert';
 
 import 'package:silapis/utils/utils.dart';
 
+import 'model_napi.dart';
+
 AntrianModel antrianModelFromJson(String str) =>
     AntrianModel.fromJson(json.decode(str));
 
@@ -38,6 +40,7 @@ class AntrianModel {
     this.nik,
     this.tanggal,
     this.jenis,
+    this.napi,
     this.deviceId,
     this.createdAt,
   });
@@ -48,6 +51,7 @@ class AntrianModel {
   String nik;
   DateTime tanggal;
   String jenis;
+  NapiModel napi;
   String deviceId;
   String createdAt;
 
@@ -56,6 +60,7 @@ class AntrianModel {
         id: json["id"],
         no: json["no"].toString().padLeft(3, '0'),
         nik: json["nik"],
+        napi: NapiModel.fromJson(json["napi"]),
         tanggal: DateTime.parse(json["tanggal"]),
         jenis: json["jenis"],
         deviceId: json["deviceId"],

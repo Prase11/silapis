@@ -77,7 +77,7 @@ class AppAntrianCard extends StatelessWidget {
                                   fontSize: 13, color: Colors.grey[700])),
                           SizedBox(height: 5),
                           Text(
-                            'WBP: Nama ${antrianModel.pengunjung.namaWbp} Bin ${antrianModel.pengunjung.namaAyah}',
+                            'WBP: ${antrianModel.napi.nama}',
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2,
                           ),
