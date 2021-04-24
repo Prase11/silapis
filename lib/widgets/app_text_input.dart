@@ -45,6 +45,7 @@ class AppTextInput extends StatelessWidget {
     }
 
     return Container(
+      padding: EdgeInsets.only(left: Dimens.padding),
       child: Text(
         errorText,
         style: Theme.of(context)
@@ -79,7 +80,6 @@ class AppTextInput extends StatelessWidget {
           ),
         ],
         Container(
-          padding: EdgeInsets.only(left: Dimens.padding),
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: Theme.of(context).dividerColor,

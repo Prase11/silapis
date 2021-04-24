@@ -17,5 +17,6 @@ export 'app_my_info_dialog.dart';
 export 'app_list_title.dart';
 export 'app_on_boarding.dart';
 export 'app_tab_bar.dart';
+export 'app_expandable.dart';
 export 'clipper/clipper.dart';
 export 'boilerplate/boilerplate.dart';

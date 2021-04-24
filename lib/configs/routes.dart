@@ -16,6 +16,8 @@ class Routes {
   static const String daftarAntrianDetail = "/daftarAntrianDetail";
   static const String strukturOrganisasi = "/strukturOrganisasi";
   static const String photoPreview = "/photoPreview";
+  static const String login = "/login";
+  static const String registrasi = "/registrasi";
 
   Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -65,6 +67,12 @@ class Routes {
 
       case strukturOrganisasi:
         return CustomRoutes(page: Struktur());
+
+      case login:
+        return CustomRoutes(page: Login());
+
+      case registrasi:
+        return CustomRoutes(page: Registrasi());
 
       case photoPreview:
         final Map<String, dynamic> params = settings.arguments;

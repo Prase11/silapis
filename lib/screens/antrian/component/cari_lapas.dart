@@ -48,7 +48,7 @@ class _CariLapasState extends State<CariLapas> {
 
     return Scaffold(
       appBar: AppCustomAppBar.defaultAppBar(
-          leading: BackButton(), title: 'Cari Nama Lapass', context: context),
+          leading: BackButton(), title: 'Cari Nama WBP', context: context),
       body: SafeArea(
         child: Column(
           children: <Widget>[

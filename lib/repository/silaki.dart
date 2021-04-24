@@ -7,7 +7,7 @@ import 'package:silapis/models/model.dart';
 class SilakiRepository {
   // UtilLogger.log('DEVICE INFO', await UtilDeviceInfo.getId());
 
-  static Future<ApiModel> getAntrian() async {
+  static Future<ApiModel> getAntrian([String jenis = 'Penitipan']) async {
     // await Future.delayed(Duration(seconds: 1));
     // final result = await UtilAsset.loadJson("assets/data/antrian.json");
     // return ApiModel.fromJson(result);
@@ -15,7 +15,7 @@ class SilakiRepository {
 
     return await Consumer().join(['pengunjung']).execute(
         url:
-            '/antrian?with[]=pengunjung&with[]=napi&deviceId[eq]=$deviceId&tanggal[sort]=DESC');
+            '/antrian?with[]=pengunjung&with[]=napi&deviceId[eq]=$deviceId&tanggal[sort]=DESC&jenis[eq]=$jenis');
   }
 
   static Future<ApiModel> postAntrian(Map<String, dynamic> data) async {

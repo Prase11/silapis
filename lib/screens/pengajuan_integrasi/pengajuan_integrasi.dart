@@ -80,7 +80,7 @@ class _PengajuanIntegrasiState extends State<PengajuanIntegrasi> {
           vertical: Dimens.padding, horizontal: Dimens.padding),
       children: [
         Text(
-          'Persyaratan Integritas',
+          'Persyaratan Integrasi',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
           textAlign: TextAlign.center,
         ),

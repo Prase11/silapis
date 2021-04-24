@@ -73,7 +73,7 @@ class AppMenuBox extends StatelessWidget {
         Text(
           name,
           textAlign: TextAlign.center,
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
       ]),
     );

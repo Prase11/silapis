@@ -37,7 +37,7 @@ class SocialMediaState extends State<SocialMedia> {
         children: [
           Text(
             'Follow Juga Sosial Media Kami',
-            style: TextStyle(color: Colors.grey[600]),
+            style: TextStyle(color: Colors.grey[50]),
           ),
           SizedBox(
             height: 10,

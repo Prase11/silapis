@@ -38,7 +38,8 @@ class _AppState extends State<App> {
 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => AntrianState()),
+        ChangeNotifierProvider(create: (_) => AntrianKunjunganState()),
+        ChangeNotifierProvider(create: (_) => AntrianPenitipanState()),
         ChangeNotifierProvider(create: (_) => LayananState()),
         ChangeNotifierProvider(create: (_) => JadwalUmumState()),
         ChangeNotifierProvider(create: (_) => JadwalKhususState()),

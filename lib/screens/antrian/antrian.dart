@@ -8,22 +8,27 @@ import 'package:silapis/widgets/widget.dart';
 import 'package:provider/provider.dart';
 import 'package:silapis/states/state_antrian.dart';
 import 'component/cari_lapas.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class Antrian extends StatefulWidget {
   Antrian({Key key}) : super(key: key);
 
   @override
-  _AntrianState createState() => _AntrianState();
+  _AntrianKunjunganState createState() => _AntrianKunjunganState();
 }
 
-class _AntrianState extends State<Antrian> {
+class _AntrianKunjunganState extends State<Antrian> {
   final _nik = TextEditingController();
   final _namaPengunjung = TextEditingController();
   final _namaWbp = TextEditingController();
-  final _bin = TextEditingController();
+  final _keterangan = TextEditingController();
+
+  bool _antrianKunjungan = false;
 
   NapiModel _napiData;
   String _jenisKunjungan;
+  String _kunjungan =
+      'https://i1.wp.com/lapas-narkotikajkt.com/wp-content/uploads/2019/03/ALUR-LAYANAN-KUNJUNGAN-01-2.jpg';
 
   bool _loading = false;
 
@@ -33,11 +38,12 @@ class _AntrianState extends State<Antrian> {
     'jenis': null,
     'napiId': null,
     'namaWbp': null,
+    'keterangan': null,
   };
 
   Future<void> onSubmit() async {
-    AntrianState antrianState =
-        Provider.of<AntrianState>(context, listen: false);
+    AntrianKunjunganState antrianKunjunganState =
+        Provider.of<AntrianKunjunganState>(context, listen: false);
 
     setState(() {
       _loading = true;
@@ -47,6 +53,7 @@ class _AntrianState extends State<Antrian> {
       'nama': _namaPengunjung.text,
       'jenis': _jenisKunjungan,
       'napiId': _napiData?.id,
+      'keterangan': _keterangan.text,
     });
 
     UtilLogger.log('POST ANTRIAN', apiModel.toJson());
@@ -61,7 +68,7 @@ class _AntrianState extends State<Antrian> {
           onTap: () {
             Navigator.pop(context, true);
             Navigator.pop(context, true);
-            antrianState.refreshData();
+            antrianKunjunganState.refreshData();
           });
     } else {
       appMyInfoDialog(
@@ -93,7 +100,8 @@ class _AntrianState extends State<Antrian> {
         context: context,
       ),
       body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: Dimens.padding),
+        padding: EdgeInsets.symmetric(
+            horizontal: Dimens.padding, vertical: Dimens.padding),
         children: [
           // Text(
           //   'Detail Pengunjung',
@@ -113,7 +121,7 @@ class _AntrianState extends State<Antrian> {
             },
           ),
 
-          if (_jenisKunjungan == 'Kunjungan') ...[
+          if (_jenisKunjungan == 'Kunjungan' && !_antrianKunjungan) ...[
             SizedBox(height: Dimens.padding),
             AppAnnouncement(
                 title: 'Informasi',
@@ -121,7 +129,64 @@ class _AntrianState extends State<Antrian> {
                     'Dikarenakan adanya COVID-19 maka kunjungan ditiadakan, harap lakukan penitipan',
                 context: context,
                 date: '')
-          ] else if (_jenisKunjungan == 'Penitipan') ...[
+          ] else if (_jenisKunjungan == 'Penitipan' ||
+              (_jenisKunjungan == 'Kunjungan' && _antrianKunjungan)) ...[
+            AppExpandableNotifier(
+              child: ScrollOnExpand(
+                scrollOnExpand: false,
+                scrollOnCollapse: true,
+                child: Container(
+                  child: ScrollOnExpand(
+                    scrollOnExpand: true,
+                    scrollOnCollapse: false,
+                    child: ExpandablePanel(
+                      tapHeaderToExpand: true,
+                      tapBodyToCollapse: true,
+                      headerAlignment: ExpandablePanelHeaderAlignment.center,
+                      header: Padding(
+                        padding: EdgeInsets.symmetric(vertical: Dimens.padding),
+                        child: Text(
+                          "Mekanisme $_jenisKunjungan",
+                          style: TextStyle(
+                              fontSize: 15.0, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      expanded: Padding(
+                        padding: EdgeInsets.only(bottom: 10),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, Routes.photoPreview,
+                                arguments: {
+                                  'index': 0,
+                                  'photo': [ImageModel(0, _kunjungan, '')]
+                                });
+                          },
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: CachedNetworkImage(
+                              fit: BoxFit.cover,
+                              imageUrl: _kunjungan,
+                            ),
+                          ),
+                        ),
+                      ),
+                      builder: (_, collapsed, expanded) {
+                        return Padding(
+                          padding:
+                              EdgeInsets.only(left: 0, right: 0, bottom: 0),
+                          child: Expandable(
+                            collapsed: collapsed,
+                            expanded: expanded,
+                            crossFadePoint: 0,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
             ///NIK
             AppTextInput(
               title: 'NIK',
@@ -148,6 +213,21 @@ class _AntrianState extends State<Antrian> {
               onChanged: (text) {},
               icon: Icon(Icons.clear),
               controller: _namaPengunjung,
+            ),
+
+            ///Keterangan
+            AppTextInput(
+              maxLines: 4,
+              title: 'Keterangan',
+              hintText: 'Keterangan',
+              errorText: _validate['keterangan'] ?? '',
+              onTapIcon: () async {
+                _keterangan.clear();
+              },
+              textInputAction: TextInputAction.next,
+              onChanged: (text) {},
+              icon: Icon(Icons.clear),
+              controller: _keterangan,
             ),
 
             SizedBox(height: 20),
