@@ -356,7 +356,9 @@ class _HomeState extends State<Home> {
                   ),
                 ),
 
-                SocialMedia(),
+                SocialMedia(
+                  sosmed: applicationState.sosmedList,
+                ),
               ],
             ),
           ],

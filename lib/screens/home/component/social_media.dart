@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:silapis/configs/config.dart';
+import 'package:silapis/models/model.dart';
 import 'package:silapis/utils/utils.dart';
 import 'package:silapis/widgets/widget.dart';
 
@@ -21,14 +22,9 @@ extension HexColor on Color {
       '${blue.toRadixString(16).padLeft(2, '0')}';
 }
 
-class SocialMedia extends StatefulWidget {
-  SocialMedia({Key key}) : super(key: key);
-
-  @override
-  SocialMediaState createState() => SocialMediaState();
-}
-
-class SocialMediaState extends State<SocialMedia> {
+class SocialMedia extends StatelessWidget {
+  final SosmedListModel sosmed;
+  SocialMedia({Key key, @required this.sosmed}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -44,28 +40,15 @@ class SocialMediaState extends State<SocialMedia> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _icon(
-                link: 'tel:08525252',
-                icon: 'whatsapp',
-                hexColor: '#00c853',
-              ),
-              _icon(
-                link: 'http://google.com',
-                icon: 'facebook',
-                hexColor: '#2962ff',
-              ),
-              _icon(
-                link: 'http://google.com',
-                icon: 'instagram',
-                hexColor: '#ff5252',
-              ),
-              _icon(
-                link: 'http://google.com',
-                icon: 'youtube',
-                hexColor: '#ff0000',
-              ),
-            ],
+            children: sosmed.list
+                .map(
+                  (e) => _icon(
+                    link: e.link,
+                    icon: e.icon,
+                    hexColor: e.warna,
+                  ),
+                )
+                .toList(),
           ),
         ],
       ),

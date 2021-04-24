@@ -7,6 +7,7 @@ class ApplicationState with ChangeNotifier, DiagnosticableTreeMixin {
   SettingListModel settingList;
   MekanismeListModel mekanismeList;
   FotoBerandaListModel fotoBerandaList;
+  SosmedListModel sosmedList;
   bool isSplash = true;
 
   ApplicationState() {
@@ -15,12 +16,18 @@ class ApplicationState with ChangeNotifier, DiagnosticableTreeMixin {
   }
 
   String getSettingByKey(String key) {
-    return settingList.list.firstWhere((e) => e.key == key)?.value ?? '0';
+    return settingList.list
+            .firstWhere((e) => e.key == key, orElse: () => null)
+            ?.value ??
+        '0';
   }
 
   String getMekanismeByKey(String key) {
     key = key == 'Kunjungan' ? 'K001' : 'P001';
-    return mekanismeList.list.firstWhere((e) => e.kode == key)?.foto ?? '0';
+    return mekanismeList.list
+            .firstWhere((e) => e.kode == key, orElse: () => null)
+            ?.foto ??
+        '0';
   }
 
   Future<void> initSplash() async {
@@ -34,6 +41,7 @@ class ApplicationState with ChangeNotifier, DiagnosticableTreeMixin {
       final setting = await SilakiRepository.getSetting();
       final mekanisme = await SilakiRepository.getMekanisme();
       final fotoBeranda = await SilakiRepository.getFotoBeranda();
+      final sosmed = await SilakiRepository.getSosmed();
       isSplash = false;
 
       if (setting.code == CODE.SUCCESS) {
@@ -52,6 +60,12 @@ class ApplicationState with ChangeNotifier, DiagnosticableTreeMixin {
         fotoBerandaList = FotoBerandaListModel.fromJson(fotoBeranda.data);
         notifyListeners();
         UtilLogger.log('DATA', fotoBerandaList.list.map((e) => e.toJson()));
+      }
+
+      if (sosmed.code == CODE.SUCCESS) {
+        sosmedList = SosmedListModel.fromJson(sosmed.data);
+        notifyListeners();
+        UtilLogger.log('DATA', sosmedList.list.map((e) => e.toJson()));
       }
     } catch (e) {
       isSplash = false;

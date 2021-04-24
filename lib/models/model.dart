@@ -11,3 +11,4 @@ export 'model_napi.dart';
 export 'model_mekanisme.dart';
 export 'model_foto_beranda.dart';
 export 'model_setting.dart';
+export 'model_sosmed.dart';

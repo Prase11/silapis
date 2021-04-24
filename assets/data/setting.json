@@ -4,6 +4,9 @@
     "data": {
         "rows": [{
             "key": "antrian_kunjungan",
+            "value": "0"
+        }, {
+            "key": "antrian_penitipan",
             "value": "1"
         }],
         "limit": 100,

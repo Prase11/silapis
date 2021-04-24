@@ -135,18 +135,25 @@ class _AntrianKunjunganState extends State<Antrian> {
           ),
 
           if (_jenisKunjungan == 'Kunjungan' &&
-              applicationState.getSettingByKey('antrian_kunjungan') != '1') ...[
+              applicationState.getSettingByKey('antrian_kunjungan') == '0') ...[
             SizedBox(height: Dimens.padding),
             AppAnnouncement(
                 title: 'Informasi',
                 content:
-                    'Dikarenakan adanya COVID-19 maka kunjungan ditiadakan, harap lakukan penitipan',
+                    'Dikarenakan adanya COVID-19 maka kunjungan ditiadakan',
+                context: context,
+                date: '')
+          ] else if (_jenisKunjungan == 'Penitipan' &&
+              applicationState.getSettingByKey('antrian_penitipan') == '0') ...[
+            SizedBox(height: Dimens.padding),
+            AppAnnouncement(
+                title: 'Informasi',
+                content:
+                    'Dikarenakan adanya COVID-19 maka penitipan ditiadakan',
                 context: context,
                 date: '')
           ] else if (_jenisKunjungan == 'Penitipan' ||
-              (_jenisKunjungan == 'Kunjungan' &&
-                  applicationState.getSettingByKey('antrian_kunjungan') ==
-                      '1')) ...[
+              _jenisKunjungan == 'Kunjungan') ...[
             AppExpandableNotifier(
               child: ScrollOnExpand(
                 scrollOnExpand: false,

@@ -78,26 +78,46 @@ class SilakiRepository {
   }
 
   static Future<ApiModel> getSetting() async {
-    // return await Consumer().execute(url: '/setting');
+    final res = await Consumer().execute(url: '/setting');
 
-    await Future.delayed(Duration(seconds: 1));
+    if (res.code == CODE.SUCCESS) {
+      return res;
+    }
+
     final result = await UtilAsset.loadJson("assets/data/setting.json");
     return ApiModel.fromJson(result);
   }
 
   static Future<ApiModel> getMekanisme() async {
-    // return await Consumer().execute(url: '/setting');
+    final res = await Consumer().execute(url: '/mekanisme');
 
-    await Future.delayed(Duration(seconds: 1));
+    if (res.code == CODE.SUCCESS) {
+      return res;
+    }
+
     final result = await UtilAsset.loadJson("assets/data/mekanisme.json");
     return ApiModel.fromJson(result);
   }
 
   static Future<ApiModel> getFotoBeranda() async {
-    // return await Consumer().execute(url: '/setting');
+    final res = await Consumer().execute(url: '/foto_beranda');
 
-    await Future.delayed(Duration(seconds: 1));
+    if (res.code == CODE.SUCCESS) {
+      return res;
+    }
+
     final result = await UtilAsset.loadJson("assets/data/foto_beranda.json");
+    return ApiModel.fromJson(result);
+  }
+
+  static Future<ApiModel> getSosmed() async {
+    final res = await Consumer().execute(url: '/sosmed');
+
+    if (res.code == CODE.SUCCESS) {
+      return res;
+    }
+
+    final result = await UtilAsset.loadJson("assets/data/sosmed.json");
     return ApiModel.fromJson(result);
   }
 

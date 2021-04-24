@@ -1,0 +1,37 @@
+{
+    "code": 200,
+    "message": null,
+    "data": {
+        "rows": [{
+            "id": "1",
+            "nama": "Whatsapp",
+            "link": "http://wa.me",
+            "warna": "#4caf50",
+            "icon": "whatsapp",
+            "keterangan": "Kunjungan"
+        }, {
+            "id": "2",
+            "nama": "Facebook",
+            "link": "https://facebook.com",
+            "warna": "#2196f3",
+            "icon": "facebook",
+            "keterangan": "Facebook"
+        }, {
+            "id": "3",
+            "nama": "Instagram",
+            "link": "https://instagram.com",
+            "warna": "#ff5252",
+            "icon": "instagram",
+            "keterangan": "Instagram"
+        }, {
+            "id": "4",
+            "nama": "Youtube",
+            "link": "http://youtube.com",
+            "warna": "#ff0000",
+            "icon": "youtube",
+            "keterangan": "Youtube"
+        }],
+        "limit": 100,
+        "offset": 0
+    }
+}
