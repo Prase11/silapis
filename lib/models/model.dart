@@ -8,3 +8,6 @@ export 'model_layanan_pengaduan.dart';
 export 'model_pegawai.dart';
 export 'model_berita.dart';
 export 'model_napi.dart';
+export 'model_mekanisme.dart';
+export 'model_foto_beranda.dart';
+export 'model_setting.dart';

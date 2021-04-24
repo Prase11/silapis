@@ -4,34 +4,59 @@ import 'package:silapis/repository/silaki.dart';
 import 'package:silapis/utils/logger.dart';
 
 class ApplicationState with ChangeNotifier, DiagnosticableTreeMixin {
-  AntrianListModel antrianList;
-  Map<String, dynamic> error;
-  bool isEmpty = false;
+  SettingListModel settingList;
+  MekanismeListModel mekanismeList;
+  FotoBerandaListModel fotoBerandaList;
+  bool isSplash = true;
 
   ApplicationState() {
+    // initSplash();
     initData();
+  }
+
+  String getSettingByKey(String key) {
+    return settingList.list.firstWhere((e) => e.key == key)?.value ?? '0';
+  }
+
+  String getMekanismeByKey(String key) {
+    key = key == 'Kunjungan' ? 'K001' : 'P001';
+    return mekanismeList.list.firstWhere((e) => e.kode == key)?.foto ?? '0';
+  }
+
+  Future<void> initSplash() async {
+    await Future.delayed(Duration(seconds: 3));
+    isSplash = false;
+    notifyListeners();
   }
 
   Future<void> initData() async {
-    final data = await SilakiRepository.getAntrian('Kunjungan');
+    try {
+      final setting = await SilakiRepository.getSetting();
+      final mekanisme = await SilakiRepository.getMekanisme();
+      final fotoBeranda = await SilakiRepository.getFotoBeranda();
+      isSplash = false;
 
-    isEmpty = false;
-    if (data.code == CODE.SUCCESS) {
-      antrianList = AntrianListModel.fromJson(data.data);
-      isEmpty = antrianList.list.length == 0;
-      notifyListeners();
-      UtilLogger.log('DATA', antrianList.list.map((e) => e.toJson()));
-    } else {
-      error = data.message;
+      if (setting.code == CODE.SUCCESS) {
+        settingList = SettingListModel.fromJson(setting.data);
+        notifyListeners();
+        UtilLogger.log('DATA', settingList.list.map((e) => e.toJson()));
+      }
+
+      if (mekanisme.code == CODE.SUCCESS) {
+        mekanismeList = MekanismeListModel.fromJson(mekanisme.data);
+        notifyListeners();
+        UtilLogger.log('DATA', mekanismeList.list.map((e) => e.toJson()));
+      }
+
+      if (fotoBeranda.code == CODE.SUCCESS) {
+        fotoBerandaList = FotoBerandaListModel.fromJson(fotoBeranda.data);
+        notifyListeners();
+        UtilLogger.log('DATA', fotoBerandaList.list.map((e) => e.toJson()));
+      }
+    } catch (e) {
+      isSplash = false;
       notifyListeners();
     }
-  }
-
-  Future<void> refreshData() async {
-    error = null;
-    antrianList = null;
-    notifyListeners();
-    initData();
   }
 
   /// Makes `Counter` readable inside the devtools by listing all of its properties

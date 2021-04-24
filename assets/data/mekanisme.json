@@ -1,0 +1,19 @@
+{
+    "code": 200,
+    "message": null,
+    "data": {
+        "rows": [{
+            "id": "1",
+            "kode": "K001",
+            "nama": "Kunjungan",
+            "foto": "https://i1.wp.com/lapas-narkotikajkt.com/wp-content/uploads/2019/03/ALUR-LAYANAN-KUNJUNGAN-01-2.jpg"
+        }, {
+            "id": "2",
+            "kode": "P001",
+            "nama": "Penitipan",
+            "foto": "https://lapas-narkotikajkt.com/wp-content/uploads/2019/03/ALUR-PENYELESAIAN-PENGADUAN-01-01-1024x768.jpg"
+        }],
+        "limit": 100,
+        "offset": 0
+    }
+}

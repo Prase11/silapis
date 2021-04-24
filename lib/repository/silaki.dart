@@ -77,6 +77,30 @@ class SilakiRepository {
     return ApiModel.fromJson(result);
   }
 
+  static Future<ApiModel> getSetting() async {
+    // return await Consumer().execute(url: '/setting');
+
+    await Future.delayed(Duration(seconds: 1));
+    final result = await UtilAsset.loadJson("assets/data/setting.json");
+    return ApiModel.fromJson(result);
+  }
+
+  static Future<ApiModel> getMekanisme() async {
+    // return await Consumer().execute(url: '/setting');
+
+    await Future.delayed(Duration(seconds: 1));
+    final result = await UtilAsset.loadJson("assets/data/mekanisme.json");
+    return ApiModel.fromJson(result);
+  }
+
+  static Future<ApiModel> getFotoBeranda() async {
+    // return await Consumer().execute(url: '/setting');
+
+    await Future.delayed(Duration(seconds: 1));
+    final result = await UtilAsset.loadJson("assets/data/foto_beranda.json");
+    return ApiModel.fromJson(result);
+  }
+
   //Singleton factory
   static final SilakiRepository _instance = SilakiRepository._internal();
 

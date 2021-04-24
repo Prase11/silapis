@@ -8,27 +8,8 @@ import 'package:silapis/widgets/widget.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:silapis/states/state.dart';
 
-class App extends StatefulWidget {
-  @override
-  _AppState createState() => _AppState();
-}
-
-class _AppState extends State<App> {
+class App extends StatelessWidget {
   final Routes route = Routes();
-  bool isSplash = true;
-
-  @override
-  void initState() {
-    Future.delayed(Duration(seconds: 3)).then((value) => setState(() {
-          isSplash = false;
-        }));
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +19,7 @@ class _AppState extends State<App> {
 
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => ApplicationState()),
         ChangeNotifierProvider(create: (_) => AntrianKunjunganState()),
         ChangeNotifierProvider(create: (_) => AntrianPenitipanState()),
         ChangeNotifierProvider(create: (_) => LayananState()),
@@ -58,7 +40,26 @@ class _AppState extends State<App> {
             GlobalWidgetsLocalizations.delegate,
           ],
           home: WillPopScope(
-            child: isSplash ? SplashScreen() : Home(),
+            child: Consumer<ApplicationState>(
+              builder: (context, percentDone, child) {
+                return context.watch<ApplicationState>().isSplash
+                    ? SplashScreen()
+                    : Home();
+              },
+            ),
+            // child: Provider<ApplicationState>(
+            //     create: (_) => ApplicationState(),
+            //     // we use `builder` to obtain a new `BuildContext` that has access to the provider
+            //     builder: (context, _) {
+            //       // No longer throws
+            //       return context.watch<ApplicationState>().isSplash
+            //           ? SplashScreen()
+            //           : Home();
+            //     }),
+
+            // child: context.watch<ApplicationState>().isSplash
+            //     ? SplashScreen()
+            //     : Home(),
             onWillPop: onWillPop,
           ),
         ),

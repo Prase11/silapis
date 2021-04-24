@@ -4,9 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:silapis/configs/config.dart';
-import 'package:silapis/models/model_image.dart';
-import 'package:silapis/models/model_location.dart';
+import 'package:silapis/models/model.dart';
 import 'package:silapis/widgets/widget.dart';
+import 'package:silapis/states/state.dart';
 import 'component/social_media.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -21,30 +21,38 @@ class _HomeState extends State<Home> {
   final Routes route = Routes();
 
   bool isGrid = true;
+  ApplicationState applicationState;
+
+  @override
+  void initState() {
+    applicationState = Provider.of<ApplicationState>(context, listen: false);
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: Theme.of(context).primaryColor));
 
-    final images = [
-      'assets/images/1.jpeg',
-      'assets/images/2.jpeg',
-      'assets/images/3.jpeg',
-      'assets/images/4.jpeg',
-      'assets/images/5.jpeg',
-      'assets/images/6.jpeg',
-      'assets/images/7.jpeg',
-      'assets/images/8.jpeg',
-      'assets/images/9.jpeg',
-      'assets/images/10.jpeg',
-      'assets/images/11.jpeg',
-      'assets/images/12.jpeg',
-      'assets/images/13.jpeg',
-      'assets/images/14.jpeg',
-      'assets/images/15.jpeg',
-      'assets/images/16.jpeg',
-    ];
+    // final images = [
+    //   'assets/images/1.jpeg',
+    //   'assets/images/2.jpeg',
+    //   'assets/images/3.jpeg',
+    //   'assets/images/4.jpeg',
+    //   'assets/images/5.jpeg',
+    //   'assets/images/6.jpeg',
+    //   'assets/images/7.jpeg',
+    //   'assets/images/8.jpeg',
+    //   'assets/images/9.jpeg',
+    //   'assets/images/10.jpeg',
+    //   'assets/images/11.jpeg',
+    //   'assets/images/12.jpeg',
+    //   'assets/images/13.jpeg',
+    //   'assets/images/14.jpeg',
+    //   'assets/images/15.jpeg',
+    //   'assets/images/16.jpeg',
+    // ];
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       // value: SystemUiOverlayStyle(
@@ -97,8 +105,8 @@ class _HomeState extends State<Home> {
                           Navigator.pushNamed(context, Routes.photoPreview,
                               arguments: {
                                 'index': index,
-                                'photo': images
-                                    .map((e) => ImageModel(index, e, ''))
+                                'photo': applicationState.fotoBerandaList.list
+                                    .map((e) => ImageModel(index, e.foto, ''))
                                     .toList()
                               });
                         },
@@ -112,7 +120,9 @@ class _HomeState extends State<Home> {
                             // margin: EdgeInsets.only(bottom: 25),
                             child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
-                                child: images[index].contains('http')
+                                child: applicationState
+                                        .fotoBerandaList.list[index].foto
+                                        .contains('http')
                                     ? CachedNetworkImage(
                                         // progressIndicatorBuilder:
                                         //     (context, str, progress) {
@@ -133,10 +143,12 @@ class _HomeState extends State<Home> {
                                         //   );
                                         // },
                                         fit: BoxFit.cover,
-                                        imageUrl: images[index],
+                                        imageUrl: applicationState
+                                            .fotoBerandaList.list[index].foto,
                                       )
                                     : Image.asset(
-                                        images[index],
+                                        applicationState
+                                            .fotoBerandaList.list[index].foto,
                                         fit: BoxFit.cover,
                                       )),
                           ),
@@ -146,7 +158,7 @@ class _HomeState extends State<Home> {
                     autoplayDelay: 5000,
                     autoplayDisableOnInteraction: false,
                     autoplay: true,
-                    itemCount: images.length,
+                    itemCount: applicationState.fotoBerandaList.list.length,
                     pagination: SwiperPagination(
                       alignment: Alignment(0, 1.2),
                       builder: new DotSwiperPaginationBuilder(

@@ -6,7 +6,7 @@ import 'package:silapis/utils/utils.dart';
 import 'package:silapis/widgets/app_custom_appbar.dart';
 import 'package:silapis/widgets/widget.dart';
 import 'package:provider/provider.dart';
-import 'package:silapis/states/state_antrian.dart';
+import 'package:silapis/states/state.dart';
 import 'component/cari_lapas.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -24,6 +24,9 @@ class _AntrianKunjunganState extends State<Antrian> {
   final _keterangan = TextEditingController();
 
   bool _antrianKunjungan = false;
+  AntrianKunjunganState antrianKunjunganState;
+  AntrianPenitipanState antrianPenitipanState;
+  ApplicationState applicationState;
 
   NapiModel _napiData;
   String _jenisKunjungan;
@@ -42,8 +45,10 @@ class _AntrianKunjunganState extends State<Antrian> {
   };
 
   Future<void> onSubmit() async {
-    AntrianKunjunganState antrianKunjunganState =
+    antrianKunjunganState =
         Provider.of<AntrianKunjunganState>(context, listen: false);
+    antrianPenitipanState =
+        Provider.of<AntrianPenitipanState>(context, listen: false);
 
     setState(() {
       _loading = true;
@@ -69,6 +74,7 @@ class _AntrianKunjunganState extends State<Antrian> {
             Navigator.pop(context, true);
             Navigator.pop(context, true);
             antrianKunjunganState.refreshData();
+            antrianPenitipanState.refreshData();
           });
     } else {
       appMyInfoDialog(
@@ -82,6 +88,13 @@ class _AntrianKunjunganState extends State<Antrian> {
     setState(() {
       _loading = false;
     });
+  }
+
+  @override
+  void initState() {
+    applicationState = Provider.of<ApplicationState>(context, listen: false);
+
+    super.initState();
   }
 
   void serverValidate(Map<String, dynamic> message) {
@@ -121,7 +134,8 @@ class _AntrianKunjunganState extends State<Antrian> {
             },
           ),
 
-          if (_jenisKunjungan == 'Kunjungan' && !_antrianKunjungan) ...[
+          if (_jenisKunjungan == 'Kunjungan' &&
+              applicationState.getSettingByKey('antrian_kunjungan') != '1') ...[
             SizedBox(height: Dimens.padding),
             AppAnnouncement(
                 title: 'Informasi',
@@ -130,7 +144,9 @@ class _AntrianKunjunganState extends State<Antrian> {
                 context: context,
                 date: '')
           ] else if (_jenisKunjungan == 'Penitipan' ||
-              (_jenisKunjungan == 'Kunjungan' && _antrianKunjungan)) ...[
+              (_jenisKunjungan == 'Kunjungan' &&
+                  applicationState.getSettingByKey('antrian_kunjungan') ==
+                      '1')) ...[
             AppExpandableNotifier(
               child: ScrollOnExpand(
                 scrollOnExpand: false,
@@ -158,14 +174,21 @@ class _AntrianKunjunganState extends State<Antrian> {
                             Navigator.pushNamed(context, Routes.photoPreview,
                                 arguments: {
                                   'index': 0,
-                                  'photo': [ImageModel(0, _kunjungan, '')]
+                                  'photo': [
+                                    ImageModel(
+                                        0,
+                                        applicationState
+                                            .getMekanismeByKey(_jenisKunjungan),
+                                        '')
+                                  ]
                                 });
                           },
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: CachedNetworkImage(
                               fit: BoxFit.cover,
-                              imageUrl: _kunjungan,
+                              imageUrl: applicationState
+                                  .getMekanismeByKey(_jenisKunjungan),
                             ),
                           ),
                         ),

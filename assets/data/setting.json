@@ -1,0 +1,12 @@
+{
+    "code": 200,
+    "message": null,
+    "data": {
+        "rows": [{
+            "key": "antrian_kunjungan",
+            "value": "1"
+        }],
+        "limit": 100,
+        "offset": 0
+    }
+}
