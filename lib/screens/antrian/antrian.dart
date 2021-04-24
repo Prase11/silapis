@@ -95,10 +95,10 @@ class _AntrianState extends State<Antrian> {
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: Dimens.padding),
         children: [
-          Text(
-            'Detail Pengunjung',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-          ),
+          // Text(
+          //   'Detail Pengunjung',
+          //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          // ),
 
           ///BLOD TYPE
           AppRadioInput(

@@ -22,7 +22,8 @@ class _PengajuanIntegrasiState extends State<PengajuanIntegrasi> {
           leading: BackButton(),
           title: 'Pengajuan Integrasi',
           context: context,
-          bottom: TabBar(
+          bottom: AppTabBar.defaultTabBar(
+            context: context,
             tabs: [
               Tab(
                 icon: Row(

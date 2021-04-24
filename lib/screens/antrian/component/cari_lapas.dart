@@ -47,10 +47,8 @@ class _CariLapasState extends State<CariLapas> {
     final _debouncer = Debouncer(milliseconds: 1000);
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('Cari Data'),
-      ),
+      appBar: AppCustomAppBar.defaultAppBar(
+          leading: BackButton(), title: 'Cari Nama Lapass', context: context),
       body: SafeArea(
         child: Column(
           children: <Widget>[

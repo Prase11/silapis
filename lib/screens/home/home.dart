@@ -8,7 +8,7 @@ import 'package:silapis/models/model_image.dart';
 import 'package:silapis/models/model_location.dart';
 import 'package:silapis/widgets/widget.dart';
 import 'component/social_media.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class Home extends StatefulWidget {
   Home({Key key}) : super(key: key);
@@ -116,6 +116,7 @@ class _HomeState extends State<Home> {
                   alignment: Alignment(0, 1.2),
                   builder: new DotSwiperPaginationBuilder(
                       color: Colors.grey,
+                      activeSize: 14,
                       activeColor: Theme.of(context).primaryColor),
                 ),
               ),
@@ -308,37 +309,60 @@ class _HomeState extends State<Home> {
   Widget _header() {
     return Stack(
       children: [
-        new SizedBox.fromSize(
-          size: Size.fromHeight(170.0),
-          child: new LayoutBuilder(builder: (context, constraint) {
-            final width = constraint.maxWidth * 8;
-            return new ClipRect(
-              child: new OverflowBox(
-                maxHeight: double.infinity,
-                maxWidth: double.infinity,
-                child: Stack(
-                  children: [
-                    Container(
-                      width: width,
-                      height: width,
-                      child: new Padding(
-                        padding: new EdgeInsets.only(
-                            bottom:
-                                width / 2 - Size.fromHeight(170.0).height / 2),
-                        child: new DecoratedBox(
-                          decoration: new BoxDecoration(
-                            color: Theme.of(context).primaryColor,
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 20.0),
+          child: ClipPath(
+            clipper: OvalBottomBorderClipper(),
+            child: Container(
+              height: 190,
+              width: double.infinity,
+              child: CachedNetworkImage(
+                imageUrl:
+                    // 'http://www.pngall.com/wp-content/uploads/4/Mosque-PNG-HD-Image.png',
+                    'http://www.pngall.com/wp-content/uploads/4/Mosque-PNG-Download-Image.png',
+                fit: BoxFit.cover,
               ),
-            );
-          }),
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.red, blurRadius: 20, offset: Offset(2, 2)),
+                ],
+              ),
+            ),
+          ),
         ),
+        // new SizedBox.fromSize(
+        //   size: Size.fromHeight(170.0),
+        //   child: new LayoutBuilder(builder: (context, constraint) {
+        //     final width = constraint.maxWidth * 8;
+        //     return new ClipRect(
+        //       child: new OverflowBox(
+        //         maxHeight: double.infinity,
+        //         maxWidth: double.infinity,
+        //         child: Stack(
+        //           children: [
+        //             Container(
+        //               width: width,
+        //               height: width,
+        //               child: new Padding(
+        //                 padding: new EdgeInsets.only(
+        //                     bottom:
+        //                         width / 2 - Size.fromHeight(170.0).height / 2),
+        //                 child: new DecoratedBox(
+        //                   decoration: new BoxDecoration(
+        //                     color: Theme.of(context).primaryColor,
+        //                     shape: BoxShape.circle,
+        //                   ),
+        //                 ),
+        //               ),
+        //             ),
+        //           ],
+        //         ),
+        //       ),
+        //     );
+        //   }),
+        // ),
         //HEADER
         Container(
           margin: EdgeInsets.symmetric(

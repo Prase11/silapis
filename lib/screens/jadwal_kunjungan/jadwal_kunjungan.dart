@@ -21,6 +21,7 @@ class JadwalKunjungan extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TabController _tabController = DefaultTabController.of(context);
     JadwalUmumState jadwalUmumState =
         Provider.of<JadwalUmumState>(context, listen: true);
     JadwalKhususState jadwalKhususState =
@@ -33,25 +34,9 @@ class JadwalKunjungan extends StatelessWidget {
           leading: BackButton(),
           title: 'Jadwal Kunjungan',
           context: context,
-          bottom: TabBar(
-            // controller: _tabController,
-            // isScrollable: true,
-            // indicatorColor: Theme.of(context).primaryColor,
-            // labelColor: Theme.of(context).primaryColor,
-            // unselectedLabelColor: Colors.grey,
-            // indicatorSize: TabBarIndicatorSize.label,
-            // indicator: BoxDecoration(
-            //   border: Border(
-            //     top: BorderSide(style: BorderStyle.none),
-            //     bottom: BorderSide(
-            //         color: Theme.of(context).primaryColor,
-            //         width: 3,
-            //         style: BorderStyle.solid),
-            //     left: BorderSide(style: BorderStyle.none),
-            //     right: BorderSide(style: BorderStyle.none),
-            //   ),
-            //   color: Colors.transparent,
-            // ),
+          bottom: AppTabBar.defaultTabBar(
+            context: context,
+            controler: _tabController,
             tabs: [
               Tab(
                 icon: Row(

@@ -9,7 +9,7 @@ class AppCustomAppBar {
       Color backgroundColor,
       Brightness brightness,
       @required String title,
-      double elavation = 0,
+      double elavation = 2,
       List<Widget> actions,
       PreferredSizeWidget bottom}) {
     return AppBar(
@@ -35,6 +35,7 @@ class AppCustomAppBar {
               : Colors.white
           : backgroundColor,
       elevation: elavation,
+      shadowColor: Theme.of(context).highlightColor,
       title: setTitleAppBar(
         context,
         title,

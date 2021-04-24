@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:silapis/configs/config.dart';
 import 'package:silapis/screens/screen.dart';
+import 'package:silapis/widgets/widget.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:silapis/states/state.dart';
 
@@ -49,11 +50,7 @@ class _AppState extends State<App> {
         },
         child: MaterialApp(
           title: Environment.APP_NAME,
-          theme: ThemeData(
-              scaffoldBackgroundColor: Colors.white,
-              primaryColor: Color(0xFF2979FF),
-              visualDensity: VisualDensity.adaptivePlatformDensity,
-              fontFamily: 'SourceSansPro'),
+          theme: Style.getTheme(font: 'SourceSansPro', isLight: true),
           onGenerateRoute: route.generateRoute,
           localizationsDelegates: [
             GlobalMaterialLocalizations.delegate,

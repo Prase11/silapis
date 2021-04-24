@@ -18,14 +18,11 @@ class LayananPengaduan extends StatelessWidget {
 
     return Scaffold(
       appBar: AppCustomAppBar.defaultAppBar(
-        leading: BackButton(),
-        title: 'Layanan Pengaduan',
-        context: context,
-      ),
+          leading: BackButton(), title: 'Layanan Pengaduan', context: context),
       body: RefreshIndicator(
         onRefresh: layananState.refreshData,
         child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: Dimens.padding),
+          padding: EdgeInsets.all(Dimens.padding),
           children: [
             Text(
               'Tujuan Layanan pengaduan bagi masyarakat yang ingin menyampaikan keluhan dan saran terkait layanan kunjungan dan pelayanan publik lainnya yang ada di Lapas Karangintan kelas II A Kalimantan Selatan. Masyarakat dapat menyampaikankeluhan/aduan dan saran melalui website ini sebagai bentuk akuntabilitas, transparantasi dan profesionalisme petugas lapas ',
