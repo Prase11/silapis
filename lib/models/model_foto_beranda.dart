@@ -53,9 +53,13 @@ class FotoBerandaModel {
   factory FotoBerandaModel.fromJson(Map<String, dynamic> json) =>
       FotoBerandaModel(
         id: json["id"],
-        foto: '${Environment.apiUrl}/file/foto_beranda/${json["foto"]}',
+        foto: json["foto"],
         isActive: json["isActive"],
       );
+
+  String getImage() {
+    return '${Environment.apiUrl}/file/foto_beranda/$foto';
+  }
 
   Map<String, dynamic> toJson() => {
         "id": id,

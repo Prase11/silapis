@@ -59,7 +59,7 @@ class AppAntrianCard extends StatelessWidget {
                   )),
               DottedBorder(
                 strokeWidth: 2,
-                color: Colors.grey.withOpacity(.5),
+                color: Colors.grey.withOpacity(.0),
                 borderType: BorderType.RRect,
                 dashPattern: [4, 4],
                 radius: Radius.circular(12),

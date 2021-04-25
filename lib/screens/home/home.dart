@@ -74,12 +74,23 @@ class _HomeState extends State<Home> {
         ),
         body: Stack(
           children: [
-            Image.asset(
-              'assets/images/batik.jpg',
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              fit: BoxFit.cover,
-            ),
+            if (applicationState
+                .getSettingByKey('foto_background')
+                .contains('http')) ...[
+              CachedNetworkImage(
+                fit: BoxFit.cover,
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                imageUrl: applicationState.getSettingByKey('foto_background'),
+              )
+            ] else ...[
+              Image.asset(
+                'assets/images/batik.jpg',
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                fit: BoxFit.cover,
+              ),
+            ],
             Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
@@ -106,7 +117,8 @@ class _HomeState extends State<Home> {
                               arguments: {
                                 'index': index,
                                 'photo': applicationState.fotoBerandaList.list
-                                    .map((e) => ImageModel(index, e.foto, ''))
+                                    .map((e) =>
+                                        ImageModel(index, e.getImage(), ''))
                                     .toList()
                               });
                         },
@@ -121,7 +133,8 @@ class _HomeState extends State<Home> {
                             child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
                                 child: applicationState
-                                        .fotoBerandaList.list[index].foto
+                                        .fotoBerandaList.list[index]
+                                        .getImage()
                                         .contains('http')
                                     ? CachedNetworkImage(
                                         // progressIndicatorBuilder:
@@ -144,11 +157,13 @@ class _HomeState extends State<Home> {
                                         // },
                                         fit: BoxFit.cover,
                                         imageUrl: applicationState
-                                            .fotoBerandaList.list[index].foto,
+                                            .fotoBerandaList.list[index]
+                                            .getImage(),
                                       )
                                     : Image.asset(
                                         applicationState
-                                            .fotoBerandaList.list[index].foto,
+                                            .fotoBerandaList.list[index]
+                                            .getImage(),
                                         fit: BoxFit.cover,
                                       )),
                           ),
@@ -380,7 +395,8 @@ class _HomeState extends State<Home> {
               child: CachedNetworkImage(
                 imageUrl:
                     // 'http://www.pngall.com/wp-content/uploads/4/Mosque-PNG-HD-Image.png',
-                    'http://www.pngall.com/wp-content/uploads/4/Mosque-PNG-Download-Image.png',
+                    // 'http://www.pngall.com/wp-content/uploads/4/Mosque-PNG-Download-Image.png',
+                    applicationState.getSettingByKey('foto_header'),
                 fit: BoxFit.cover,
               ),
               decoration: BoxDecoration(

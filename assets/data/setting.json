@@ -8,6 +8,9 @@
         }, {
             "key": "antrian_penitipan",
             "value": "1"
+        }, {
+            "key": "foto_header",
+            "value": "http://www.pngall.com/wp-content/uploads/4/Mosque-PNG-Download-Image.png"
         }],
         "limit": 100,
         "offset": 0

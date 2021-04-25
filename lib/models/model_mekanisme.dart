@@ -55,8 +55,12 @@ class MekanismeModel {
         id: json["id"],
         kode: json["kode"],
         nama: json["nama"],
-        foto: '${Environment.apiUrl}/file/foto_mekanisme/${json["foto"]}',
+        foto: json["foto"],
       );
+
+  String getImage() {
+    return '${Environment.apiUrl}/file/foto_mekanisme/$foto';
+  }
 
   Map<String, dynamic> toJson() => {
         "id": id,

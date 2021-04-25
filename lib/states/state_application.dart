@@ -27,7 +27,7 @@ class ApplicationState with ChangeNotifier, DiagnosticableTreeMixin {
     key = key == 'Kunjungan' ? 'K001' : 'P001';
     return mekanismeList.list
             .firstWhere((e) => e.kode == key, orElse: () => null)
-            ?.foto ??
+            ?.getImage() ??
         '0';
   }
 
@@ -42,7 +42,7 @@ class ApplicationState with ChangeNotifier, DiagnosticableTreeMixin {
       ///Setup SharedPreferences
       await UtilPreferences.init();
 
-      // INIT DATA YANG LAMA
+      // CACHED INIT DATA YANG LAMA JIKA SUDAH REQUEST
       if (UtilPreferences.containsKey(Preferences.settingSilaki)) {
         settingList = SettingListModel.fromRawJson(
             UtilPreferences.getString(Preferences.settingSilaki));
@@ -69,7 +69,10 @@ class ApplicationState with ChangeNotifier, DiagnosticableTreeMixin {
             UtilPreferences.getString(Preferences.sosmed));
         UtilLogger.log('CACHED SOSMED', sosmedList.list.map((e) => e.toJson()));
         isSplash = false;
+        await Future.delayed(Duration(seconds: 2));
       }
+      // END CACHED
+      //
       notifyListeners();
 
       final setting = await SilakiRepository.getSetting();
