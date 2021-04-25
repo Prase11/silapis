@@ -18,6 +18,7 @@ class AppTextInput extends StatelessWidget {
   final int maxLines;
   final bool readOnly;
   final Widget leading;
+  final Color backgroundColor;
 
   AppTextInput({
     Key key,
@@ -36,6 +37,7 @@ class AppTextInput extends StatelessWidget {
     this.errorText,
     this.leading,
     this.readOnly,
+    this.backgroundColor,
     this.maxLines = 1,
   }) : super(key: key);
 
@@ -82,7 +84,7 @@ class AppTextInput extends StatelessWidget {
         Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: Theme.of(context).dividerColor,
+            color: backgroundColor ?? Colors.grey[100],
             borderRadius: BorderRadius.circular(10),
           ),
           child: Stack(

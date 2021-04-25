@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:silapis/configs/config.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({Key key}) : super(key: key);
@@ -37,10 +38,25 @@ class _SplashScreenState extends State<SplashScreen> {
                 Container(
                   width: MediaQuery.of(context).size.width * 0.8,
                   child: Text(
-                    'LEMBAGA PERMASYARAKATAN NARKOTIKA KELAS IIA KARANGINTAN KALIMANTAN SELATAN',
+                    'LEMBAGA PERMASYARAKATAN NARKOTIKA KELAS IIA KARANGINTAN',
                     textAlign: TextAlign.center,
                     style: TextStyle(
+                      fontWeight: FontWeight.bold,
                       fontSize: 20,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: Text(
+                    'KALIMANTAN SELATAN',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
@@ -52,7 +68,7 @@ class _SplashScreenState extends State<SplashScreen> {
             child: SizedBox(
               width: 26,
               height: 26,
-              child: CircularProgressIndicator(strokeWidth: 2),
+              child: CupertinoActivityIndicator(),
             ),
           )
         ],

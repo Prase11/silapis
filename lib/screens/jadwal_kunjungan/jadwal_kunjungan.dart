@@ -90,13 +90,14 @@ class JadwalKunjungan extends StatelessWidget {
   Widget _tabJadwalUmum(JadwalUmumState jadwalUmumState) {
     return RefreshIndicator(
         onRefresh: jadwalUmumState.refreshData,
-        child: _buildContentJadwalUmum(jadwalUmumState));
+        child: FadeAnimation(0.5, _buildContentJadwalUmum(jadwalUmumState)));
   }
 
   Widget _tabJadwalKhusus(JadwalKhususState jadwalKhususState) {
     return RefreshIndicator(
         onRefresh: jadwalKhususState.refreshData,
-        child: _buildContentJadwalKhusus(jadwalKhususState));
+        child:
+            FadeAnimation(0.5, _buildContentJadwalKhusus(jadwalKhususState)));
   }
 
   Widget _buildContentJadwalUmum(JadwalUmumState jadwalUmumState) {

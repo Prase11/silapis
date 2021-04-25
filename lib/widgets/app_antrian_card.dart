@@ -32,10 +32,10 @@ class AppAntrianCard extends StatelessWidget {
             ? Theme.of(context).cardColor.withOpacity(1)
             : Colors.white,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Colors.grey[200], width: 0.5),
+        // border: Border.all(color: Colors.grey[200], width: 0.5),
         boxShadow: [
           BoxShadow(
-              color: Colors.grey[100], blurRadius: 0.5, offset: Offset(2, 2)),
+              color: Colors.grey[100], blurRadius: 2, offset: Offset(2, 2)),
         ],
       ),
       child: Material(

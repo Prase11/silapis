@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:silapis/widgets/widget.dart';
 import 'package:silapis/configs/config.dart';
+import 'package:flutter/services.dart';
 
 class Login extends StatefulWidget {
   Login({Key key}) : super(key: key);
@@ -27,21 +28,15 @@ class _LoginState extends State<Login> {
   void initState() {
     _textIDController.text = "";
     _textPassController.text = "";
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+    ));
     super.initState();
   }
 
   ///On navigate forgot password
   void _registrasi() {
     Navigator.pushNamed(context, Routes.registrasi);
-    // appMyInfoDialog(
-    //   context: context,
-    //   message: {
-    //     0: 'Operator Fakultas, jika anda seorang Dosen.',
-    //     1: 'Admin Tenaga Kependidikan (Subbag Tenaga Kependidikan kepegawaian rektorat), jika anda seorang Tenaga Kependidikan.',
-    //   },
-    //   image: Images.ForgotPassword,
-    //   title: '',
-    // );
   }
 
   ///On login
@@ -52,99 +47,169 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppCustomAppBar.defaultAppBar(
-        leading: BackButton(),
-        title: 'Login',
-        context: context,
-      ),
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () {
-            FocusScope.of(context).unfocus();
-          },
-          child: Container(
-            padding: EdgeInsets.only(left: 20, right: 20),
-            alignment: Alignment.topCenter,
-            child: SingleChildScrollView(
-              padding: EdgeInsets.only(top: 40),
-              child: Column(
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.light,
+      child: Scaffold(
+        body: ListView(
+          padding: EdgeInsets.only(top: 0),
+          children: [
+            Container(
+              height: 400,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/background.png'),
+                      fit: BoxFit.fill)),
+              child: Stack(
                 children: <Widget>[
-                  Center(
-                    child: SvgPicture.asset(
-                      Images.Security,
-                      matchTextDirection: true,
-                      width: MediaQuery.of(context).size.width * 0.45,
-                    ),
+                  Positioned(
+                    left: 30,
+                    width: 80,
+                    height: 200,
+                    child: FadeAnimation(
+                        1,
+                        Container(
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image:
+                                      AssetImage('assets/images/light-1.png'))),
+                        )),
                   ),
-                  SizedBox(height: 40),
-                  AppTextInput(
-                    hintText: 'Username',
-                    errorText: _validID != null ? _validID : null,
-                    icon: Icon(Icons.clear),
-                    controller: _textIDController,
-                    focusNode: _focusID,
-                    textInputAction: TextInputAction.next,
-                    onTapIcon: () async {
-                      await Future.delayed(Duration(milliseconds: 100));
-                      _textIDController.clear();
-                    },
+                  Positioned(
+                    left: 140,
+                    width: 80,
+                    height: 150,
+                    child: FadeAnimation(
+                        1.3,
+                        Container(
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image:
+                                      AssetImage('assets/images/light-2.png'))),
+                        )),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 10),
+                  Positioned(
+                    right: 40,
+                    top: 40,
+                    width: 80,
+                    height: 150,
+                    child: FadeAnimation(
+                        1.5,
+                        Container(
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image:
+                                      AssetImage('assets/images/clock.png'))),
+                        )),
                   ),
-                  AppTextInput(
-                    hintText: 'Password',
-                    errorText: _validPass != null ? _validPass : null,
-                    textInputAction: TextInputAction.done,
-                    onSubmitted: (text) {
-                      _login();
-                    },
-                    onTapIcon: () {
-                      setState(() {
-                        _showPassword = !_showPassword;
-                      });
-                    },
-                    obscureText: !_showPassword,
-                    icon: Icon(
-                      _showPassword ? Icons.visibility : Icons.visibility_off,
-                    ),
-                    controller: _textPassController,
-                    focusNode: _focusPass,
+                  Positioned(
+                    child: FadeAnimation(
+                        1.6,
+                        Container(
+                          margin: EdgeInsets.only(top: 50),
+                          child: Center(
+                            child: Text(
+                              "Login",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 40,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        )),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 20),
-                  ),
-                  Row(children: [
-                    Expanded(
-                      child: AppMyButton(
-                        onPress: () {
-                          _login();
-                        },
-                        text: 'Login',
-                        icon: Icons.vpn_key,
-                        loading: false,
-                      ),
-                    ),
-                  ]),
-                  Padding(
-                    padding: EdgeInsets.only(top: 5),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      FlatButton(
-                        onPressed: _registrasi,
-                        child: Text(
-                          'Registrasi',
-                        ),
-                      ),
-                    ],
+                  Positioned(
+                    top: 40,
+                    width: 80,
+                    child: InkWell(
+                        child: Icon(Icons.arrow_back, color: Colors.white),
+                        onTap: () {
+                          Navigator.pop(context);
+                        }),
                   ),
                 ],
               ),
             ),
-          ),
+            FadeAnimation(
+              1,
+              Container(
+                padding: EdgeInsets.only(left: 20, right: 20),
+                alignment: Alignment.topCenter,
+                child: SingleChildScrollView(
+                  padding: EdgeInsets.only(top: 40),
+                  child: Column(
+                    children: <Widget>[
+                      AppTextInput(
+                        hintText: 'Username',
+                        errorText: _validID != null ? _validID : null,
+                        icon: Icon(Icons.clear),
+                        controller: _textIDController,
+                        focusNode: _focusID,
+                        textInputAction: TextInputAction.next,
+                        onTapIcon: () async {
+                          await Future.delayed(Duration(milliseconds: 100));
+                          _textIDController.clear();
+                        },
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 10),
+                      ),
+                      AppTextInput(
+                        hintText: 'Password',
+                        errorText: _validPass != null ? _validPass : null,
+                        textInputAction: TextInputAction.done,
+                        onSubmitted: (text) {
+                          _login();
+                        },
+                        onTapIcon: () {
+                          setState(() {
+                            _showPassword = !_showPassword;
+                          });
+                        },
+                        obscureText: !_showPassword,
+                        icon: Icon(
+                          _showPassword
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                        controller: _textPassController,
+                        focusNode: _focusPass,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 20),
+                      ),
+                      Row(children: [
+                        Expanded(
+                          child: AppMyButton(
+                            onPress: () {
+                              _login();
+                            },
+                            text: 'Login',
+                            icon: Icons.vpn_key,
+                            buttonColor: Color.fromRGBO(143, 148, 251, 1),
+                            loading: false,
+                          ),
+                        ),
+                      ]),
+                      Padding(
+                        padding: EdgeInsets.only(top: 5),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          FlatButton(
+                            onPressed: _registrasi,
+                            child: Text(
+                              'Registrasi',
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -20,3 +20,4 @@ export 'app_tab_bar.dart';
 export 'app_expandable.dart';
 export 'clipper/clipper.dart';
 export 'boilerplate/boilerplate.dart';
+export 'animation/animation.dart';

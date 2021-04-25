@@ -17,42 +17,53 @@ class AppMyButton extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        height: 40,
-        child: ElevatedButton.icon(
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.resolveWith<Color>(
-              (Set<MaterialState> states) {
-                if (states.contains(MaterialState.pressed))
-                  return Theme.of(context).primaryColor;
-                return buttonColor ??
-                    Theme.of(context)
-                        .primaryColor; // Use the component's default.
-              },
+    return Container(
+      height: 40,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          gradient: LinearGradient(colors: [
+            buttonColor ?? Theme.of(context).primaryColor,
+            buttonColor != null
+                ? buttonColor.withOpacity(.6)
+                : Theme.of(context).primaryColor.withOpacity(.6),
+          ])),
+      child: InkWell(
+        onTap: loading ? null : onPress,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (loading) ...[
+              SizedBox(
+                height: 16.0,
+                width: 16.0,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2.5,
+                  valueColor: AlwaysStoppedAnimation(Colors.white),
+                ),
+              )
+            ],
+            // !loading
+            //     ? Icon(
+            //         icon,
+            //         color: Colors.white,
+            //       )
+            //     : SizedBox(
+            //         height: 16.0,
+            //         width: 16.0,
+            //         child: CircularProgressIndicator(
+            //           strokeWidth: 2.5,
+            //           valueColor: AlwaysStoppedAnimation(Colors.white),
+            //         ),
+            //       ),
+            SizedBox(width: 10),
+            Text(
+              text,
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-            ),
-          ),
-          onPressed: loading ? null : onPress,
-          label: Text(
-            text,
-            style: TextStyle(color: Colors.white),
-          ),
-          icon: !loading
-              ? Icon(
-                  icon,
-                  color: Colors.white,
-                )
-              : SizedBox(
-                  height: 16.0,
-                  width: 16.0,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2.5,
-                    valueColor: AlwaysStoppedAnimation(Colors.white),
-                  )),
-        ));
+          ],
+        ),
+      ),
+    );
   }
 }

@@ -17,10 +17,16 @@ class ApplicationState with ChangeNotifier, DiagnosticableTreeMixin {
   }
 
   String getSettingByKey(String key) {
-    return settingList.list
+    String find = settingList.list
             .firstWhere((e) => e.key == key, orElse: () => null)
             ?.value ??
         '0';
+
+    if (key == 'foto_background' || key == 'foto_header') {
+      find = "${Environment.apiUrl}/file/foto_setting/$find";
+    }
+
+    return find;
   }
 
   String getMekanismeByKey(String key) {

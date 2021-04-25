@@ -223,151 +223,155 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.symmetric(
-                      vertical: Dimens.padding, horizontal: Dimens.padding),
-                  child: Wrap(
-                    alignment: WrapAlignment.center,
-                    children: [
-                      AppMenuBox(
-                        viewType: isGrid ? ViewType.GRID : ViewType.LIST,
-                        name: 'Antrian Online',
-                        icons: FontAwesomeIcons.bookReader,
-                        color: Theme.of(context).primaryColor,
-                        backgroundImage:
-                            'https://mcdn.wallpapersafari.com/medium/71/29/1PCyiH.jpg',
-                        keterangan:
-                            'Menu antrian online, disediakan untuk membuat antrian secara online yang dapat di akses dari manapun dan kapanpun.',
-                        onTap: () async {
-                          final status = await Navigator.pushNamed(
-                              context, Routes.antrianOnline);
+                FadeAnimation(
+                  1,
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                        vertical: Dimens.padding, horizontal: Dimens.padding),
+                    child: Wrap(
+                      alignment: WrapAlignment.center,
+                      children: [
+                        AppMenuBox(
+                          viewType: isGrid ? ViewType.GRID : ViewType.LIST,
+                          name: 'Antrian Online',
+                          icons: FontAwesomeIcons.bookReader,
+                          color: Theme.of(context).primaryColor,
+                          backgroundImage:
+                              'https://mcdn.wallpapersafari.com/medium/71/29/1PCyiH.jpg',
+                          keterangan:
+                              'Menu antrian online, disediakan untuk membuat antrian secara online yang dapat di akses dari manapun dan kapanpun.',
+                          onTap: () async {
+                            final status = await Navigator.pushNamed(
+                                context, Routes.antrianOnline);
 
-                          if (status != null) {
+                            if (status != null) {
+                              Navigator.pushNamed(
+                                  context, Routes.daftarAntrian);
+                            }
+                          },
+                        ),
+                        AppMenuBox(
+                          backgroundImage:
+                              'https://mcdn.wallpapersafari.com/medium/3/67/i3T8eU.jpg',
+                          keterangan:
+                              'Menu daftar antrian online, disediakan untuk melihat antrian online yang sudah dibuat dan dapat di akses dari manapun dan kapanpun.',
+                          viewType: isGrid ? ViewType.GRID : ViewType.LIST,
+                          name: 'Daftar Antrian',
+                          icons: FontAwesomeIcons.bookOpen,
+                          color: Theme.of(context).primaryColor,
+                          onTap: () {
                             Navigator.pushNamed(context, Routes.daftarAntrian);
-                          }
-                        },
-                      ),
-                      AppMenuBox(
-                        backgroundImage:
-                            'https://mcdn.wallpapersafari.com/medium/3/67/i3T8eU.jpg',
-                        keterangan:
-                            'Menu daftar antrian online, disediakan untuk melihat antrian online yang sudah dibuat dan dapat di akses dari manapun dan kapanpun.',
-                        viewType: isGrid ? ViewType.GRID : ViewType.LIST,
-                        name: 'Daftar Antrian',
-                        icons: FontAwesomeIcons.bookOpen,
-                        color: Theme.of(context).primaryColor,
-                        onTap: () {
-                          Navigator.pushNamed(context, Routes.daftarAntrian);
-                        },
-                      ),
-                      AppMenuBox(
-                        backgroundImage:
-                            'https://mcdn.wallpapersafari.com/medium/69/18/NUOP6C.jpg',
-                        keterangan:
-                            'Lokasi Lapas Narkotika Karangintan Kalimantan Selatan',
-                        viewType: isGrid ? ViewType.GRID : ViewType.LIST,
-                        name: 'Lokasi Lapas',
-                        icons: FontAwesomeIcons.mapMarkerAlt,
-                        color: Theme.of(context).primaryColor,
-                        onTap: () {
-                          Navigator.pushNamed(context, Routes.location,
-                              arguments: LocationModel(
-                                  1,
-                                  'Lapas Narkotika Karangintan Kalimantan Selatan',
-                                  -3.4559425,
-                                  114.926662));
-                        },
-                      ),
-                      AppMenuBox(
-                        backgroundImage:
-                            'https://mcdn.wallpapersafari.com/medium/5/83/FSbHPm.jpg',
-                        keterangan: '-',
-                        viewType: isGrid ? ViewType.GRID : ViewType.LIST,
-                        name: 'Data SDP',
-                        icons: FontAwesomeIcons.book,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                      AppMenuBox(
-                        backgroundImage:
-                            'https://mcdn.wallpapersafari.com/medium/74/56/cOHUvX.jpg',
-                        keterangan:
-                            'Berisi Informasi jadwal kunjungan untuk warga binaan pemasyarakatan di Lembaga Pemasyarakatan Kelas IIA Kalimantan Selatan',
-                        viewType: isGrid ? ViewType.GRID : ViewType.LIST,
-                        name: 'Jadwal Kunjungan',
-                        icons: FontAwesomeIcons.calendarAlt,
-                        color: Theme.of(context).primaryColor,
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            Routes.jadwalKunjungan,
-                          );
-                        },
-                      ),
-                      AppMenuBox(
-                        backgroundImage:
-                            'https://mcdn.wallpapersafari.com/medium/10/29/FhiT5K.jpg',
-                        keterangan:
-                            'Mempermudah keluarga warga binaan pemasyarakatan untuk melakukan pengusulan program integrasi (PB, CB, CMB dan Asimilasi).',
-                        viewType: isGrid ? ViewType.GRID : ViewType.LIST,
-                        name: 'Pengajuan Integrasi',
-                        icons: FontAwesomeIcons.handsHelping,
-                        color: Theme.of(context).primaryColor,
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            Routes.login,
-                          );
-                        },
-                      ),
-                      // AppMenuBox(
-                      //   backgroundImage:
-                      //       'https://mcdn.wallpapersafari.com/medium/25/35/Y7Xdm8.jpg',
-                      //   keterangan:
-                      //       'Menampilkan berita seputar Lapas Narkotika Karangintan Kalimantan Selatan',
-                      //   viewType: isGrid ? ViewType.GRID : ViewType.LIST,
-                      //   name: 'Berita Terbaru',
-                      //   icons: FontAwesomeIcons.newspaper,
-                      //   onTap: () {
-                      //     Navigator.pushNamed(
-                      //       context,
-                      //       Routes.news,
-                      //     );
-                      //   },
-                      //   color: Theme.of(context).primaryColor,
-                      // ),
-                      // AppMenuBox(
-                      //   backgroundImage:
-                      //       'https://mcdn.wallpapersafari.com/medium/46/34/Mxjr2p.jpg',
-                      //   keterangan:
-                      //       'Struktur Organisasi Lapas Narkotika Karangintan Kalimantan Selatan',
-                      //   viewType: isGrid ? ViewType.GRID : ViewType.LIST,
-                      //   name: 'Struktur',
-                      //   icons: FontAwesomeIcons.sitemap,
-                      //   onTap: () {
-                      //     Navigator.pushNamed(
-                      //       context,
-                      //       Routes.strukturOrganisasi,
-                      //     );
-                      //   },
-                      //   color: Theme.of(context).primaryColor,
-                      // ),
-                      AppMenuBox(
-                        backgroundImage:
-                            'https://mcdn.wallpapersafari.com/medium/65/86/3m6AIX.jpg',
-                        keterangan:
-                            'masyarakat dapat menyampaikan keluhan / aduan dan saran sebagai bentuk akuntabilitas, transparantasi dan profesionalisme',
-                        viewType: isGrid ? ViewType.GRID : ViewType.LIST,
-                        name: 'Layanan Pengaduan',
-                        icons: FontAwesomeIcons.comments,
-                        color: Theme.of(context).primaryColor,
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            Routes.layananPengaduan,
-                          );
-                        },
-                      ),
-                    ],
+                          },
+                        ),
+                        AppMenuBox(
+                          backgroundImage:
+                              'https://mcdn.wallpapersafari.com/medium/69/18/NUOP6C.jpg',
+                          keterangan:
+                              'Lokasi Lapas Narkotika Karangintan Kalimantan Selatan',
+                          viewType: isGrid ? ViewType.GRID : ViewType.LIST,
+                          name: 'Lokasi Lapas',
+                          icons: FontAwesomeIcons.mapMarkerAlt,
+                          color: Theme.of(context).primaryColor,
+                          onTap: () {
+                            Navigator.pushNamed(context, Routes.location,
+                                arguments: LocationModel(
+                                    1,
+                                    'Lapas Narkotika Karangintan Kalimantan Selatan',
+                                    -3.4559425,
+                                    114.926662));
+                          },
+                        ),
+                        AppMenuBox(
+                          backgroundImage:
+                              'https://mcdn.wallpapersafari.com/medium/5/83/FSbHPm.jpg',
+                          keterangan: '-',
+                          viewType: isGrid ? ViewType.GRID : ViewType.LIST,
+                          name: 'Data SDP',
+                          icons: FontAwesomeIcons.book,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        AppMenuBox(
+                          backgroundImage:
+                              'https://mcdn.wallpapersafari.com/medium/74/56/cOHUvX.jpg',
+                          keterangan:
+                              'Berisi Informasi jadwal kunjungan untuk warga binaan pemasyarakatan di Lembaga Pemasyarakatan Kelas IIA Kalimantan Selatan',
+                          viewType: isGrid ? ViewType.GRID : ViewType.LIST,
+                          name: 'Jadwal Kunjungan',
+                          icons: FontAwesomeIcons.calendarAlt,
+                          color: Theme.of(context).primaryColor,
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              Routes.jadwalKunjungan,
+                            );
+                          },
+                        ),
+                        AppMenuBox(
+                          backgroundImage:
+                              'https://mcdn.wallpapersafari.com/medium/10/29/FhiT5K.jpg',
+                          keterangan:
+                              'Mempermudah keluarga warga binaan pemasyarakatan untuk melakukan pengusulan program integrasi (PB, CB, CMB dan Asimilasi).',
+                          viewType: isGrid ? ViewType.GRID : ViewType.LIST,
+                          name: 'Pengajuan Integrasi',
+                          icons: FontAwesomeIcons.handsHelping,
+                          color: Theme.of(context).primaryColor,
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              Routes.login,
+                            );
+                          },
+                        ),
+                        // AppMenuBox(
+                        //   backgroundImage:
+                        //       'https://mcdn.wallpapersafari.com/medium/25/35/Y7Xdm8.jpg',
+                        //   keterangan:
+                        //       'Menampilkan berita seputar Lapas Narkotika Karangintan Kalimantan Selatan',
+                        //   viewType: isGrid ? ViewType.GRID : ViewType.LIST,
+                        //   name: 'Berita Terbaru',
+                        //   icons: FontAwesomeIcons.newspaper,
+                        //   onTap: () {
+                        //     Navigator.pushNamed(
+                        //       context,
+                        //       Routes.news,
+                        //     );
+                        //   },
+                        //   color: Theme.of(context).primaryColor,
+                        // ),
+                        // AppMenuBox(
+                        //   backgroundImage:
+                        //       'https://mcdn.wallpapersafari.com/medium/46/34/Mxjr2p.jpg',
+                        //   keterangan:
+                        //       'Struktur Organisasi Lapas Narkotika Karangintan Kalimantan Selatan',
+                        //   viewType: isGrid ? ViewType.GRID : ViewType.LIST,
+                        //   name: 'Struktur',
+                        //   icons: FontAwesomeIcons.sitemap,
+                        //   onTap: () {
+                        //     Navigator.pushNamed(
+                        //       context,
+                        //       Routes.strukturOrganisasi,
+                        //     );
+                        //   },
+                        //   color: Theme.of(context).primaryColor,
+                        // ),
+                        AppMenuBox(
+                          backgroundImage:
+                              'https://mcdn.wallpapersafari.com/medium/65/86/3m6AIX.jpg',
+                          keterangan:
+                              'masyarakat dapat menyampaikan keluhan / aduan dan saran sebagai bentuk akuntabilitas, transparantasi dan profesionalisme',
+                          viewType: isGrid ? ViewType.GRID : ViewType.LIST,
+                          name: 'Layanan Pengaduan',
+                          icons: FontAwesomeIcons.comments,
+                          color: Theme.of(context).primaryColor,
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              Routes.layananPengaduan,
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
 
@@ -441,57 +445,60 @@ class _HomeState extends State<Home> {
         //   }),
         // ),
         //HEADER
-        Container(
-          margin: EdgeInsets.symmetric(
-              vertical: Dimens.padding * 2, horizontal: Dimens.padding * 2),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    margin: EdgeInsets.all(5),
-                    height: 60,
-                    width: 60,
-                    child: Image.asset(Images.Logo),
+        FadeAnimation(
+          0.5,
+          Container(
+            margin: EdgeInsets.symmetric(
+                vertical: Dimens.padding * 2, horizontal: Dimens.padding * 2),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.all(5),
+                      height: 60,
+                      width: 60,
+                      child: Image.asset(Images.Logo),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(5),
+                      height: 60,
+                      width: 60,
+                      child: Image.asset(Images.Permasyarakatan),
+                    ),
+                  ],
+                ),
+                Text(
+                  'LEMBAGA PERMASYARAKATAN NARKOTIKA',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: Colors.white,
                   ),
-                  Container(
-                    margin: EdgeInsets.all(5),
-                    height: 60,
-                    width: 60,
-                    child: Image.asset(Images.Permasyarakatan),
+                ),
+                Text(
+                  'KELAS IIA KARANGINTAN',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: Colors.white,
                   ),
-                ],
-              ),
-              Text(
-                'LEMBAGA PERMASYARAKATAN NARKOTIKA',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  color: Colors.white,
                 ),
-              ),
-              Text(
-                'KELAS IIA KARANGINTAN',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  color: Colors.white,
+                SizedBox(height: 3),
+                Text(
+                  'KALIMANTAN SELATAN',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
-              SizedBox(height: 3),
-              Text(
-                'KALIMANTAN SELATAN',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.white,
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ],

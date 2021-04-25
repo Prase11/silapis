@@ -298,10 +298,13 @@ class _AntrianKunjunganState extends State<Antrian> {
               onPress: onSubmit,
             ),
           ] else ...[
-            AppInfo(
-              title: 'Pilih Jenis Kunjungan Anda',
-              message: '',
-              image: Images.Info,
+            FadeAnimation(
+              0.5,
+              AppInfo(
+                title: 'Pilih Jenis Kunjungan Anda',
+                message: '',
+                image: Images.Info,
+              ),
             ),
           ]
           // OutlineButton(

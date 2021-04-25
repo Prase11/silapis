@@ -61,191 +61,195 @@ class _DaftarAntrianDetailState extends State<DaftarAntrianDetail> {
               ),
             ),
           ]),
-      body: ListView(children: [
-        ClipPath(
-          clipper: MovieTicketClipper(),
-          child: Container(
-            margin: EdgeInsets.all(Dimens.padding * 1.5),
-            padding: EdgeInsets.all(Dimens.padding * 1),
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(10)),
-            child: RepaintBoundary(
-              key: _printKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        widget.antrianModel.humanDate(),
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
-                      ),
-                      Text(
-                        "ID ANTRIAN : ${widget.antrianModel.id}",
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
-                      ),
-                    ],
-                  ),
-                  _myDivider(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 6,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Nama Pengunjung',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 18),
-                            ),
-                            Text(widget.antrianModel.pengunjung.nama),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              'NIK',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 18),
-                            ),
-                            Text(widget.antrianModel.nik),
-                          ],
-                        ),
-                      ),
-                      Spacer(
-                        flex: 1,
-                      ),
-                      Expanded(
-                        flex: 4,
-                        child: Column(
-                          children: [
-                            Text(
-                              'NOMOR ANTRIAN',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 18),
-                            ),
-                            Text(
-                              widget.antrianModel.no,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 70),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  _myDivider(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Nama Narapidana',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(width: 15),
-                      Expanded(
-                        child: Text(
-                          '${widget.antrianModel.napi.nama}',
-                          textAlign: TextAlign.right,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Blok Kamar',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(width: 15),
-                      Expanded(
-                        child: Text(
-                          '${widget.antrianModel.napi.blokKamar}',
-                          textAlign: TextAlign.right,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'No Registrasi',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(width: 15),
-                      Expanded(
-                        child: Text(
-                          '${widget.antrianModel.napi.noReg}',
-                          textAlign: TextAlign.right,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'UU',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(width: 15),
-                      Expanded(
-                        child: Text(
-                          '${widget.antrianModel.napi.uu}',
-                          textAlign: TextAlign.right,
-                        ),
-                      ),
-                    ],
-                  ),
-                  _myDivider(),
-                  Center(
-                    child: Column(
+      body: FadeAnimation(
+        0.5,
+        ListView(children: [
+          ClipPath(
+            clipper: MovieTicketClipper(),
+            child: Container(
+              margin: EdgeInsets.all(Dimens.padding * 1.5),
+              padding: EdgeInsets.all(Dimens.padding * 1),
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(10)),
+              child: RepaintBoundary(
+                key: _printKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Waktu Kunjungan ${widget.antrianModel.createdAt}',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 18)),
-                        SizedBox(height: 20),
-
-                        PrettyQr(
-                            // image: AssetImage(Images.Logo),
-                            typeNumber: 3,
-                            size: 200,
-                            data: widget.antrianModel.id,
-                            errorCorrectLevel: QrErrorCorrectLevel.M,
-                            roundEdges: true),
-                        // SizedBox(height: 10),
-                        // Text('${widget.antrianModel.id}',
-                        //     style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(
+                          widget.antrianModel.humanDate(),
+                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                        ),
+                        Text(
+                          "ID ANTRIAN : ${widget.antrianModel.id}",
+                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                        ),
                       ],
                     ),
-                  ),
-                  SizedBox(height: 20),
-                ],
+                    _myDivider(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          flex: 6,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Nama Pengunjung',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 18),
+                              ),
+                              Text(widget.antrianModel.pengunjung.nama),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'NIK',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 18),
+                              ),
+                              Text(widget.antrianModel.nik),
+                            ],
+                          ),
+                        ),
+                        Spacer(
+                          flex: 1,
+                        ),
+                        Expanded(
+                          flex: 4,
+                          child: Column(
+                            children: [
+                              Text(
+                                'NOMOR ANTRIAN',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 18),
+                              ),
+                              Text(
+                                widget.antrianModel.no,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 70),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    _myDivider(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Nama Narapidana',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(width: 15),
+                        Expanded(
+                          child: Text(
+                            '${widget.antrianModel.napi.nama}',
+                            textAlign: TextAlign.right,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Blok Kamar',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(width: 15),
+                        Expanded(
+                          child: Text(
+                            '${widget.antrianModel.napi.blokKamar}',
+                            textAlign: TextAlign.right,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'No Registrasi',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(width: 15),
+                        Expanded(
+                          child: Text(
+                            '${widget.antrianModel.napi.noReg}',
+                            textAlign: TextAlign.right,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'UU',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(width: 15),
+                        Expanded(
+                          child: Text(
+                            '${widget.antrianModel.napi.uu}',
+                            textAlign: TextAlign.right,
+                          ),
+                        ),
+                      ],
+                    ),
+                    _myDivider(),
+                    Center(
+                      child: Column(
+                        children: [
+                          Text(
+                              'Waktu Kunjungan ${widget.antrianModel.createdAt}',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 18)),
+                          SizedBox(height: 20),
+
+                          PrettyQr(
+                              // image: AssetImage(Images.Logo),
+                              typeNumber: 3,
+                              size: 200,
+                              data: widget.antrianModel.id,
+                              errorCorrectLevel: QrErrorCorrectLevel.M,
+                              roundEdges: true),
+                          // SizedBox(height: 10),
+                          // Text('${widget.antrianModel.id}',
+                          //     style: TextStyle(fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        Container(
-          margin: EdgeInsets.only(
-              bottom: Dimens.padding * 1.5,
-              right: Dimens.padding * 1.5,
-              left: Dimens.padding * 1.5),
-          child: Text(
-              '* Dimohon Membawa Kartu Identitas atau Fotocopy Kartu Identitas',
-              style:
-                  TextStyle(fontStyle: FontStyle.italic, color: Colors.grey)),
-        ),
-      ]),
+          Container(
+            margin: EdgeInsets.only(
+                bottom: Dimens.padding * 1.5,
+                right: Dimens.padding * 1.5,
+                left: Dimens.padding * 1.5),
+            child: Text(
+                '* Dimohon Membawa Kartu Identitas atau Fotocopy Kartu Identitas',
+                style:
+                    TextStyle(fontStyle: FontStyle.italic, color: Colors.grey)),
+          ),
+        ]),
+      ),
     );
   }
 

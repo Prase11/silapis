@@ -21,23 +21,26 @@ class LayananPengaduan extends StatelessWidget {
           leading: BackButton(), title: 'Layanan Pengaduan', context: context),
       body: RefreshIndicator(
         onRefresh: layananState.refreshData,
-        child: ListView(
-          padding: EdgeInsets.all(Dimens.padding),
-          children: [
-            Text(
-              'Tujuan Layanan pengaduan bagi masyarakat yang ingin menyampaikan keluhan dan saran terkait layanan kunjungan dan pelayanan publik lainnya yang ada di Lapas Karangintan kelas II A Kalimantan Selatan. Masyarakat dapat menyampaikankeluhan/aduan dan saran melalui website ini sebagai bentuk akuntabilitas, transparantasi dan profesionalisme petugas lapas ',
-              textAlign: TextAlign.justify,
-              style: TextStyle(fontSize: 18),
-            ),
-            SizedBox(height: 20),
-            Text(
-              'Beberapa Jenis Layanan aduan / saran yang kami sediakan : ',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
-            ),
-            SizedBox(height: 20),
-            _buildContent(context, layananState),
-          ],
+        child: FadeAnimation(
+          0.5,
+          ListView(
+            padding: EdgeInsets.all(Dimens.padding),
+            children: [
+              Text(
+                'Tujuan Layanan pengaduan bagi masyarakat yang ingin menyampaikan keluhan dan saran terkait layanan kunjungan dan pelayanan publik lainnya yang ada di Lapas Karangintan kelas II A Kalimantan Selatan. Masyarakat dapat menyampaikankeluhan/aduan dan saran melalui website ini sebagai bentuk akuntabilitas, transparantasi dan profesionalisme petugas lapas ',
+                textAlign: TextAlign.justify,
+                style: TextStyle(fontSize: 18),
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Beberapa Jenis Layanan aduan / saran yang kami sediakan : ',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
+              ),
+              SizedBox(height: 20),
+              _buildContent(context, layananState),
+            ],
+          ),
         ),
       ),
     );

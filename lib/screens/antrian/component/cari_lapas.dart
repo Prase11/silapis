@@ -84,10 +84,13 @@ class _CariLapasState extends State<CariLapas> {
               SizedBox(
                 height: 0,
               ),
-              AppInfo(
-                title: 'Cari',
-                message: 'Nama Lapas dan Nama Ayah',
-                image: Images.Search,
+              FadeAnimation(
+                0.5,
+                AppInfo(
+                  title: 'Cari',
+                  message: 'Nama Lapas dan Nama Ayah',
+                  image: Images.Search,
+                ),
               ),
             ] else if (napiState.isEmpty) ...[
               SizedBox(

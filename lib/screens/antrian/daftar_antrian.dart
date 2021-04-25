@@ -18,6 +18,7 @@ class DaftarAntrian extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        backgroundColor: Colors.grey[50],
         appBar: AppCustomAppBar.defaultAppBar(
           leading: BackButton(),
           title: 'Daftar Antrian Anda',
@@ -68,13 +69,16 @@ class DaftarAntrian extends StatelessWidget {
           children: [
             SafeArea(
               child: RefreshIndicator(
-                  onRefresh: antrianKunjunganState.refreshData,
-                  child: _buildContentKunjungan(antrianKunjunganState)),
+                onRefresh: antrianKunjunganState.refreshData,
+                child: FadeAnimation(
+                    0.5, _buildContentKunjungan(antrianKunjunganState)),
+              ),
             ),
             SafeArea(
               child: RefreshIndicator(
                   onRefresh: antrianPenitipanState.refreshData,
-                  child: _buildContentPenitipan(antrianPenitipanState)),
+                  child: FadeAnimation(
+                      0.5, _buildContentPenitipan(antrianPenitipanState))),
             ),
           ],
         ),
