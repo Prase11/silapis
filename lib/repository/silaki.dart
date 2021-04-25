@@ -31,6 +31,17 @@ class SilakiRepository {
     // return ApiModel.fromJson(result);
   }
 
+  static Future<ApiModel> postRegistrasi(Map<String, dynamic> data) async {
+    FormData formData = new FormData.fromMap(data);
+
+    // return await Consumer().execute(
+    //     url: '/antrian', formData: formData, method: MethodRequest.POST);
+
+    await Future.delayed(Duration(seconds: 1));
+    final result = await UtilAsset.loadJson("assets/data/registrasi_post.json");
+    return ApiModel.fromJson(result);
+  }
+
   static Future<ApiModel> jadwalUmum() async {
     return await Consumer().execute(url: '/jadwal_umum');
 

@@ -7,6 +7,7 @@ enum ViewType { GRID, LIST }
 class AppMenuBox extends StatelessWidget {
   final IconData icons;
   final Color color;
+  final Color textColor;
   // final String route;
   final String name;
   final String backgroundImage;
@@ -17,6 +18,7 @@ class AppMenuBox extends StatelessWidget {
   const AppMenuBox(
       {Key key,
       this.color,
+      this.textColor,
       this.icons,
       this.name,
       // this.route,
@@ -73,7 +75,8 @@ class AppMenuBox extends StatelessWidget {
         Text(
           name,
           textAlign: TextAlign.center,
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          style: TextStyle(
+              fontWeight: FontWeight.bold, color: textColor ?? Colors.white),
         ),
       ]),
     );

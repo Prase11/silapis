@@ -5,16 +5,16 @@ import 'package:silapis/widgets/widget.dart';
 import 'package:silapis/configs/config.dart';
 import 'package:flutter/services.dart';
 
-class Login extends StatefulWidget {
-  Login({Key key}) : super(key: key);
+class ResetPassword extends StatefulWidget {
+  ResetPassword({Key key}) : super(key: key);
 
   @override
-  _LoginState createState() {
-    return _LoginState();
+  _ResetPasswordState createState() {
+    return _ResetPasswordState();
   }
 }
 
-class _LoginState extends State<Login> {
+class _ResetPasswordState extends State<ResetPassword> {
   final _textIDController = TextEditingController();
   final _textPassController = TextEditingController();
   final _focusID = FocusNode();
@@ -108,7 +108,7 @@ class _LoginState extends State<Login> {
                           margin: EdgeInsets.only(top: 50),
                           child: Center(
                             child: Text(
-                              "Login",
+                              "Reset Password",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 40,
@@ -139,94 +139,26 @@ class _LoginState extends State<Login> {
                   child: Column(
                     children: <Widget>[
                       AppTextInput(
-                        hintText: 'Username',
-                        errorText: _validID != null ? _validID : null,
+                        title: 'Email',
+                        hintText: 'Email',
+                        errorText: null,
                         icon: Icon(Icons.clear),
                         controller: _textIDController,
-                        focusNode: _focusID,
                         textInputAction: TextInputAction.next,
                         onTapIcon: () async {
-                          await Future.delayed(Duration(milliseconds: 100));
                           _textIDController.clear();
                         },
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: 10),
                       ),
-                      AppTextInput(
-                        hintText: 'Password',
-                        errorText: _validPass != null ? _validPass : null,
-                        textInputAction: TextInputAction.done,
-                        onSubmitted: (text) {
-                          _login();
-                        },
-                        onTapIcon: () {
-                          setState(() {
-                            _showPassword = !_showPassword;
-                          });
-                        },
-                        obscureText: !_showPassword,
-                        icon: Icon(
-                          _showPassword
-                              ? Icons.visibility
-                              : Icons.visibility_off,
-                        ),
-                        controller: _textPassController,
-                        focusNode: _focusPass,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          FlatButton(
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                  context, Routes.resetPassword);
-                            },
-                            child: Text(
-                              'Lupa Password ?',
-                            ),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 20),
-                      ),
                       Row(children: [
                         Expanded(
                           child: AppMyButton(
-                            onPress: () {
-                              _login();
-                            },
-                            text: 'Login',
+                            onPress: () {},
+                            text: 'Reset password',
                             icon: Icons.vpn_key,
                             buttonColor: Color.fromRGBO(143, 148, 251, 1),
-                            loading: false,
-                          ),
-                        ),
-                      ]),
-                      Container(
-                        margin:
-                            EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            CustomPaint(painter: Drawhorizontalline(true)),
-                            Text(
-                              "Atau",
-                              style: TextStyle(
-                                color: Colors.grey,
-                              ),
-                            ),
-                            CustomPaint(painter: Drawhorizontalline(false))
-                          ],
-                        ),
-                      ),
-                      Row(children: [
-                        Expanded(
-                          child: AppMyButton(
-                            onPress: _registrasi,
-                            text: 'Registrasi',
-                            buttonColor: Colors.green,
                             loading: false,
                           ),
                         ),

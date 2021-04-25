@@ -27,7 +27,7 @@ class LayananPengaduan extends StatelessWidget {
             padding: EdgeInsets.all(Dimens.padding),
             children: [
               Text(
-                'Tujuan Layanan pengaduan bagi masyarakat yang ingin menyampaikan keluhan dan saran terkait layanan kunjungan dan pelayanan publik lainnya yang ada di Lapas Karangintan kelas II A Kalimantan Selatan. Masyarakat dapat menyampaikankeluhan/aduan dan saran melalui website ini sebagai bentuk akuntabilitas, transparantasi dan profesionalisme petugas lapas ',
+                'Tujuan Layanan pengaduan bagi masyarakat yang ingin menyampaikan keluhan dan saran terkait layanan kunjungan dan pelayanan publik lainnya yang ada di Lapas Karangintan kelas II A Kalimantan Selatan. Masyarakat dapat menyampaikan keluhan/aduan dan saran melalui website ini sebagai bentuk akuntabilitas, transparantasi dan profesionalisme petugas lapas ',
                 textAlign: TextAlign.justify,
                 style: TextStyle(fontSize: 18),
               ),
@@ -67,6 +67,7 @@ class LayananPengaduan extends StatelessWidget {
                 viewType: ViewType.GRID,
                 name: layanan.nama,
                 icons: layanan.icon,
+                textColor: Colors.black,
                 color: Theme.of(context).primaryColor,
                 onTap: () {
                   launchExternal(layanan.link);

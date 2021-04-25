@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:silapis/utils/utils.dart';
 import 'package:silapis/widgets/widget.dart';
 import 'package:silapis/configs/config.dart';
+import 'package:silapis/models/model.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:silapis/repository/silaki.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class Registrasi extends StatefulWidget {
   Registrasi({Key key}) : super(key: key);
@@ -15,43 +20,105 @@ class Registrasi extends StatefulWidget {
 }
 
 class _RegistrasiState extends State<Registrasi> {
-  final _textIDController = TextEditingController();
-  final _textPassController = TextEditingController();
-  final _focusID = FocusNode();
-  final _focusPass = FocusNode();
+  final _textNikController = TextEditingController();
+  final _textNamaController = TextEditingController();
+  final _textNoHpController = TextEditingController();
+  final _textTempatLahirController = TextEditingController();
+  final _textTanggalLahirController = TextEditingController();
+  final _textEmailController = TextEditingController();
 
-  bool _showPassword = false;
-  String _validID;
-  String _validPass;
+  final ImagePicker _picker = ImagePicker();
+  PickedFile _ktpImagePicker;
+  PickedFile _fotoImagePicker;
+
+  bool _loading = false;
+
+  Map<String, String> _validate = {
+    'nik': null,
+    'nama': null,
+    'noHp': null,
+    'tempatLahir': null,
+    'tanggalLahir': null,
+    'email': null,
+    'fotoKtp': null,
+    'fotoSelfie': null,
+  };
 
   @override
   void initState() {
-    _textIDController.text = "";
-    _textPassController.text = "";
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-    ));
+    _textNikController.text = "";
+    _textNamaController.text = "";
+    _textNoHpController.text = "";
+    _textTempatLahirController.text = "";
+    _textTanggalLahirController.text = "";
+    _textEmailController.text = "";
+    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    //   statusBarColor: Colors.transparent,
+    // ));
     super.initState();
   }
 
-  ///On navigate forgot password
-  void _registrasi() {
-    Navigator.pushNamed(context, Routes.registrasi);
+  void serverValidate(Map<String, dynamic> message) {
+    _validate.forEach((key, value) {
+      _validate[key] = message[key];
+    });
+    setState(() {});
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   ///On login
-  void _login() {
-    Navigator.pushNamed(context, Routes.pengajuanIntegrasi);
-    if (_validID == null && _validPass == null) {}
+  void _registrasi() async {
+    setState(() {
+      _loading = true;
+    });
+    final apiModel = await SilakiRepository.postRegistrasi({
+      'nik': _textNikController.text,
+      'nama': _textNamaController.text,
+      'noHp': _textNoHpController.text,
+      'tempatLahir': _textTempatLahirController.text,
+      'tanggalLahir': _textTanggalLahirController.text,
+      'email': _textEmailController.text,
+      'fotoKtp': null,
+      'fotoSelfie': null,
+    });
+    print(apiModel.code);
+
+    if (apiModel.code == CODE.VALIDATE) {
+      serverValidate(apiModel.message);
+    } else if (apiModel.code == CODE.SUCCESS) {
+      appMyInfoDialog(
+          context: context,
+          title: 'Sukses',
+          message: apiModel.message ?? 'Antrian berhasil dilakukan',
+          onTapText: 'Lihat Antrian',
+          onTap: () {
+            Navigator.pop(context, true);
+          });
+    } else {
+      appMyInfoDialog(
+        context: context,
+        title: 'Informasi',
+        image: Images.Monitor,
+        message: apiModel.message,
+      );
+    }
+
+    setState(() {
+      _loading = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle.light,
+      value: SystemUiOverlayStyle.dark,
       child: Scaffold(
         body: ListView(
-          padding: EdgeInsets.only(top: 0),
+          padding: EdgeInsets.only(top: 0, bottom: 20),
           children: [
             Container(
               height: 400,
@@ -139,54 +206,156 @@ class _RegistrasiState extends State<Registrasi> {
                   child: Column(
                     children: <Widget>[
                       AppTextInput(
-                        hintText: 'Username',
-                        errorText: _validID != null ? _validID : null,
+                        title: 'NIK',
+                        hintText: 'Nomor Induk keluarga',
+                        errorText: _validate['nik'] ?? '',
                         icon: Icon(Icons.clear),
-                        controller: _textIDController,
-                        focusNode: _focusID,
+                        controller: _textNikController,
                         textInputAction: TextInputAction.next,
                         onTapIcon: () async {
                           await Future.delayed(Duration(milliseconds: 100));
-                          _textIDController.clear();
+                          _textNikController.clear();
                         },
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 10),
                       ),
                       AppTextInput(
-                        hintText: 'Password',
-                        errorText: _validPass != null ? _validPass : null,
-                        textInputAction: TextInputAction.done,
-                        onSubmitted: (text) {
-                          _login();
+                        title: 'Nama',
+                        hintText: 'Nama Lengkap',
+                        errorText: _validate['nama'] ?? '',
+                        icon: Icon(Icons.clear),
+                        controller: _textNamaController,
+                        textInputAction: TextInputAction.next,
+                        onTapIcon: () async {
+                          await Future.delayed(Duration(milliseconds: 100));
+                          _textNamaController.clear();
                         },
-                        onTapIcon: () {
-                          setState(() {
-                            _showPassword = !_showPassword;
-                          });
+                      ),
+                      AppTextInput(
+                        title: 'No Hp',
+                        hintText: 'No Handphone',
+                        errorText: _validate['noHp'] ?? '',
+                        icon: Icon(Icons.clear),
+                        controller: _textNoHpController,
+                        textInputAction: TextInputAction.next,
+                        onTapIcon: () async {
+                          await Future.delayed(Duration(milliseconds: 100));
+                          _textNoHpController.clear();
                         },
-                        obscureText: !_showPassword,
-                        icon: Icon(
-                          _showPassword
-                              ? Icons.visibility
-                              : Icons.visibility_off,
-                        ),
-                        controller: _textPassController,
-                        focusNode: _focusPass,
+                      ),
+                      AppTextInput(
+                        readOnly: true,
+                        title: 'Tanggal Lahir',
+                        hintText: 'Tanggal Lahir',
+                        errorText: _validate['tanggalLahir'] ?? '',
+                        icon: Icon(Icons.calendar_today_outlined),
+                        controller: _textTanggalLahirController,
+                        textInputAction: TextInputAction.next,
+                        onTap: () async {
+                          DatePicker.showDatePicker(
+                            context,
+                            showTitleActions: true,
+                            minTime: DateTime(1900, 1, 1),
+                            maxTime: DateTime.now(),
+                            theme: DatePickerTheme(
+                              headerColor: Color.fromRGBO(143, 148, 251, 1),
+                              backgroundColor: Colors.white,
+                              itemStyle: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                              doneStyle: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                              ),
+                            ),
+                            onConfirm: (date) {
+                              _textTanggalLahirController.text =
+                                  unixTimeStampToDateOnly(
+                                      date.millisecondsSinceEpoch);
+                              setState(() {});
+                              print('confirm $date');
+                            },
+                            currentTime: _textTanggalLahirController.text == ''
+                                ? DateTime.now()
+                                : DateTime.parse(
+                                    _textTanggalLahirController.text),
+                            locale: LocaleType.en,
+                          );
+                        },
+                      ),
+                      AppTextInput(
+                        title: 'Tempat Lahir',
+                        hintText: 'Tempat Lahir',
+                        errorText: _validate['tempatLahir'] ?? '',
+                        icon: Icon(Icons.clear),
+                        controller: _textTempatLahirController,
+                        textInputAction: TextInputAction.next,
+                        onTapIcon: () async {
+                          await Future.delayed(Duration(milliseconds: 100));
+                          _textTempatLahirController.clear();
+                        },
+                      ),
+                      AppTextInput(
+                        title: 'Email',
+                        hintText: 'Email',
+                        errorText: _validate['email'] ?? '',
+                        icon: Icon(Icons.clear),
+                        controller: _textEmailController,
+                        textInputAction: TextInputAction.next,
+                        onTapIcon: () async {
+                          await Future.delayed(Duration(milliseconds: 100));
+                          _textEmailController.clear();
+                        },
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: 20),
                       ),
+                      AppImagePicker(
+                        title: 'Foto KTP',
+                        placeholder: 'Pilih Berkas KTP',
+                        errorText: _validate['fotoKtp'] ?? '',
+                        previewImage: _ktpImagePicker?.path,
+                        onTap: () async {
+                          print('ANJAS');
+                          final pickedFile = await _picker.getImage(
+                            source: ImageSource.gallery,
+                          );
+                          _ktpImagePicker = pickedFile;
+                          setState(() {});
+                          print('KTP ' + _ktpImagePicker.path);
+                        },
+                        onCloseFile: () {
+                          _ktpImagePicker = null;
+                          setState(() {});
+                        },
+                      ),
+                      AppImagePicker(
+                        title: 'Foto Selfie',
+                        placeholder: 'Foto Selfie',
+                        errorText: _validate['fotoSelfie'] ?? '',
+                        previewImage: _fotoImagePicker?.path,
+                        onTap: () async {
+                          print('ANJAS');
+                          final pickedFile = await _picker.getImage(
+                            source: ImageSource.camera,
+                          );
+                          _fotoImagePicker = pickedFile;
+                          setState(() {});
+                          print('FOTO ' + _fotoImagePicker.path);
+                        },
+                        onCloseFile: () {
+                          _fotoImagePicker = null;
+                          setState(() {});
+                        },
+                      ),
                       Row(children: [
                         Expanded(
                           child: AppMyButton(
-                            onPress: () {
-                              _login();
-                            },
+                            onPress: _registrasi,
                             text: 'Registrasi',
                             icon: Icons.vpn_key,
                             buttonColor: Color.fromRGBO(143, 148, 251, 1),
-                            loading: false,
+                            loading: _loading,
                           ),
                         ),
                       ]),

@@ -1,0 +1,14 @@
+{
+    "code": 400,
+    "message": {
+        "nik": "The NIK field is required.",
+        "nama": "The Nama field is required.",
+        "noHp": "The No HP field is required.",
+        "tempatLahir": "The Tempat Lahir field is required.",
+        "tanggalLahir": "The Tanggal Lahir field is required.",
+        "email": "The Email field is required.",
+        "fotoKtp": "The Foto KTP Id field is required.",
+        "fotoSelfie": "The FOTO SELFIE Id field is required."
+    },
+    "data": null
+}

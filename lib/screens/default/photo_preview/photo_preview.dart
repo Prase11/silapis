@@ -4,6 +4,7 @@ import 'package:silapis/utils/utils.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'dart:io';
 
 class PhotoPreview extends StatefulWidget {
   PhotoPreview({
@@ -41,11 +42,14 @@ class _PhotoPreviewState extends State<PhotoPreview> {
   PhotoViewGalleryPageOptions _buildItem(BuildContext context, int index) {
     final ImageModel item = widget.galleryList[index];
     bool isHttp = item.image.contains('http');
+    bool isStorage = item.image.contains('com.lapasnarkotikakalsel.silaki');
 
     return PhotoViewGalleryPageOptions(
       imageProvider: isHttp
           ? new CachedNetworkImageProvider(item.image)
-          : AssetImage(item.image),
+          : isStorage
+              ? FileImage(new File(item.image))
+              : AssetImage(item.image),
       initialScale: PhotoViewComputedScale.contained,
       minScale: PhotoViewComputedScale.contained,
       maxScale: PhotoViewComputedScale.covered * 1.1,

@@ -17,6 +17,7 @@ class Routes {
   static const String strukturOrganisasi = "/strukturOrganisasi";
   static const String photoPreview = "/photoPreview";
   static const String login = "/login";
+  static const String resetPassword = "/resetPassword";
   static const String registrasi = "/registrasi";
 
   Route<dynamic> generateRoute(RouteSettings settings) {
@@ -70,6 +71,9 @@ class Routes {
 
       case login:
         return CustomRoutes(page: Login());
+
+      case resetPassword:
+        return CustomRoutes(page: ResetPassword());
 
       case registrasi:
         return CustomRoutes(page: Registrasi());

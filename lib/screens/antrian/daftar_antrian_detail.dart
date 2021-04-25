@@ -115,6 +115,15 @@ class _DaftarAntrianDetailState extends State<DaftarAntrianDetail> {
                                     fontWeight: FontWeight.bold, fontSize: 18),
                               ),
                               Text(widget.antrianModel.nik),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Keterangan',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 18),
+                              ),
+                              Text(widget.antrianModel.keterangan),
                             ],
                           ),
                         ),
@@ -124,9 +133,12 @@ class _DaftarAntrianDetailState extends State<DaftarAntrianDetail> {
                         Expanded(
                           flex: 4,
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
                                 'NOMOR ANTRIAN',
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 18),
                               ),

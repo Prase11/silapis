@@ -40,6 +40,7 @@ class AntrianModel {
     this.nik,
     this.tanggal,
     this.jenis,
+    this.keterangan,
     this.napi,
     this.deviceId,
     this.createdAt,
@@ -51,6 +52,7 @@ class AntrianModel {
   String nik;
   DateTime tanggal;
   String jenis;
+  String keterangan;
   NapiModel napi;
   String deviceId;
   String createdAt;
@@ -63,6 +65,7 @@ class AntrianModel {
         napi: NapiModel.fromJson(json["napi"]),
         tanggal: DateTime.parse(json["tanggal"]),
         jenis: json["jenis"],
+        keterangan: json["keterangan"] ?? '',
         deviceId: json["deviceId"],
         createdAt: json["createdAt"],
       );
@@ -74,6 +77,7 @@ class AntrianModel {
         "nik": nik,
         "tanggal": tanggal.toIso8601String(),
         "jenis": jenis,
+        "keterangan": keterangan,
         "deviceId": deviceId,
         "createdAt": createdAt,
       };

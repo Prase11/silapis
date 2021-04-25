@@ -22,6 +22,14 @@ String unixTimeStampToDateTime(int millisecond) {
   return dateTimeString;
 }
 
+String unixTimeStampToDateOnly(int millisecond) {
+  var format = DateFormat('yyyy-MM-dd');
+  var dateTimeString =
+      format.format(DateTime.fromMillisecondsSinceEpoch(millisecond));
+
+  return dateTimeString;
+}
+
 String unixTimeStampToTime(int millisecond) {
   var format = DateFormat('HH:mm', 'id');
   var dateTimeString =
