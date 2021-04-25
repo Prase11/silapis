@@ -25,34 +25,34 @@ class SilakiRepository {
     return await Consumer().execute(
         url: '/antrian', formData: formData, method: MethodRequest.POST);
 
-    await Future.delayed(Duration(seconds: 1));
-    final result = await UtilAsset.loadJson("assets/data/antrian_post.json");
-    return ApiModel.fromJson(result);
+    // await Future.delayed(Duration(seconds: 1));
+    // final result = await UtilAsset.loadJson("assets/data/antrian_post.json");
+    // return ApiModel.fromJson(result);
   }
 
   static Future<ApiModel> jadwalUmum() async {
     return await Consumer().execute(url: '/jadwal_umum');
 
-    await Future.delayed(Duration(seconds: 1));
-    final result = await UtilAsset.loadJson("assets/data/jadwal_umum.json");
-    return ApiModel.fromJson(result);
+    // await Future.delayed(Duration(seconds: 1));
+    // final result = await UtilAsset.loadJson("assets/data/jadwal_umum.json");
+    // return ApiModel.fromJson(result);
   }
 
   static Future<ApiModel> jadwalKhusus() async {
     return await Consumer().execute(url: '/jadwal_khusus');
 
-    await Future.delayed(Duration(seconds: 1));
-    final result = await UtilAsset.loadJson("assets/data/jadwal_khusus.json");
-    return ApiModel.fromJson(result);
+    // await Future.delayed(Duration(seconds: 1));
+    // final result = await UtilAsset.loadJson("assets/data/jadwal_khusus.json");
+    // return ApiModel.fromJson(result);
   }
 
   static Future<ApiModel> layananPengaduan() async {
     return await Consumer().execute(url: '/layanan_pengaduan');
 
-    await Future.delayed(Duration(seconds: 1));
-    final result =
-        await UtilAsset.loadJson("assets/data/layanan_pengaduan.json");
-    return ApiModel.fromJson(result);
+    // await Future.delayed(Duration(seconds: 1));
+    // final result =
+    //     await UtilAsset.loadJson("assets/data/layanan_pengaduan.json");
+    // return ApiModel.fromJson(result);
   }
 
   static Future<ApiModel> getPegawai() async {
@@ -64,17 +64,17 @@ class SilakiRepository {
   static Future<ApiModel> getNapi(String napiNama) async {
     return await Consumer().execute(url: '/napi?nama[like]=$napiNama');
 
-    await Future.delayed(Duration(seconds: 1));
-    final result = await UtilAsset.loadJson("assets/data/napi.json");
-    return ApiModel.fromJson(result);
+    // await Future.delayed(Duration(seconds: 1));
+    // final result = await UtilAsset.loadJson("assets/data/napi.json");
+    // return ApiModel.fromJson(result);
   }
 
   static Future<ApiModel> getBerita() async {
     return await Consumer().execute(url: '/berita');
 
-    await Future.delayed(Duration(seconds: 1));
-    final result = await UtilAsset.loadJson("assets/data/berita.json");
-    return ApiModel.fromJson(result);
+    // await Future.delayed(Duration(seconds: 1));
+    // final result = await UtilAsset.loadJson("assets/data/berita.json");
+    // return ApiModel.fromJson(result);
   }
 
   static Future<ApiModel> getSetting() async {
@@ -100,7 +100,7 @@ class SilakiRepository {
   }
 
   static Future<ApiModel> getFotoBeranda() async {
-    final res = await Consumer().execute(url: '/foto_beranda');
+    final res = await Consumer().execute(url: '/foto_beranda?isActive[eq]=1');
 
     if (res.code == CODE.SUCCESS) {
       return res;

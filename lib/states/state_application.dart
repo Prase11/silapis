@@ -1,7 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:silapis/models/model.dart';
 import 'package:silapis/repository/silaki.dart';
-import 'package:silapis/utils/logger.dart';
+import 'package:silapis/utils/utils.dart';
+import 'package:silapis/configs/config.dart';
 
 class ApplicationState with ChangeNotifier, DiagnosticableTreeMixin {
   SettingListModel settingList;
@@ -38,6 +39,39 @@ class ApplicationState with ChangeNotifier, DiagnosticableTreeMixin {
 
   Future<void> initData() async {
     try {
+      ///Setup SharedPreferences
+      await UtilPreferences.init();
+
+      // INIT DATA YANG LAMA
+      if (UtilPreferences.containsKey(Preferences.settingSilaki)) {
+        settingList = SettingListModel.fromRawJson(
+            UtilPreferences.getString(Preferences.settingSilaki));
+        UtilLogger.log(
+            'CACHED SETTING', settingList.list.map((e) => e.toJson()));
+      }
+
+      if (UtilPreferences.containsKey(Preferences.mekanisme)) {
+        mekanismeList = MekanismeListModel.fromRawJson(
+            UtilPreferences.getString(Preferences.mekanisme));
+        UtilLogger.log(
+            'CACHED MEKANISME', mekanismeList.list.map((e) => e.toJson()));
+      }
+
+      if (UtilPreferences.containsKey(Preferences.fotoBeranda)) {
+        fotoBerandaList = FotoBerandaListModel.fromRawJson(
+            UtilPreferences.getString(Preferences.fotoBeranda));
+        UtilLogger.log(
+            'CACHED FotoBeranda', fotoBerandaList.list.map((e) => e.toJson()));
+      }
+
+      if (UtilPreferences.containsKey(Preferences.sosmed)) {
+        sosmedList = SosmedListModel.fromRawJson(
+            UtilPreferences.getString(Preferences.sosmed));
+        UtilLogger.log('CACHED SOSMED', sosmedList.list.map((e) => e.toJson()));
+        isSplash = false;
+      }
+      notifyListeners();
+
       final setting = await SilakiRepository.getSetting();
       final mekanisme = await SilakiRepository.getMekanisme();
       final fotoBeranda = await SilakiRepository.getFotoBeranda();
@@ -46,28 +80,37 @@ class ApplicationState with ChangeNotifier, DiagnosticableTreeMixin {
 
       if (setting.code == CODE.SUCCESS) {
         settingList = SettingListModel.fromJson(setting.data);
+        UtilPreferences.setString(
+            Preferences.settingSilaki, settingList.toString());
         notifyListeners();
-        UtilLogger.log('DATA', settingList.list.map((e) => e.toJson()));
+        UtilLogger.log('SETTING', settingList.list.map((e) => e.toJson()));
       }
 
       if (mekanisme.code == CODE.SUCCESS) {
         mekanismeList = MekanismeListModel.fromJson(mekanisme.data);
+        UtilPreferences.setString(
+            Preferences.mekanisme, mekanismeList.toString());
         notifyListeners();
-        UtilLogger.log('DATA', mekanismeList.list.map((e) => e.toJson()));
+        UtilLogger.log('MEKANISME', mekanismeList.list.map((e) => e.toJson()));
       }
 
       if (fotoBeranda.code == CODE.SUCCESS) {
         fotoBerandaList = FotoBerandaListModel.fromJson(fotoBeranda.data);
+        UtilPreferences.setString(
+            Preferences.fotoBeranda, fotoBerandaList.toString());
         notifyListeners();
-        UtilLogger.log('DATA', fotoBerandaList.list.map((e) => e.toJson()));
+        UtilLogger.log(
+            'FOTO BERANDA', fotoBerandaList.list.map((e) => e.toJson()));
       }
 
       if (sosmed.code == CODE.SUCCESS) {
         sosmedList = SosmedListModel.fromJson(sosmed.data);
+        UtilPreferences.setString(Preferences.sosmed, sosmedList.toString());
         notifyListeners();
-        UtilLogger.log('DATA', sosmedList.list.map((e) => e.toJson()));
+        UtilLogger.log('SOSMED', sosmedList.list.map((e) => e.toJson()));
       }
     } catch (e) {
+      UtilLogger.log('ADA ERROR CUY', e);
       isSplash = false;
       notifyListeners();
     }

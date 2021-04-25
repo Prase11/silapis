@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:silapis/configs/config.dart';
 
 MekanismeModel mekanismeModelFromJson(String str) =>
     MekanismeModel.fromJson(json.decode(str));
@@ -21,6 +22,14 @@ class MekanismeListModel {
     }).toList();
 
     return MekanismeListModel(list);
+  }
+
+  factory MekanismeListModel.fromRawJson(String str) =>
+      MekanismeListModel.fromJson({'rows': json.decode(str)});
+
+  @override
+  String toString() {
+    return json.encode(list.map((e) => e.toJson()).toList());
   }
 }
 
@@ -46,7 +55,7 @@ class MekanismeModel {
         id: json["id"],
         kode: json["kode"],
         nama: json["nama"],
-        foto: json["foto"],
+        foto: '${Environment.apiUrl}/file/foto_mekanisme/${json["foto"]}',
       );
 
   Map<String, dynamic> toJson() => {

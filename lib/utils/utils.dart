@@ -7,4 +7,5 @@ export 'basic_utils.dart';
 export 'device_info.dart';
 export 'youtube_thumbnail.dart';
 export 'logger.dart';
+export 'preferences.dart';
 export 'api/consumer.dart';

@@ -22,6 +22,14 @@ class SosmedListModel {
 
     return SosmedListModel(list);
   }
+
+  factory SosmedListModel.fromRawJson(String str) =>
+      SosmedListModel.fromJson({'rows': json.decode(str)});
+
+  @override
+  String toString() {
+    return json.encode(list.map((e) => e.toJson()).toList());
+  }
 }
 
 class SosmedModel {

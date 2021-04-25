@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:silapis/configs/config.dart';
 
 FotoBerandaModel fotoBerandaModelFromJson(String str) =>
     FotoBerandaModel.fromJson(json.decode(str));
@@ -23,6 +24,14 @@ class FotoBerandaListModel {
 
     return FotoBerandaListModel(list);
   }
+
+  factory FotoBerandaListModel.fromRawJson(String str) =>
+      FotoBerandaListModel.fromJson({'rows': json.decode(str)});
+
+  @override
+  String toString() {
+    return json.encode(list.map((e) => e.toJson()).toList());
+  }
 }
 
 class FotoBerandaModel {
@@ -44,7 +53,7 @@ class FotoBerandaModel {
   factory FotoBerandaModel.fromJson(Map<String, dynamic> json) =>
       FotoBerandaModel(
         id: json["id"],
-        foto: json["foto"],
+        foto: '${Environment.apiUrl}/file/foto_beranda/${json["foto"]}',
         isActive: json["isActive"],
       );
 

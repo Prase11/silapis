@@ -22,6 +22,14 @@ class SettingListModel {
 
     return SettingListModel(list);
   }
+
+  factory SettingListModel.fromRawJson(String str) =>
+      SettingListModel.fromJson({'rows': json.decode(str)});
+
+  @override
+  String toString() {
+    return json.encode(list.map((e) => e.toJson()).toList());
+  }
 }
 
 class SettingModel {
@@ -47,4 +55,9 @@ class SettingModel {
         "key": key,
         "value": value,
       };
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
 }
