@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
+import 'package:silapis/configs/config.dart';
 import 'package:silapis/utils/utils.dart';
 import 'package:silapis/models/model.dart';
 
@@ -82,10 +83,14 @@ class SilakiRepository {
 
     if (res.code == CODE.SUCCESS) {
       return res;
-    }
+    } else {
+      if (!UtilPreferences.containsKey(Preferences.settingSilaki)) {
+        final result = await UtilAsset.loadJson("assets/data/setting.json");
+        return ApiModel.fromJson(result);
+      }
 
-    final result = await UtilAsset.loadJson("assets/data/setting.json");
-    return ApiModel.fromJson(result);
+      return res;
+    }
   }
 
   static Future<ApiModel> getMekanisme() async {
@@ -93,10 +98,14 @@ class SilakiRepository {
 
     if (res.code == CODE.SUCCESS) {
       return res;
-    }
+    } else {
+      if (!UtilPreferences.containsKey(Preferences.mekanisme)) {
+        final result = await UtilAsset.loadJson("assets/data/mekanisme.json");
+        return ApiModel.fromJson(result);
+      }
 
-    final result = await UtilAsset.loadJson("assets/data/mekanisme.json");
-    return ApiModel.fromJson(result);
+      return res;
+    }
   }
 
   static Future<ApiModel> getFotoBeranda() async {
@@ -104,10 +113,15 @@ class SilakiRepository {
 
     if (res.code == CODE.SUCCESS) {
       return res;
-    }
+    } else {
+      if (!UtilPreferences.containsKey(Preferences.fotoBeranda)) {
+        final result =
+            await UtilAsset.loadJson("assets/data/foto_beranda.json");
+        return ApiModel.fromJson(result);
+      }
 
-    final result = await UtilAsset.loadJson("assets/data/foto_beranda.json");
-    return ApiModel.fromJson(result);
+      return res;
+    }
   }
 
   static Future<ApiModel> getSosmed() async {
@@ -115,10 +129,14 @@ class SilakiRepository {
 
     if (res.code == CODE.SUCCESS) {
       return res;
-    }
+    } else {
+      if (!UtilPreferences.containsKey(Preferences.sosmed)) {
+        final result = await UtilAsset.loadJson("assets/data/sosmed.json");
+        return ApiModel.fromJson(result);
+      }
 
-    final result = await UtilAsset.loadJson("assets/data/sosmed.json");
-    return ApiModel.fromJson(result);
+      return res;
+    }
   }
 
   //Singleton factory

@@ -11,6 +11,9 @@
         }, {
             "key": "foto_header",
             "value": "http://www.pngall.com/wp-content/uploads/4/Mosque-PNG-Download-Image.png"
+        }, {
+            "key": "foto_background",
+            "value": "https://i0.wp.com/allpicts.in/wp-content/uploads/2016/03/Artistic-blue-pattern-background-with-batik.jpg"
         }],
         "limit": 100,
         "offset": 0
