@@ -42,6 +42,12 @@ class AppMyButton extends StatelessWidget {
                 ),
               )
             ],
+            if (icon != null && !loading) ...[
+              Icon(
+                icon,
+                color: Colors.white,
+              )
+            ],
             // !loading
             //     ? Icon(
             //         icon,

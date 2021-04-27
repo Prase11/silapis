@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:silapis/states/state.dart';
 import 'package:silapis/widgets/widget.dart';
 import 'package:silapis/configs/config.dart';
+import 'package:silapis/models/model.dart';
+import 'package:silapis/repository/silaki.dart';
 import 'package:flutter/services.dart';
 
 class Login extends StatefulWidget {
@@ -17,17 +18,21 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final _textIDController = TextEditingController();
   final _textPassController = TextEditingController();
-  final _focusID = FocusNode();
-  final _focusPass = FocusNode();
 
   bool _showPassword = false;
-  String _validID;
-  String _validPass;
+  bool _loading = false;
+  AuthState authState;
+
+  Map<String, String> _validate = {
+    'username': null,
+    'password': null,
+  };
 
   @override
   void initState() {
     _textIDController.text = "";
     _textPassController.text = "";
+    authState = Provider.of<AuthState>(context, listen: false);
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
     ));
@@ -39,10 +44,52 @@ class _LoginState extends State<Login> {
     Navigator.pushNamed(context, Routes.registrasi);
   }
 
+  void serverValidate(Map<String, dynamic> message) {
+    _validate.forEach((key, value) {
+      _validate[key] = message[key];
+    });
+    setState(() {});
+  }
+
   ///On login
-  void _login() {
-    Navigator.pushNamed(context, Routes.pengajuanIntegrasi);
-    if (_validID == null && _validPass == null) {}
+  void _login() async {
+    setState(() {
+      _loading = true;
+    });
+    final apiModel = await SilakiRepository.auth(
+        _textIDController.text, _textPassController.text);
+    print(apiModel.code);
+
+    if (apiModel.code == CODE.VALIDATE) {
+      if (apiModel.message is String) {
+        _validate.forEach((key, value) {
+          _validate[key] = '';
+        });
+
+        appMyInfoDialog(
+          context: context,
+          title: 'Informasi',
+          image: Images.Monitor,
+          message: apiModel.message,
+        );
+      } else {
+        serverValidate(apiModel.message);
+      }
+    } else if (apiModel.code == CODE.SUCCESS) {
+      authState.setToken(
+          apiModel.data['accessToken'], apiModel.data['refreshToken']);
+    } else {
+      appMyInfoDialog(
+        context: context,
+        title: 'Informasi',
+        image: Images.Monitor,
+        message: apiModel.message,
+      );
+    }
+
+    setState(() {
+      _loading = false;
+    });
   }
 
   @override
@@ -140,10 +187,9 @@ class _LoginState extends State<Login> {
                     children: <Widget>[
                       AppTextInput(
                         hintText: 'Username',
-                        errorText: _validID != null ? _validID : null,
+                        errorText: _validate['username'] ?? '',
                         icon: Icon(Icons.clear),
                         controller: _textIDController,
-                        focusNode: _focusID,
                         textInputAction: TextInputAction.next,
                         onTapIcon: () async {
                           await Future.delayed(Duration(milliseconds: 100));
@@ -155,7 +201,7 @@ class _LoginState extends State<Login> {
                       ),
                       AppTextInput(
                         hintText: 'Password',
-                        errorText: _validPass != null ? _validPass : null,
+                        errorText: _validate['password'] ?? '',
                         textInputAction: TextInputAction.done,
                         onSubmitted: (text) {
                           _login();
@@ -172,7 +218,6 @@ class _LoginState extends State<Login> {
                               : Icons.visibility_off,
                         ),
                         controller: _textPassController,
-                        focusNode: _focusPass,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -198,9 +243,8 @@ class _LoginState extends State<Login> {
                               _login();
                             },
                             text: 'Login',
-                            icon: Icons.vpn_key,
                             buttonColor: Color.fromRGBO(143, 148, 251, 1),
-                            loading: false,
+                            loading: _loading,
                           ),
                         ),
                       ]),

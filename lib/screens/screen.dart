@@ -9,6 +9,7 @@ export 'antrian/daftar_antrian_detail.dart';
 export 'layanan_pengaduan/layanan_pengaduan.dart';
 export 'pengajuan_integrasi/pengajuan_integrasi.dart';
 export 'pengajuan_integrasi/login/login.dart';
+export 'pengajuan_integrasi/home/home.dart';
 export 'pengajuan_integrasi/reset_password/reset_password.dart';
 export 'pengajuan_integrasi/registrasi/registrasi.dart';
 export 'jadwal_kunjungan/jadwal_kunjungan.dart';

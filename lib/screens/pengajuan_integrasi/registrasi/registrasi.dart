@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:silapis/states/state.dart';
 import 'package:silapis/utils/utils.dart';
 import 'package:silapis/widgets/widget.dart';
 import 'package:silapis/configs/config.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:silapis/repository/silaki.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:http_parser/http_parser.dart';
 
 class Registrasi extends StatefulWidget {
   Registrasi({Key key}) : super(key: key);
@@ -26,10 +28,13 @@ class _RegistrasiState extends State<Registrasi> {
   final _textTempatLahirController = TextEditingController();
   final _textTanggalLahirController = TextEditingController();
   final _textEmailController = TextEditingController();
+  MultipartFileExtended fotoSelfie;
+  MultipartFileExtended fotoKtp;
 
   final ImagePicker _picker = ImagePicker();
-  PickedFile _ktpImagePicker;
-  PickedFile _fotoImagePicker;
+  String _ktpImagePicker;
+  String _fotoImagePicker;
+  AuthState authState;
 
   bool _loading = false;
 
@@ -52,6 +57,8 @@ class _RegistrasiState extends State<Registrasi> {
     _textTempatLahirController.text = "";
     _textTanggalLahirController.text = "";
     _textEmailController.text = "";
+    authState = Provider.of<AuthState>(context, listen: false);
+
     // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     //   statusBarColor: Colors.transparent,
     // ));
@@ -75,6 +82,34 @@ class _RegistrasiState extends State<Registrasi> {
     setState(() {
       _loading = true;
     });
+
+    fotoKtp = null;
+    fotoSelfie = null;
+
+    try {
+      final imagePath = _fotoImagePicker;
+      final fileGambarName = imagePath.split("/").last;
+      UtilLogger.log('FILE GAMBAR', fileGambarName);
+      UtilLogger.log('FILE GAMBAR PATH', imagePath);
+
+      fotoSelfie = MultipartFileExtended.fromFileSync(
+        imagePath,
+        filename: fileGambarName,
+        contentType: MediaType("*", "*"),
+      );
+    } catch (e) {}
+
+    try {
+      final ktpPath = _ktpImagePicker;
+      final fileKtpName = ktpPath.split("/").last;
+
+      fotoKtp = MultipartFileExtended.fromFileSync(
+        ktpPath,
+        filename: fileKtpName,
+        contentType: MediaType("*", "*"),
+      );
+    } catch (e) {}
+
     final apiModel = await SilakiRepository.postRegistrasi({
       'nik': _textNikController.text,
       'nama': _textNamaController.text,
@@ -82,22 +117,22 @@ class _RegistrasiState extends State<Registrasi> {
       'tempatLahir': _textTempatLahirController.text,
       'tanggalLahir': _textTanggalLahirController.text,
       'email': _textEmailController.text,
-      'fotoKtp': null,
-      'fotoSelfie': null,
+      'fotoKtp': fotoKtp,
+      'fotoSelfie': fotoSelfie,
     });
-    print(apiModel.code);
 
     if (apiModel.code == CODE.VALIDATE) {
       serverValidate(apiModel.message);
     } else if (apiModel.code == CODE.SUCCESS) {
-      appMyInfoDialog(
-          context: context,
-          title: 'Sukses',
-          message: apiModel.message ?? 'Antrian berhasil dilakukan',
-          onTapText: 'Lihat Antrian',
-          onTap: () {
-            Navigator.pop(context, true);
-          });
+      authState.setToken(
+          apiModel.data['accessToken'], apiModel.data['refreshToken']);
+      Navigator.pop(context);
+      // appMyInfoDialog(
+      //     context: context,
+      //     title: 'Sukses',
+      //     message: apiModel.message ?? 'Antrian berhasil dilakukan',
+      //     onTapText: 'Lihat Antrian',
+      //     onTap: () {});
     } else {
       appMyInfoDialog(
         context: context,
@@ -314,15 +349,10 @@ class _RegistrasiState extends State<Registrasi> {
                         title: 'Foto KTP',
                         placeholder: 'Pilih Berkas KTP',
                         errorText: _validate['fotoKtp'] ?? '',
-                        previewImage: _ktpImagePicker?.path,
-                        onTap: () async {
-                          print('ANJAS');
-                          final pickedFile = await _picker.getImage(
-                            source: ImageSource.gallery,
-                          );
-                          _ktpImagePicker = pickedFile;
+                        previewImage: _ktpImagePicker,
+                        onChange: (path) {
+                          _ktpImagePicker = path;
                           setState(() {});
-                          print('KTP ' + _ktpImagePicker.path);
                         },
                         onCloseFile: () {
                           _ktpImagePicker = null;
@@ -333,15 +363,10 @@ class _RegistrasiState extends State<Registrasi> {
                         title: 'Foto Selfie',
                         placeholder: 'Foto Selfie',
                         errorText: _validate['fotoSelfie'] ?? '',
-                        previewImage: _fotoImagePicker?.path,
-                        onTap: () async {
-                          print('ANJAS');
-                          final pickedFile = await _picker.getImage(
-                            source: ImageSource.camera,
-                          );
-                          _fotoImagePicker = pickedFile;
+                        previewImage: _fotoImagePicker,
+                        onChange: (path) {
+                          _fotoImagePicker = path;
                           setState(() {});
-                          print('FOTO ' + _fotoImagePicker.path);
                         },
                         onCloseFile: () {
                           _fotoImagePicker = null;
@@ -353,7 +378,6 @@ class _RegistrasiState extends State<Registrasi> {
                           child: AppMyButton(
                             onPress: _registrasi,
                             text: 'Registrasi',
-                            icon: Icons.vpn_key,
                             buttonColor: Color.fromRGBO(143, 148, 251, 1),
                             loading: _loading,
                           ),

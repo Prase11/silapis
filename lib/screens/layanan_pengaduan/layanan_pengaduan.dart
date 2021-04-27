@@ -60,19 +60,31 @@ class LayananPengaduan extends StatelessWidget {
         alignment: WrapAlignment.center,
         children: layananState.layananPengaduanList.list
             .map(
-              (layanan) => AppMenuBox(
-                backgroundImage:
-                    'https://mcdn.wallpapersafari.com/medium/65/86/3m6AIX.jpg',
-                keterangan: '-',
-                viewType: ViewType.GRID,
-                name: layanan.nama,
-                icons: layanan.icon,
-                textColor: Colors.black,
-                color: Theme.of(context).primaryColor,
-                onTap: () {
-                  launchExternal(layanan.link);
-                },
+              (layanan) => Container(
+                margin: EdgeInsets.symmetric(vertical: Dimens.padding / 2),
+                child: AppMyButton(
+                  onPress: () {
+                    launchExternal(layanan.link);
+                  },
+                  text: layanan.nama,
+                  buttonColor: layanan.color,
+                  loading: false,
+                  icon: layanan.icon,
+                ),
               ),
+              // AppMenuBox(
+              //   backgroundImage:
+              //       'https://mcdn.wallpapersafari.com/medium/65/86/3m6AIX.jpg',
+              //   keterangan: '-',
+              //   viewType: ViewType.GRID,
+              //   name: layanan.nama,
+              //   icons: layanan.icon,
+              //   textColor: Colors.black,
+              //   color: Theme.of(context).primaryColor,
+              //   onTap: () {
+              //     launchExternal(layanan.link);
+              //   },
+              // ),
             )
             .toList(),
       );
@@ -82,10 +94,9 @@ class LayananPengaduan extends StatelessWidget {
         children: List.generate(3, (index) => index)
             .map(
               (layanan) => AppSkeleton(
-                width: 60,
-                height: 60,
+                width: double.infinity,
+                height: 40,
                 margin: 10,
-                padding: 10,
               ),
             )
             .toList(),

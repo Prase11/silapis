@@ -139,8 +139,8 @@ class _AntrianKunjunganState extends State<Antrian> {
             SizedBox(height: Dimens.padding),
             AppAnnouncement(
                 title: 'Informasi',
-                content:
-                    'Dikarenakan adanya COVID-19 maka kunjungan ditiadakan',
+                content: applicationState
+                    .getSettingByKey('keterangan_antrian_kunjungan'),
                 context: context,
                 date: '')
           ] else if (_jenisKunjungan == 'Penitipan' &&
@@ -148,8 +148,8 @@ class _AntrianKunjunganState extends State<Antrian> {
             SizedBox(height: Dimens.padding),
             AppAnnouncement(
                 title: 'Informasi',
-                content:
-                    'Dikarenakan adanya COVID-19 maka penitipan ditiadakan',
+                content: applicationState
+                    .getSettingByKey('keterangan_antrian_penitipan'),
                 context: context,
                 date: '')
           ] else if (_jenisKunjungan == 'Penitipan' ||
@@ -293,7 +293,6 @@ class _AntrianKunjunganState extends State<Antrian> {
             // BUTTON
             AppMyButton(
               loading: _loading,
-              icon: Icons.save_outlined,
               text: 'Proses Antrian',
               onPress: onSubmit,
             ),

@@ -9,3 +9,4 @@ export 'youtube_thumbnail.dart';
 export 'logger.dart';
 export 'preferences.dart';
 export 'api/consumer.dart';
+export 'api/multipart_file_extended.dart';

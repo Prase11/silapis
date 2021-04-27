@@ -20,6 +20,7 @@ class App extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ApplicationState()),
+        ChangeNotifierProvider(create: (_) => AuthState()),
         ChangeNotifierProvider(create: (_) => AntrianKunjunganState()),
         ChangeNotifierProvider(create: (_) => AntrianPenitipanState()),
         ChangeNotifierProvider(create: (_) => LayananState()),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:silapis/widgets/widget.dart';
 import 'package:silapis/configs/config.dart';
 import 'package:silapis/models/model.dart';
@@ -7,6 +8,7 @@ import 'dart:io';
 
 class AppImagePicker extends StatelessWidget {
   final Function onTap;
+  final Function(String) onChange;
   final Function onCloseFile;
   final String title;
   final String placeholder;
@@ -15,6 +17,7 @@ class AppImagePicker extends StatelessWidget {
   const AppImagePicker(
       {Key key,
       this.onTap,
+      this.onChange,
       this.placeholder,
       this.previewImage,
       this.onCloseFile,
@@ -55,7 +58,9 @@ class AppImagePicker extends StatelessWidget {
               child: InkWell(
                 borderRadius: BorderRadius.circular(10),
                 onTap: previewImage == null
-                    ? onTap
+                    ? () {
+                        _modalBottomSheet(context);
+                      }
                     : () {
                         Navigator.pushNamed(context, Routes.photoPreview,
                             arguments: {
@@ -144,6 +149,91 @@ class AppImagePicker extends StatelessWidget {
           ]
         ],
       ),
+    );
+  }
+
+  _modalBottomSheet(BuildContext context) {
+    final ImagePicker _picker = ImagePicker();
+
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(8.0),
+          topRight: Radius.circular(8.0),
+        ),
+      ),
+      isDismissible: false,
+      builder: (context) {
+        return SingleChildScrollView(
+          child: Container(
+            padding:
+                EdgeInsets.symmetric(vertical: 10, horizontal: Dimens.padding),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Container(
+                  width: 60,
+                  height: 6,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(3.0),
+                      color: Theme.of(context).highlightColor),
+                ),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: AppRoundedButton(
+                        title: 'Gallery',
+                        textStyle: TextStyle(
+                            fontSize: 12.0, fontWeight: FontWeight.bold),
+                        borderSide:
+                            BorderSide(color: Theme.of(context).primaryColor),
+                        elevation: 0.0,
+                        color: Theme.of(context).canvasColor,
+                        onPressed: () async {
+                          Navigator.of(context).pop();
+
+                          final pickedFile = await _picker.getImage(
+                            source: ImageSource.gallery,
+                          );
+                          if (pickedFile?.path != null) {
+                            onChange(pickedFile.path);
+                            print('FILE PATH ' + pickedFile.path);
+                          }
+                        },
+                      ),
+                    ),
+                    SizedBox(width: Dimens.padding),
+                    Expanded(
+                      child: AppRoundedButton(
+                        title: 'Camera',
+                        textStyle: TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.white),
+                        color: Theme.of(context).primaryColor,
+                        elevation: 0.0,
+                        onPressed: () async {
+                          Navigator.of(context).pop();
+
+                          final pickedFile = await _picker.getImage(
+                            source: ImageSource.camera,
+                          );
+                          if (pickedFile?.path != null) {
+                            onChange(pickedFile.path);
+                            print('FILE PATH ' + pickedFile.path);
+                          }
+                        },
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(height: 15),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

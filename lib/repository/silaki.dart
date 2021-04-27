@@ -34,12 +34,12 @@ class SilakiRepository {
   static Future<ApiModel> postRegistrasi(Map<String, dynamic> data) async {
     FormData formData = new FormData.fromMap(data);
 
-    // return await Consumer().execute(
-    //     url: '/antrian', formData: formData, method: MethodRequest.POST);
+    return await Consumer().execute(
+        url: '/user_integrasi', formData: formData, method: MethodRequest.POST);
 
-    await Future.delayed(Duration(seconds: 1));
-    final result = await UtilAsset.loadJson("assets/data/registrasi_post.json");
-    return ApiModel.fromJson(result);
+    // await Future.delayed(Duration(seconds: 1));
+    // final result = await UtilAsset.loadJson("assets/data/registrasi_post.json");
+    // return ApiModel.fromJson(result);
   }
 
   static Future<ApiModel> jadwalUmum() async {
@@ -148,6 +148,10 @@ class SilakiRepository {
 
       return res;
     }
+  }
+
+  static Future<ApiModel> auth(String username, String password) async {
+    return await Consumer().auth(username: username, password: password);
   }
 
   //Singleton factory
