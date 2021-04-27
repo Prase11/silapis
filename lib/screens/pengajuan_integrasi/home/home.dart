@@ -112,6 +112,9 @@ class PengajuanIntegrasiHomeState extends State<PengajuanIntegrasiHome> {
             color: Colors.grey,
           ),
           content: 'Fotocopy KK Penjamin',
+          onTap: () {
+            launchExternal('http://www.africau.edu/images/default/sample.pdf');
+          },
         ),
         AppListIconText(
           leading: Icon(Icons.download_rounded,

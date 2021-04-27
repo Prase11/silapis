@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:silapis/states/state.dart';
 import 'package:silapis/widgets/widget.dart';
 import 'package:silapis/configs/config.dart';
+import 'package:silapis/models/model.dart';
+import 'package:silapis/repository/silaki.dart';
 import 'package:flutter/services.dart';
 
 class ResetPassword extends StatefulWidget {
@@ -16,33 +17,72 @@ class ResetPassword extends StatefulWidget {
 
 class _ResetPasswordState extends State<ResetPassword> {
   final _textIDController = TextEditingController();
-  final _textPassController = TextEditingController();
-  final _focusID = FocusNode();
-  final _focusPass = FocusNode();
 
-  bool _showPassword = false;
-  String _validID;
-  String _validPass;
+  bool _loading = false;
+  AuthState authState;
+
+  Map<String, String> _validate = {
+    'email': null,
+  };
 
   @override
   void initState() {
     _textIDController.text = "";
-    _textPassController.text = "";
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
     ));
     super.initState();
   }
 
-  ///On navigate forgot password
-  void _registrasi() {
-    Navigator.pushNamed(context, Routes.registrasi);
+  void serverValidate(Map<String, dynamic> message) {
+    _validate.forEach((key, value) {
+      _validate[key] = message[key];
+    });
+    setState(() {});
   }
 
   ///On login
-  void _login() {
-    Navigator.pushNamed(context, Routes.pengajuanIntegrasi);
-    if (_validID == null && _validPass == null) {}
+  void _resetPassword() async {
+    setState(() {
+      _loading = true;
+    });
+    final apiModel =
+        await SilakiRepository.resetPassword(_textIDController.text);
+    print(apiModel.code);
+    _validate.forEach((key, value) {
+      _validate[key] = '';
+    });
+
+    if (apiModel.code == CODE.VALIDATE) {
+      if (apiModel.message is String) {
+        appMyInfoDialog(
+          context: context,
+          title: 'Informasi',
+          image: Images.Monitor,
+          message: apiModel.message,
+        );
+      } else {
+        serverValidate(apiModel.message);
+      }
+    } else if (apiModel.code == CODE.SUCCESS) {
+      appMyInfoDialog(
+        context: context,
+        title: 'Informasi',
+        image: Images.Moonlight,
+        message: apiModel.message,
+      );
+    } else {
+      appMyInfoDialog(
+        context: context,
+        title: 'Informasi',
+        image: Images.Monitor,
+        message: apiModel.message,
+      );
+    }
+
+    setState(() {
+      _loading = false;
+    });
   }
 
   @override
@@ -141,7 +181,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                       AppTextInput(
                         title: 'Email',
                         hintText: 'Email',
-                        errorText: null,
+                        errorText: _validate['email'] ?? '',
                         icon: Icon(Icons.clear),
                         controller: _textIDController,
                         textInputAction: TextInputAction.next,
@@ -155,11 +195,10 @@ class _ResetPasswordState extends State<ResetPassword> {
                       Row(children: [
                         Expanded(
                           child: AppMyButton(
-                            onPress: () {},
+                            onPress: _resetPassword,
                             text: 'Reset password',
-                            icon: Icons.vpn_key,
                             buttonColor: Color.fromRGBO(143, 148, 251, 1),
-                            loading: false,
+                            loading: _loading,
                           ),
                         ),
                       ]),

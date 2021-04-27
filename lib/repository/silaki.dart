@@ -19,6 +19,15 @@ class SilakiRepository {
             '/antrian?with[]=pengunjung&with[]=napi&deviceId[eq]=$deviceId&tanggal[sort]=DESC&jenis[eq]=$jenis');
   }
 
+  static Future<ApiModel> resetPassword(String email) async {
+    FormData formData = new FormData.fromMap({
+      'email': email
+    });
+
+    return await Consumer().execute(
+        url: '/user_integrasi/reset_password', formData: formData, method: MethodRequest.POST);
+  }
+
   static Future<ApiModel> postAntrian(Map<String, dynamic> data) async {
     data['deviceId'] = await UtilDeviceInfo.getId();
     FormData formData = new FormData.fromMap(data);
